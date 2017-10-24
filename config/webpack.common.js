@@ -1,17 +1,24 @@
-const config = require('./config')
+const path = require('path')
+const paths = require('./paths')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-  context: config.paths.src,
-  entry: config.entry,
+  context: paths.src,
+  entry: {
+    index: [path.join(paths.src, 'index.js')]
+  },
   output: {
-    path: config.paths.dist,
+    path: paths.dist,
     filename: 'index.js'
   },
   plugins: [
-    new CleanWebpackPlugin([config.paths.dist], {
-      root: config.paths.root
-    })
+    new CleanWebpackPlugin(
+      [paths.dist],
+      {
+        root: paths.root
+      },
+      { verbose: false }
+    )
   ],
   module: {
     rules: [
@@ -25,7 +32,9 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: config.babel
+        options: {
+          presets: ['env', 'react']
+        }
       }
     ]
   }
