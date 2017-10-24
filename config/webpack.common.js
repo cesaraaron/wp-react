@@ -1,6 +1,5 @@
 const path = require('path')
 const paths = require('./paths')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   context: paths.src,
@@ -11,15 +10,6 @@ module.exports = {
     path: paths.dist,
     filename: 'index.js'
   },
-  plugins: [
-    new CleanWebpackPlugin(
-      [paths.dist],
-      {
-        root: paths.root
-      },
-      { verbose: false }
-    )
-  ],
   module: {
     rules: [
       {
