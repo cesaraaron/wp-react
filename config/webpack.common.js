@@ -1,10 +1,9 @@
-const path = require('path')
 const paths = require('./paths')
 
 module.exports = {
   context: paths.src,
   entry: {
-    index: ['react-hot-loader/patch', path.join(paths.src, 'index.js')]
+    index: ['react-hot-loader/patch', paths.join(paths.src, 'index.js')]
   },
   output: {
     path: paths.dist,
@@ -21,11 +20,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [['env', { modules: false }], 'react'],
-          plugins: ['react-hot-loader/babel']
-        }
+        loader: 'babel-loader'
       }
     ]
   }
