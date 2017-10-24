@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   context: paths.src,
   entry: {
-    index: [path.join(paths.src, 'index.js')]
+    index: ['react-hot-loader/patch', path.join(paths.src, 'index.js')]
   },
   output: {
     path: paths.dist,
@@ -33,7 +33,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react']
+          presets: [['env', { modules: false }], 'react'],
+          plugins: ['react-hot-loader/babel']
         }
       }
     ]
