@@ -3,14 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "test": "jest --watch",
     "build": "webpack --config ./config/webpack.prod.js",
     "start": "webpack-dev-server --config ./config/webpack.dev.js",
+    "test": "jest --watch",
     "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx}": ["eslint --fix", "git add"],
-    "*.{js,jsx,json,css}": ["prettier --write", "git add"]
   },
   "dependencies": {
     "prop-types": "^15.6.0",
@@ -40,6 +36,10 @@
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3",
     "webpack-merge": "^4.1.0"
+  },
+  "lint-staged": {
+    "*.{js}": ["eslint --fix", "git add"],
+    "*.{js,json,css}": ["prettier --write", "git add"]
   },
   "prettier": {
     "singleQuote": true,

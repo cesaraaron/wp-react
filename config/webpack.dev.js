@@ -2,13 +2,12 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const common = require('./webpack.common')
-const paths = require('./paths')
 
 module.exports = merge(common, {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: paths.join(paths.src, 'index.html')
+      title: 'wp-react'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
