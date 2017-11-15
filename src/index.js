@@ -1,14 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import App from './App'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import app from './reducers'
-import { getEndpoint } from './actions'
-
-const store = createStore(app)
-store.dispatch(getEndpoint())
+import Root from './components/Root'
 
 if (process.env.NODE_ENV !== 'production') {
   const div = document.createElement('div')
@@ -19,18 +12,16 @@ if (process.env.NODE_ENV !== 'production') {
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={store}>
-        <Component />
-      </Provider>
+      <Component />
     </AppContainer>,
     document.getElementById('root')
   )
 }
 
-render(App)
+render(Root)
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    render(App)
+  module.hot.accept('./Root', () => {
+    render(Root)
   })
 }

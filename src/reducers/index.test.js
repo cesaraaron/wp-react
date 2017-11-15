@@ -9,6 +9,6 @@ describe('endpoint', () => {
   it('should get the api endpoint', () => {
     const location = { origin: 'http://localhost' }
     const val = endpoint(undefined, { type: 'GET_ENDPOINT', location })
-    expect(val).toBe(location.origin + 'wp-json')
+    expect(val).toBe(location.origin + '/wp-json')
   })
 })

@@ -1,4 +1,4 @@
-export const getEndpoint = () => ({
+export const getEndpoint = location => ({
   type: 'GET_ENDPOINT',
-  location: window.location
+  location
 })
