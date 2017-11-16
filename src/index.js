@@ -21,7 +21,7 @@ const render = Component => {
 render(Root)
 
 if (module.hot) {
-  module.hot.accept('./Root', () => {
+  module.hot.accept('./components/Root', () => {
     render(Root)
   })
 }
