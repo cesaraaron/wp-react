@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 export const ids = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_POSTS_SUCCESS':
-      return [action.response.result]
+      return [...action.response.result]
     default:
       return state
   }
