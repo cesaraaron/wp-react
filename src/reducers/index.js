@@ -17,6 +17,11 @@ export default combineReducers({
   endpoint
 })
 
+export const getEndpoint = state => state.endpoint
+
+export const getPostsErrorMessage = state =>
+  fromPosts.getPostsErrorMessage(state.posts)
+
 export const getIsFetchingPosts = state =>
   fromPosts.getIsFetchingPosts(state.posts)
 

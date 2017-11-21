@@ -1,4 +1,9 @@
-import app, { endpoint, getIsFetchingPosts, getPosts } from '../index'
+import app, {
+  endpoint,
+  getIsFetchingPosts,
+  getPosts,
+  getPostsErrorMessage
+} from '../index'
 
 it('has a posts object', () => {
   const val = app(undefined, {})
@@ -32,4 +37,12 @@ it('returns and empty array of posts', () => {
   const val = getPosts(state)
 
   expect(val).toEqual([])
+})
+
+it('should get the errorMessage of posts', () => {
+  const state = { posts: { errorMessage: '' } }
+
+  const actual = getPostsErrorMessage(state)
+
+  expect(actual).toBe('')
 })

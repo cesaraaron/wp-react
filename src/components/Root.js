@@ -1,12 +1,21 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import App from '../App'
-import app from '../reducers'
-import { createStore } from 'redux'
+import rootReducer from '../reducers'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { getEndpoint } from '../actions'
+import createSagaMiddleware from 'redux-saga'
+import sagas from '../sagas'
+import { createLogger } from 'redux-logger'
 
-const store = createStore(app)
+const logger = createLogger()
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger))
+
+sagaMiddleware.run(sagas)
+
 store.dispatch(getEndpoint(window.location))
 
 const Root = () => (
@@ -18,3 +27,10 @@ const Root = () => (
 )
 
 export default Root
+
+if (module.hot) {
+  module.hot.accept('../reducers', () => {
+    const nextRootReducer = require('../reducers/index')
+    store.replaceReducer(nextRootReducer)
+  })
+}

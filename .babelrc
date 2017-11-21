@@ -1,6 +1,10 @@
 {
   "presets": [["env", { "modules": false }], "react"],
-  "plugins": ["react-hot-loader/babel"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-object-rest-spread",
+    "transform-runtime"
+  ],
   "env": {
     "test": {
       "presets": ["env", "react"]
