@@ -24,6 +24,27 @@ export function* watchFetchPosts() {
   yield takeLatest('FETCH_POSTS', fetchPosts)
 }
 
+export function* fetchSingle(action) {
+  const endpoint = yield select(getEndpoint)
+  const api = new WPAPI({ endpoint })
+
+  try {
+    const posts = api.posts()
+    const response = yield apply(posts, posts.slug, [action.slug])
+
+    yield put({
+      type: 'FETCH_SINGLE_SUCCESS',
+      response: normalize(response, arrayOfPosts)
+    })
+  } catch (e) {
+    yield put({ type: 'FETCH_SINGLE_FAILURE', message: e.message })
+  }
+}
+
+export function* watchFetchSingle() {
+  yield takeLatest('FETCH_SINGLE', fetchSingle)
+}
+
 export default function*() {
-  yield all([watchFetchPosts()])
+  yield all([watchFetchPosts(), watchFetchSingle()])
 }

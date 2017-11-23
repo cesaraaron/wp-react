@@ -1,4 +1,4 @@
-import app, {
+import rootReducer, {
   endpoint,
   getIsFetchingPosts,
   getPosts,
@@ -6,12 +6,12 @@ import app, {
 } from '../index'
 
 it('has a posts object', () => {
-  const val = app(undefined, {})
+  const val = rootReducer(undefined, {})
 
   expect(val).toMatchObject({ endpoint: '', posts: {} })
 })
 
-describe('endpoint', () => {
+describe('endpoint()', () => {
   it('should return an empty string', () => {
     const val = endpoint(undefined, {})
     expect(val).toBe('')

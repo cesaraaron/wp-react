@@ -33,4 +33,7 @@ if (module.hot) {
     const nextRootReducer = require('../reducers/index')
     store.replaceReducer(nextRootReducer)
   })
+  module.hot.accept('../sagas', () => {
+    sagaMiddleware.run(sagas)
+  })
 }
