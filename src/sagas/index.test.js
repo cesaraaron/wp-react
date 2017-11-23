@@ -1,16 +1,24 @@
 import { fetchPosts } from './index'
-import { apply, put } from 'redux-saga/effects'
+import { apply, put, select } from 'redux-saga/effects'
 import WPAPI from 'wpapi'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from './schema'
+import { getEndpoint } from '../reducers'
 
 describe('fetchPosts()', () => {
   const endpoint = 'http://localhost/'
   const api = new WPAPI({ endpoint })
   const gen = fetchPosts({ endpoint })
 
-  it('should yield an effect `call(api)`', () => {
+  it('should yield an effect `select(getEndpoint)`', () => {
     const actual = gen.next().value
+    const expected = select(getEndpoint)
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should yield an effect `call(api)`', () => {
+    const actual = gen.next(endpoint).value
     const expected = apply(api, api.posts)
 
     expect(actual).toEqual(expected)

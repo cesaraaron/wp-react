@@ -2,12 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {
-  getIsFetchingPosts,
-  getPosts,
-  getEndpoint,
-  getPostsErrorMessage
-} from './reducers'
+import { getIsFetchingPosts, getPosts, getPostsErrorMessage } from './reducers'
 
 const Post = ({ title, content, slug }) => {
   return (
@@ -30,9 +25,7 @@ export { Post }
 
 class Posts extends React.Component {
   componentDidMount() {
-    const { dispatch, endpoint } = this.props
-
-    dispatch({ type: 'FETCH_POSTS', endpoint })
+    this.props.dispatch({ type: 'FETCH_POSTS' })
   }
 
   render() {
@@ -51,7 +44,6 @@ class Posts extends React.Component {
 }
 
 Posts.propTypes = {
-  endpoint: PropTypes.string.isRequired,
   errorMessage: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
@@ -59,7 +51,6 @@ Posts.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  endpoint: getEndpoint(state),
   errorMessage: getPostsErrorMessage(state),
   isFetching: getIsFetchingPosts(state),
   posts: getPosts(state)

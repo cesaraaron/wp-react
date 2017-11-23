@@ -1,10 +1,13 @@
 import WPAPI from 'wpapi'
-import { apply, put, takeLatest, all } from 'redux-saga/effects'
+import { apply, put, takeLatest, all, select } from 'redux-saga/effects'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from './schema'
+import { getEndpoint } from '../reducers'
 
-export function* fetchPosts(action) {
-  const api = new WPAPI({ endpoint: action.endpoint })
+export function* fetchPosts() {
+  const endpoint = yield select(getEndpoint)
+  const api = new WPAPI({ endpoint })
+
   try {
     const response = yield apply(api, api.posts)
 
