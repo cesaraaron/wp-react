@@ -29,10 +29,9 @@ const Posts = ({ dispatch, data, ...rest }) => (
   <Container
     noDataYet={data.length === 0}
     dispatch={() => dispatch(fetchPosts())}
+    render={() => data.map(post => <Post {...post} key={post.id} />)}
     {...rest}
-  >
-    {() => data.map(post => <Post {...post} key={post.id} />)}
-  </Container>
+  />
 )
 
 Posts.propTypes = {

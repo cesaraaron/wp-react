@@ -31,10 +31,9 @@ const SingleContainer = ({ dispatch, data, slug, ...rest }) => (
   <Container
     noDataYet={data.length === 0}
     dispatch={() => dispatch(fetchSingle(slug))}
+    render={() => data.map(single => <Single {...single} key={single.id} />)}
     {...rest}
-  >
-    {() => data.map(single => <Single {...single} key={single.id} />)}
-  </Container>
+  />
 )
 
 SingleContainer.propTypes = {

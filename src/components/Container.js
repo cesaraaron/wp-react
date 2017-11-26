@@ -9,7 +9,7 @@ class Container extends React.Component {
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
-    children: PropTypes.func.isRequired
+    render: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -17,7 +17,7 @@ class Container extends React.Component {
   }
 
   render() {
-    const { isFetching, errorMessage, children, noDataYet } = this.props
+    const { isFetching, errorMessage, render, noDataYet } = this.props
 
     if (isFetching && noDataYet) {
       return <Loading />
@@ -27,7 +27,7 @@ class Container extends React.Component {
       return <FetchError message={errorMessage} />
     }
 
-    return children()
+    return render()
   }
 }
 
