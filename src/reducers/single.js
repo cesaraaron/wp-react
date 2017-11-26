@@ -4,8 +4,10 @@ import { combineReducers } from 'redux'
 
 export const ids = (state = [], action) => {
   switch (action.type) {
-    case 'FETCH_SINGLE_SUCCESS':
-      return [...action.response.result]
+    case 'FETCH_SINGLE_SUCCESS': {
+      const { result } = action.response
+      return [...state.filter(id => result.indexOf(id)), ...result]
+    }
     default:
       return state
   }
