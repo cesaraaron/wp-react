@@ -4,7 +4,7 @@ const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const common = require('./webpack.common')
 
-const wpUrl = process.env.WP_URL || 'http://wptest.io'
+const wpUrl = process.env.WP_URL || 'http://wptest.io/demo'
 
 module.exports = merge(common, {
   devtool: 'inline-source-map',

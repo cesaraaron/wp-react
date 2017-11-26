@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { fetchSingle } from './actions'
+import Container from './components/Container'
 import {
   getSingle,
   getSingleErrorMessage,
@@ -24,35 +26,24 @@ Single.propTypes = {
 
 export { Single }
 
-class SingleContainer extends React.Component {
-  componentDidMount() {
-    const { dispatch, slug } = this.props
-    dispatch({ type: 'FETCH_SINGLE', slug })
-  }
-
-  render() {
-    const { data, isFetching, errorMessage } = this.props
-
-    if (isFetching && data.length === 0) {
-      return <div>Loading...</div>
-    }
-
-    if (errorMessage) {
-      return <div>Could not fetch the posts. {errorMessage} </div>
-    }
-
-    return data.map(single => <Single {...single} key={single.id} />)
-  }
-}
+// FETCH_SINGLE action creator.
+const SingleContainer = ({ dispatch, data, slug, ...rest }) => (
+  <Container
+    noDataYet={data.length === 0}
+    dispatch={() => dispatch(fetchSingle(slug))}
+    {...rest}
+  >
+    {() => data.map(single => <Single {...single} key={single.id} />)}
+  </Container>
+)
 
 SingleContainer.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string,
+  data: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
-  slug: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired
+  slug: PropTypes.string.isRequired
 }
 
+// see if I can move connect & withRouter to container
 const mapStateToProps = (state, ownProps) => ({
   slug: ownProps.match.params.slug,
   data: getSingle(state, ownProps.match.params.slug),

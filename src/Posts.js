@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Container from './components/Container'
+import { fetchPosts } from './actions'
 import { getIsFetchingPosts, getPosts, getPostsErrorMessage } from './reducers'
 
 const Post = ({ title, content, slug }) => {
@@ -23,37 +25,25 @@ Post.propTypes = {
 
 export { Post }
 
-class Posts extends React.Component {
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_POSTS' })
-  }
-
-  render() {
-    const { posts, isFetching, errorMessage } = this.props
-
-    if (isFetching && posts.length === 0) {
-      return <div>Loading...</div>
-    }
-
-    if (errorMessage) {
-      return <div>Could not fetch the posts. {errorMessage} </div>
-    }
-
-    return posts.map(post => <Post {...post} key={post.id} />)
-  }
-}
+const Posts = ({ dispatch, data, ...rest }) => (
+  <Container
+    noDataYet={data.length === 0}
+    dispatch={() => dispatch(fetchPosts())}
+    {...rest}
+  >
+    {() => data.map(post => <Post {...post} key={post.id} />)}
+  </Container>
+)
 
 Posts.propTypes = {
-  errorMessage: PropTypes.string,
-  isFetching: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   errorMessage: getPostsErrorMessage(state),
   isFetching: getIsFetchingPosts(state),
-  posts: getPosts(state)
+  data: getPosts(state)
 })
 
 export default connect(mapStateToProps)(Posts)
