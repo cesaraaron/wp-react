@@ -12,6 +12,6 @@ export const FETCH_SINGLE_SUCCESS = 'FETCH_SINGLE_SUCCESS'
 
 export const FETCH_SINGLE_FAILURE = 'FETCH_SINGLE_FAILURE'
 
-export const POSTS = 'POSTS'
+export const posts = 'posts'
 
-export const SINGLE = 'SINGLE'
+export const single = 'single'

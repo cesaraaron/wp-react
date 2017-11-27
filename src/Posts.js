@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Container from './components/Container'
-import { fetchPosts } from './actions'
-import { getIsFetchingPosts, getPosts, getPostsErrorMessage } from './reducers'
+import { fetchPosts, types } from './actions'
+import { getData, getErrorMessage, getIsFetching } from './reducers'
 
 const Post = ({ title, content, slug }) => {
   return (
@@ -40,9 +40,9 @@ Posts.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  errorMessage: getPostsErrorMessage(state),
-  isFetching: getIsFetchingPosts(state),
-  data: getPosts(state)
+  errorMessage: getErrorMessage(state, types.posts),
+  isFetching: getIsFetching(state, types.posts),
+  data: getData(state, types.posts)
 })
 
 export default connect(mapStateToProps)(Posts)

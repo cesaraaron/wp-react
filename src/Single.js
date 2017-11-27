@@ -2,13 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchSingle } from './actions'
+import { fetchSingle, types } from './actions'
 import Container from './components/Container'
-import {
-  getSingle,
-  getSingleErrorMessage,
-  getIsFetchingSingle
-} from './reducers'
+import { getData, getErrorMessage, getIsFetching } from './reducers'
 
 const Single = ({ title, content }) => {
   return (
@@ -43,11 +39,14 @@ SingleContainer.propTypes = {
 }
 
 // see if I can move connect & withRouter to container
-const mapStateToProps = (state, ownProps) => ({
-  slug: ownProps.match.params.slug,
-  data: getSingle(state, ownProps.match.params.slug),
-  errorMessage: getSingleErrorMessage(state),
-  isFetching: getIsFetchingSingle(state)
-})
+const mapStateToProps = (state, ownProps) => {
+  const { slug } = ownProps.match.params
+  return {
+    data: getData(state, types.single, { slug }),
+    errorMessage: getErrorMessage(state, types.single),
+    isFetching: getIsFetching(state, types.single),
+    slug
+  }
+}
 
 export default withRouter(connect(mapStateToProps)(SingleContainer))

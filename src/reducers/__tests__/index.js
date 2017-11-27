@@ -1,9 +1,13 @@
 import rootReducer, {
   endpoint,
-  getIsFetchingPosts,
-  getPosts,
-  getPostsErrorMessage
+  getErrorMessage,
+  getIsFetching,
+  getData
 } from '../index'
+import { normalize } from 'normalizr'
+import { posts } from '../../data/SampleData'
+import { arrayOfPosts } from '../../sagas/schema'
+import { types } from '../../actions'
 
 it('has a posts object', () => {
   const val = rootReducer(undefined, {})
@@ -24,25 +28,37 @@ describe('endpoint()', () => {
   })
 })
 
-it('returns false when calling getIsFetchingPosts', () => {
-  const state = { posts: { isFetching: false } }
-  const val = getIsFetchingPosts(state)
+it('returns false when calling getIsFetching', () => {
+  const state = { [types.posts]: { isFetching: false } }
+  const val = getIsFetching(state, types.posts)
 
   expect(val).toBe(false)
 })
 
-it('returns and empty array of posts', () => {
-  const state = { posts: { byId: {}, ids: [] } }
+describe('getData()', () => {
+  it('returns and empty array of posts', () => {
+    const state = { [types.posts]: { byId: {}, ids: [] } }
 
-  const val = getPosts(state)
+    const val = getData(state, types.posts)
 
-  expect(val).toEqual([])
+    expect(val).toEqual([])
+  })
+
+  it('when getting the state of [types.single] should return an array when only one item matching the `slug` of the route', () => {
+    const byId = { 1: { slug: 'hello-world' }, 2: { slug: 'sample-post' } }
+    const ids = [1, 2]
+    const state = { [types.single]: { byId, ids } }
+
+    const actual = getData(state, types.single, { slug: 'hello-world' })
+
+    expect(actual).toEqual([{ slug: 'hello-world' }])
+  })
 })
 
 it('should get the errorMessage of posts', () => {
-  const state = { posts: { errorMessage: '' } }
+  const state = { [types.posts]: { errorMessage: '' } }
 
-  const actual = getPostsErrorMessage(state)
+  const actual = getErrorMessage(state, types.posts)
 
   expect(actual).toBe('')
 })

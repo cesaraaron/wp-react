@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import posts, * as fromPosts from './posts'
-import single, * as fromSingle from './single'
+import createList, * as fromCreateList from './createList'
+import { types } from '../actions'
 
 export const endpoint = (state = '', action) => {
   switch (action.type) {
@@ -14,26 +14,18 @@ export const endpoint = (state = '', action) => {
 }
 
 export default combineReducers({
-  posts,
-  single,
+  [types.posts]: createList(types.posts),
+  [types.single]: createList(types.single),
   endpoint
 })
 
 export const getEndpoint = state => state.endpoint
 
-export const getPostsErrorMessage = state =>
-  fromPosts.getPostsErrorMessage(state.posts)
+export const getData = (state, type, options) =>
+  fromCreateList.getData(state[type], type, options)
 
-export const getIsFetchingPosts = state =>
-  fromPosts.getIsFetchingPosts(state.posts)
+export const getIsFetching = (state, type) =>
+  fromCreateList.getIsFetching(state[type], type)
 
-export const getPosts = state => fromPosts.getPosts(state.posts)
-
-export const getSingleErrorMessage = state =>
-  fromSingle.getSingleErrorMessage(state.single)
-
-export const getIsFetchingSingle = state =>
-  fromSingle.getIsFetchingSingle(state.single)
-
-export const getSingle = (state, slug) =>
-  fromSingle.getSingle(state.single, slug)
+export const getErrorMessage = (state, type) =>
+  fromCreateList.getErrorMessage(state[type])
