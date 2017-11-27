@@ -1,13 +1,17 @@
+import * as types from './types'
+
+export { types }
+
 export const getEndpoint = location => ({
-  type: 'GET_ENDPOINT',
+  type: types.GET_ENDPOINT,
   location
 })
 
 export const fetchPosts = () => ({
-  type: 'FETCH_POSTS'
+  type: types.FETCH_POSTS_REQUEST
 })
 
 export const fetchSingle = slug => ({
-  type: 'FETCH_SINGLE',
+  type: types.FETCH_SINGLE_REQUEST,
   slug
 })
