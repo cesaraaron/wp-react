@@ -16,6 +16,7 @@ export const endpoint = (state = '', action) => {
 export default combineReducers({
   [types.posts]: createList(types.posts),
   [types.single]: createList(types.single),
+  [types.comments]: createList(types.comments),
   endpoint
 })
 

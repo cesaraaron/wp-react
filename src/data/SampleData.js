@@ -138,3 +138,86 @@ export const posts = [
     }
   }
 ]
+
+export const comments = [
+  {
+    id: 2,
+    post: 1077,
+    parent: 0,
+    author: 0,
+    author_name: 'Chris Ames',
+    author_url: 'http://chrisam.es/',
+    date: '2013-03-15T18:16:59',
+    date_gmt: '2013-03-15T23:16:59',
+    content: {
+      rendered:
+        '<p>Ello! Pretend you&#8217;re reading this comment with an English accent.</p>\n'
+    },
+    link: 'http://wptest.io/demo/page-comments/#comment-2',
+    status: 'approved',
+    type: 'comment',
+    author_avatar_urls: {
+      '24':
+        'http://2.gravatar.com/avatar/25df3939b2e33bd19783411afd5bc6e3?s=24&d=retro&r=g',
+      '48':
+        'http://2.gravatar.com/avatar/25df3939b2e33bd19783411afd5bc6e3?s=48&d=retro&r=g',
+      '96':
+        'http://2.gravatar.com/avatar/25df3939b2e33bd19783411afd5bc6e3?s=96&d=retro&r=g'
+    },
+    meta: [],
+    _links: {
+      self: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/comments/2' }],
+      collection: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/comments' }],
+      up: [
+        {
+          embeddable: true,
+          post_type: 'page',
+          href: 'http://wptest.io/demo/wp-json/wp/v2/pages/1077'
+        }
+      ],
+      children: [
+        { href: 'http://wptest.io/demo/wp-json/wp/v2/comments?parent=2' }
+      ]
+    }
+  },
+  {
+    id: 31,
+    post: 877,
+    parent: 0,
+    author: 0,
+    author_name: 'Jared Erickson',
+    author_url: 'http://jarederickson.com/',
+    date: '2013-03-14T13:07:19',
+    date_gmt: '2013-03-14T18:07:19',
+    content: {
+      rendered:
+        '<p>Non-breaking text is my favorite!</p>\n<p>Super/Duper/Long/NonBreaking/Path/Name/To/A/File/That/Is/Way/Deep/Down/In/Some/Mysterious/Remote/Desolate/Part/Of/The/Operating/System/To/A/File/That/Just/So/Happens/To/Be/Strangely/Named/Supercalifragilisticexpialidocious.txt</p>\n'
+    },
+    link: 'http://wptest.io/demo/2013/01/05/non-breaking-text/#comment-31',
+    status: 'approved',
+    type: 'comment',
+    author_avatar_urls: {
+      '24':
+        'http://2.gravatar.com/avatar/b2c1febfd11117eef66c351c1d4c10f1?s=24&d=retro&r=g',
+      '48':
+        'http://2.gravatar.com/avatar/b2c1febfd11117eef66c351c1d4c10f1?s=48&d=retro&r=g',
+      '96':
+        'http://2.gravatar.com/avatar/b2c1febfd11117eef66c351c1d4c10f1?s=96&d=retro&r=g'
+    },
+    meta: [],
+    _links: {
+      self: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/comments/31' }],
+      collection: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/comments' }],
+      up: [
+        {
+          embeddable: true,
+          post_type: 'post',
+          href: 'http://wptest.io/demo/wp-json/wp/v2/posts/877'
+        }
+      ],
+      children: [
+        { href: 'http://wptest.io/demo/wp-json/wp/v2/comments?parent=31' }
+      ]
+    }
+  }
+]

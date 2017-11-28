@@ -15,3 +15,8 @@ export const fetchSingle = slug => ({
   type: types.FETCH_SINGLE_REQUEST,
   slug
 })
+
+export const fetchComments = postId => ({
+  type: types.FETCH_COMMENTS_REQUEST,
+  postId
+})

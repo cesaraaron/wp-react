@@ -4,7 +4,7 @@ import { normalize } from 'normalizr'
 import { arrayOfPosts } from './schema'
 import { getEndpoint } from '../reducers'
 import { types } from '../actions'
-import { createOnFetchVars } from '../reducers/createList'
+import { createOnFetchVars } from '../actions/types'
 
 export default type =>
   function*(action) {
@@ -19,6 +19,9 @@ export default type =>
       if (type === types.single) {
         const posts = api.posts()
         response = yield apply(posts, posts.slug, [action.slug])
+      } else if (type === types.comments) {
+        const comments = api.comments()
+        response = yield apply(comments, comments.post, [action.postId])
       } else {
         response = yield apply(api, api.posts)
       }

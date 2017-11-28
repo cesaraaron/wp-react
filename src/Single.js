@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { fetchSingle, types } from './actions'
 import Container from './components/Container'
 import { getData, getErrorMessage, getIsFetching } from './reducers'
+import Comments from './Comments'
 
 const Single = ({ title, content }) => {
   return (
@@ -22,12 +23,25 @@ Single.propTypes = {
 
 export { Single }
 
+const SingleWithComments = props => (
+  <div>
+    <Single {...props} />
+    <br />
+    <h2>Comments</h2>
+    <Comments
+      // eslint-disable-next-line react/prop-types
+      postId={props.id}
+    />
+  </div>
+)
+
 // FETCH_SINGLE action creator.
 const SingleContainer = ({ dispatch, data, slug, ...rest }) => (
   <Container
     noDataYet={data.length === 0}
     dispatch={() => dispatch(fetchSingle(slug))}
-    render={() => data.map(single => <Single {...single} key={single.id} />)}
+    render={() =>
+      data.map(single => <SingleWithComments {...single} key={single.id} />)}
     {...rest}
   />
 )

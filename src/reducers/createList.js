@@ -1,24 +1,6 @@
 import { combineReducers } from 'redux'
 import { types } from '../actions'
-
-export const createOnFetchVars = type => {
-  const onFetch = {}
-  switch (type) {
-    case types.posts:
-      onFetch.request = types.FETCH_POSTS_REQUEST
-      onFetch.success = types.FETCH_POSTS_SUCCESS
-      onFetch.failure = types.FETCH_POSTS_FAILURE
-      break
-    case types.single:
-      onFetch.request = types.FETCH_SINGLE_REQUEST
-      onFetch.success = types.FETCH_SINGLE_SUCCESS
-      onFetch.failure = types.FETCH_SINGLE_FAILURE
-      break
-    default:
-      throw new Error(`Invalid type: ${type}`)
-  }
-  return onFetch
-}
+import { createOnFetchVars } from '../actions/types'
 
 export const createIds = type => (state = [], action) => {
   const onFetch = createOnFetchVars(type)

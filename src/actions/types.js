@@ -12,6 +12,38 @@ export const FETCH_SINGLE_SUCCESS = 'FETCH_SINGLE_SUCCESS'
 
 export const FETCH_SINGLE_FAILURE = 'FETCH_SINGLE_FAILURE'
 
+export const FETCH_COMMENTS_REQUEST = 'FETCH_COMMENTS_REQUEST'
+
+export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS'
+
+export const FETCH_COMMENTS_FAILURE = 'FETCH_COMMENTS_FAILURE'
+
 export const posts = 'posts'
 
 export const single = 'single'
+
+export const comments = 'comments'
+
+export const createOnFetchVars = type => {
+  const onFetch = {}
+  switch (type) {
+    case posts:
+      onFetch.request = FETCH_POSTS_REQUEST
+      onFetch.success = FETCH_POSTS_SUCCESS
+      onFetch.failure = FETCH_POSTS_FAILURE
+      break
+    case single:
+      onFetch.request = FETCH_SINGLE_REQUEST
+      onFetch.success = FETCH_SINGLE_SUCCESS
+      onFetch.failure = FETCH_SINGLE_FAILURE
+      break
+    case comments:
+      onFetch.request = FETCH_COMMENTS_REQUEST
+      onFetch.success = FETCH_COMMENTS_SUCCESS
+      onFetch.failure = FETCH_COMMENTS_FAILURE
+      break
+    default:
+      throw new Error(`Invalid type: ${type}`)
+  }
+  return onFetch
+}
