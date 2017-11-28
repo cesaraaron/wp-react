@@ -1,46 +1,14 @@
-import WPAPI from 'wpapi'
-import { apply, put, takeLatest, all, select } from 'redux-saga/effects'
-import { normalize } from 'normalizr'
-import { arrayOfPosts } from './schema'
-import { getEndpoint } from '../reducers'
+import { takeLatest, all } from 'redux-saga/effects'
 import { types } from '../actions'
+import createSaga from './createSaga'
 
-export function* fetchPosts() {
-  const endpoint = yield select(getEndpoint)
-  const api = new WPAPI({ endpoint })
-
-  try {
-    const response = yield apply(api, api.posts)
-
-    yield put({
-      type: types.FETCH_POSTS_SUCCESS,
-      response: normalize(response, arrayOfPosts)
-    })
-  } catch (e) {
-    yield put({ type: types.FETCH_POSTS_FAILURE, message: e.message })
-  }
-}
+export const fetchPosts = createSaga(types.posts)
 
 export function* watchFetchPosts() {
   yield takeLatest(types.FETCH_POSTS_REQUEST, fetchPosts)
 }
 
-export function* fetchSingle(action) {
-  const endpoint = yield select(getEndpoint)
-  const api = new WPAPI({ endpoint })
-
-  try {
-    const posts = api.posts()
-    const response = yield apply(posts, posts.slug, [action.slug])
-
-    yield put({
-      type: types.FETCH_SINGLE_SUCCESS,
-      response: normalize(response, arrayOfPosts)
-    })
-  } catch (e) {
-    yield put({ type: types.FETCH_SINGLE_FAILURE, message: e.message })
-  }
-}
+export const fetchSingle = createSaga(types.single)
 
 export function* watchFetchSingle() {
   yield takeLatest(types.FETCH_SINGLE_REQUEST, fetchSingle)

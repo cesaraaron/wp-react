@@ -4,9 +4,6 @@ import rootReducer, {
   getIsFetching,
   getData
 } from '../index'
-import { normalize } from 'normalizr'
-import { posts } from '../../data/SampleData'
-import { arrayOfPosts } from '../../sagas/schema'
 import { types } from '../../actions'
 
 it('has a posts object', () => {
