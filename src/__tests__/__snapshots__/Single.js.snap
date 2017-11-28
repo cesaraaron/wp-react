@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `
+<div>
+  <article>
+    <h4>
+      Hello world!
+    </h4>
+    <div
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
+",
+        }
+      }
+    />
+  </article>
+  <br />
+  <h2>
+    Comments
+  </h2>
+  <div>
+    Loading...
+  </div>
+</div>
+`;
+
 exports[`should render a post 1`] = `
 <article>
   <h4>

@@ -6,10 +6,26 @@ import rootReducer, {
 } from '../index'
 import { types } from '../../actions'
 
-it('has a posts object', () => {
-  const val = rootReducer(undefined, {})
+describe('properties of the rootReducer', () => {
+  const root = rootReducer(undefined, {})
+  const expected = {
+    byId: {},
+    errorMessage: null,
+    ids: [],
+    isFetching: false
+  }
 
-  expect(val).toMatchObject({ endpoint: '', posts: {} })
+  it('has a posts object', () => {
+    expect(root[types.posts]).toEqual(expected)
+  })
+
+  it('has the single object', () => {
+    expect(root[types.single]).toEqual(expected)
+  })
+
+  it('has the comments object', () => {
+    expect(root[types.comments]).toEqual(expected)
+  })
 })
 
 describe('endpoint()', () => {
