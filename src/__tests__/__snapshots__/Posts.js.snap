@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[` 1`] = `
-Array [
+<div>
   <article>
     <h4>
       <a
-        href="hello-world"
+        href="/hello-world"
         onClick={[Function]}
       >
         Hello world!
@@ -19,11 +19,11 @@ Array [
         }
       }
     />
-  </article>,
+  </article>
   <article>
     <h4>
       <a
-        href="tiled-gallery"
+        href="/tiled-gallery"
         onClick={[Function]}
       >
         Tiled Gallery
@@ -80,15 +80,17 @@ Array [
         }
       }
     />
-  </article>,
-]
+  </article>
+  <br />
+  <div />
+</div>
 `;
 
 exports[`should render a post 1`] = `
 <article>
   <h4>
     <a
-      href="hello-world"
+      href="/hello-world"
       onClick={[Function]}
     >
       Hello world!

@@ -7,8 +7,9 @@ export const getEndpoint = location => ({
   location
 })
 
-export const fetchPosts = () => ({
-  type: types.FETCH_POSTS_REQUEST
+export const fetchPosts = (pageNumber = 1) => ({
+  type: types.FETCH_POSTS_REQUEST,
+  pageNumber
 })
 
 export const fetchSingle = slug => ({

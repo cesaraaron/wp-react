@@ -1,5 +1,7 @@
 import rootReducer, {
   endpoint,
+  totalPages,
+  getTotalPages,
   getErrorMessage,
   getIsFetching,
   getData
@@ -9,6 +11,7 @@ import { types } from '../../actions'
 describe('properties of the rootReducer', () => {
   const root = rootReducer(undefined, {})
   const expected = {
+    byPageNumber: {},
     byId: {},
     errorMessage: null,
     ids: [],
@@ -25,6 +28,24 @@ describe('properties of the rootReducer', () => {
 
   it('has the comments object', () => {
     expect(root[types.comments]).toEqual(expected)
+  })
+})
+
+describe('totalPages()', () => {
+  it('should return 0 by default', () => {
+    const actual = totalPages(undefined, {})
+
+    expect(actual).toBe(0)
+  })
+
+  it('shoult return the number of pages from the normalized response.entities.post._paging prop when the action is types.FETCH_POSTS_SUCCESS', () => {
+    const response = { _paging: { totalPages: '4' } }
+    const actual = totalPages(undefined, {
+      type: types.FETCH_POSTS_SUCCESS,
+      response
+    })
+
+    expect(actual).toBe(4)
   })
 })
 
@@ -50,7 +71,7 @@ it('returns false when calling getIsFetching', () => {
 
 describe('getData()', () => {
   it('returns and empty array of posts', () => {
-    const state = { [types.posts]: { byId: {}, ids: [] } }
+    const state = { [types.posts]: { byId: {}, ids: [], byPageNumber: {} } }
 
     const val = getData(state, types.posts)
 
@@ -68,10 +89,17 @@ describe('getData()', () => {
   })
 })
 
-it('should get the errorMessage of posts', () => {
+it('should get the errorMessage of [types.posts]', () => {
   const state = { [types.posts]: { errorMessage: '' } }
 
   const actual = getErrorMessage(state, types.posts)
 
   expect(actual).toBe('')
+})
+
+it('should get the totalPages number from the rootReducer object', () => {
+  const state = { totalPages: 4 }
+  const actual = getTotalPages(state)
+
+  expect(actual).toBe(4)
 })

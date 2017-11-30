@@ -1,6 +1,7 @@
 import {
   createIds,
   createIsFetching,
+  byPageNumber,
   createById,
   createErrorMessage
 } from '../createList'
@@ -109,5 +110,28 @@ describe('createErrorMessage()', () => {
     const actual = errorMessage('', { type: types.FETCH_POSTS_SUCCESS })
 
     expect(actual).toBe(null)
+  })
+})
+
+describe('byPageNumber()', () => {
+  it('should return an empty object', () => {
+    const actual = byPageNumber(undefined, {})
+
+    expect(actual).toEqual({})
+  })
+
+  it('should return an object where the keys are from `action.pageNumber` and the values are a map of `response.result.map(id => ...) when the action.type is FETCH_POSTS_SUCCESS', () => {
+    const response = normalize(posts, arrayOfPosts)
+    const actual = byPageNumber(undefined, {
+      type: types.FETCH_POSTS_SUCCESS,
+      response,
+      pageNumber: 1
+    })
+
+    const expected = {
+      1: response.result.map(id => response.entities.post[id])
+    }
+
+    expect(actual).toEqual(expected)
   })
 })

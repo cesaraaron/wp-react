@@ -6,6 +6,7 @@ module.exports = {
     index: ['react-hot-loader/patch', paths.join(paths.src, 'index.js')]
   },
   output: {
+    publicPath: '/',
     path: paths.dist,
     filename: 'index.js'
   },

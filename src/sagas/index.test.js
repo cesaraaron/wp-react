@@ -6,9 +6,10 @@ import { arrayOfPosts } from './schema'
 import { getEndpoint } from '../reducers'
 
 describe('fetchPosts()', () => {
+  const action = { pageNumber: 1 }
   const endpoint = 'http://localhost/'
   const api = new WPAPI({ endpoint })
-  const gen = fetchPosts()
+  const gen = fetchPosts(action)
 
   it('should yield an effect `select(getEndpoint)`', () => {
     const actual = gen.next().value
@@ -19,7 +20,8 @@ describe('fetchPosts()', () => {
 
   it('should yield an effect `call(api)`', () => {
     const actual = gen.next(endpoint).value
-    const expected = apply(api, api.posts)
+    const posts = api.posts()
+    const expected = apply(posts, posts.page, [action.pageNumber])
 
     expect(actual).toEqual(expected)
   })
@@ -30,7 +32,8 @@ describe('fetchPosts()', () => {
 
     const expected = put({
       type: 'FETCH_POSTS_SUCCESS',
-      response: normalize(response, arrayOfPosts)
+      response: normalize(response, arrayOfPosts),
+      pageNumber: action.pageNumber
     })
 
     expect(actual).toEqual(expected)

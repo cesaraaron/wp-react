@@ -16,19 +16,42 @@ export default type =>
     try {
       let response
 
-      if (type === types.single) {
-        const posts = api.posts()
-        response = yield apply(posts, posts.slug, [action.slug])
-      } else if (type === types.comments) {
-        const comments = api.comments()
-        response = yield apply(comments, comments.post, [action.postId])
-      } else {
-        response = yield apply(api, api.posts)
+      switch (type) {
+        case types.posts:
+          {
+            const posts = api.posts()
+            response = yield apply(posts, posts.page, [action.pageNumber])
+          }
+          break
+        case types.single:
+          {
+            const posts = api.posts()
+            response = yield apply(posts, posts.slug, [action.slug])
+          }
+          break
+        case types.comments:
+          {
+            const comments = api.comments()
+            response = yield apply(comments, comments.post, [action.postId])
+          }
+          break
+        default:
+          break
+      }
+
+      const normalizedResponse = normalize(response, arrayOfPosts)
+
+      let pageNumber
+
+      if (type === types.posts) {
+        normalizedResponse._paging = response._paging
+        pageNumber = action.pageNumber
       }
 
       yield put({
         type: onFetch.success,
-        response: normalize(response, arrayOfPosts)
+        response: normalizedResponse,
+        pageNumber
       })
     } catch (e) {
       yield put({ type: onFetch.failure, message: e.message })

@@ -25,11 +25,16 @@ describe('<PostsContainer />', () => {
   const store = createStore(rootReducer)
   const rawDispatch = store.dispatch
   const response = normalize(posts, arrayOfPosts)
+  response._paging = { totalPages: 0 }
 
   store.dispatch = action => {
     switch (action.type) {
       case types.FETCH_POSTS_REQUEST:
-        return rawDispatch({ type: types.FETCH_POSTS_SUCCESS, response })
+        return rawDispatch({
+          type: types.FETCH_POSTS_SUCCESS,
+          response,
+          pageNumber: 1
+        })
       default:
         return rawDispatch(action)
     }

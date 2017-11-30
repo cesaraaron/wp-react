@@ -13,12 +13,25 @@ export const endpoint = (state = '', action) => {
   }
 }
 
+export const totalPages = (state = 0, action) => {
+  switch (action.type) {
+    case types.FETCH_POSTS_SUCCESS: {
+      return Number(action.response._paging.totalPages)
+    }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   [types.posts]: createList(types.posts),
   [types.single]: createList(types.single),
   [types.comments]: createList(types.comments),
+  totalPages,
   endpoint
 })
+
+export const getTotalPages = state => state.totalPages
 
 export const getEndpoint = state => state.endpoint
 

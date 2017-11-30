@@ -18,6 +18,20 @@ export const createIds = type => (state = [], action) => {
   }
 }
 
+export const byPageNumber = (state = {}, action) => {
+  switch (action.type) {
+    case types.FETCH_POSTS_SUCCESS: {
+      const { pageNumber = 1, response } = action
+      return {
+        ...state,
+        [pageNumber]: response.result.map(id => response.entities.post[id])
+      }
+    }
+    default:
+      return state
+  }
+}
+
 export const createIsFetching = type => (state = false, action) => {
   const onFetch = createOnFetchVars(type)
   switch (action.type) {
@@ -64,6 +78,7 @@ export default type => {
   const isFetching = createIsFetching(type)
 
   return combineReducers({
+    byPageNumber,
     ids,
     byId,
     errorMessage,
@@ -73,13 +88,18 @@ export default type => {
 
 export const getErrorMessage = state => state.errorMessage
 
-export const getData = (state, type, { slug } = {}) => {
-  const posts = state.ids.map(id => state.byId[id])
+export const getData = (state, type, { slug, pageNumber = 1 } = {}) => {
+  const data = state.ids.map(id => state.byId[id])
 
   // When the data is for single only return the post that matches the param /:slug of the route
-  return type === types.single
-    ? posts.filter(post => post.slug === slug)
-    : posts
+  switch (type) {
+    case types.posts:
+      return state.byPageNumber[pageNumber] || []
+    case types.single:
+      return data.filter(post => post.slug === slug)
+    default:
+      return data
+  }
 }
 
 export const getIsFetching = state => state.isFetching

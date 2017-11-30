@@ -6,7 +6,8 @@ import Single from './Single'
 const App = () => (
   <div>
     <Route exact path="/" component={Posts} />
-    <Route path="/:slug" component={Single} />
+    <Route path="/page/:pageNumber" component={Posts} />
+    <Route exact path="/:slug" component={Single} />
   </div>
 )
 
