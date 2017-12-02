@@ -65,6 +65,12 @@ PostsLayout.propTypes = {
 const PostsLayoutContainer = ({ dispatch, pageNumber, data, ...rest }) => (
   <Container
     noDataYet={data.length === 0}
+    pageNumber={pageNumber}
+    onUpdate={prevProps => {
+      if (pageNumber !== prevProps.pageNumber) {
+        dispatch(fetchPosts(pageNumber))
+      }
+    }}
     dispatch={() => dispatch(fetchPosts(pageNumber))}
     render={() => (
       <PostsLayout

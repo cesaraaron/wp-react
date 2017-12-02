@@ -5,11 +5,18 @@ import FetchError from './FetchError'
 
 class Container extends React.Component {
   static propTypes = {
+    onMount: PropTypes.func,
+    onUpdate: PropTypes.func,
     noDataYet: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
     render: PropTypes.func.isRequired
+  }
+
+  componentDidUpdate(prevProps) {
+    const { onUpdate } = this.props
+    onUpdate && onUpdate(prevProps)
   }
 
   componentDidMount() {
