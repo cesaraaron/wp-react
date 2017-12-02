@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Container from './components/Container'
+import FetchContainer from './components/FetchContainer'
 import { connect } from 'react-redux'
 import { getErrorMessage, getIsFetching, getData } from './reducers'
 import { types, fetchComments } from './actions'
@@ -27,9 +27,9 @@ CommentList.propTypes = {
 }
 
 const CommentListContainer = ({ dispatch, data, postId, ...rest }) => (
-  <Container
+  <FetchContainer
     noDataYet={data.length === 0}
-    dispatch={() => dispatch(fetchComments(postId))}
+    onMount={() => dispatch(fetchComments(postId))}
     render={() => <CommentList comments={data} />}
     {...rest}
   />

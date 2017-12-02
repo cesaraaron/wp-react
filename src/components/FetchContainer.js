@@ -3,24 +3,22 @@ import PropTypes from 'prop-types'
 import Loading from './Loading'
 import FetchError from './FetchError'
 
-class Container extends React.Component {
+class FetchContainer extends React.Component {
   static propTypes = {
-    onMount: PropTypes.func,
     onUpdate: PropTypes.func,
+    onMount: PropTypes.func.isRequired,
     noDataYet: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
     render: PropTypes.func.isRequired
   }
 
   componentDidUpdate(prevProps) {
-    const { onUpdate } = this.props
-    onUpdate && onUpdate(prevProps)
+    this.props.onUpdate && this.props.onUpdate(prevProps)
   }
 
   componentDidMount() {
-    this.props.dispatch()
+    this.props.onMount && this.props.onMount()
   }
 
   render() {
@@ -38,4 +36,4 @@ class Container extends React.Component {
   }
 }
 
-export default Container
+export default FetchContainer

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import Container from './components/Container'
+import FetchContainer from './components/FetchContainer'
 import { fetchPosts, types } from './actions'
 import {
   getData,
@@ -63,7 +63,7 @@ PostsLayout.propTypes = {
 }
 
 const PostsLayoutContainer = ({ dispatch, pageNumber, data, ...rest }) => (
-  <Container
+  <FetchContainer
     noDataYet={data.length === 0}
     pageNumber={pageNumber}
     onUpdate={prevProps => {
@@ -71,7 +71,7 @@ const PostsLayoutContainer = ({ dispatch, pageNumber, data, ...rest }) => (
         dispatch(fetchPosts(pageNumber))
       }
     }}
-    dispatch={() => dispatch(fetchPosts(pageNumber))}
+    onMount={() => dispatch(fetchPosts(pageNumber))}
     render={() => (
       <PostsLayout
         dispatch={dispatch}
@@ -101,4 +101,5 @@ const mapStateToProps = (state, ownProps) => {
     isFetching: getIsFetching(state, types.posts)
   }
 }
+
 export default withRouter(connect(mapStateToProps)(PostsLayoutContainer))
