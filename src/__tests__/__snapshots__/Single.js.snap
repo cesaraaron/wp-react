@@ -19,9 +19,6 @@ exports[` 1`] = `
   <h2>
     Comments
   </h2>
-  <div>
-    Loading...
-  </div>
 </div>
 `;
 

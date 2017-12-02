@@ -6,7 +6,7 @@ import rootReducer, {
   getIsFetching,
   getData
 } from '../index'
-import { types } from '../../actions'
+import * as types from '../../actions/types'
 
 describe('properties of the rootReducer', () => {
   const root = rootReducer(undefined, {})

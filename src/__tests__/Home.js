@@ -7,8 +7,8 @@ import { createStore } from 'redux'
 import rootReducer from '../reducers'
 import { Provider } from 'react-redux'
 import { normalize } from 'normalizr'
-import { arrayOfPosts } from '../sagas/schema'
-import { types } from '../actions'
+import { arrayOfPosts } from '../actions/schema'
+import * as types from '../actions/types'
 
 it('should render a post', () => {
   const component = renderer.create(
@@ -28,15 +28,16 @@ describe('<HomeContainer />', () => {
   response._paging = { totalPages: 0 }
 
   store.dispatch = action => {
-    switch (action.type) {
-      case types.FETCH_POSTS_REQUEST:
-        return rawDispatch({
-          type: types.FETCH_POSTS_SUCCESS,
-          response,
-          pageNumber: 1
-        })
-      default:
-        return rawDispatch(action)
+    if (typeof action === 'function') {
+      action(store.dispatch, store.getState)
+    } else {
+      return action.type === types.FETCH_POSTS_REQUEST
+        ? rawDispatch({
+            type: types.FETCH_POSTS_SUCCESS,
+            response,
+            pageNumber: 1
+          })
+        : null
     }
   }
 

@@ -5,10 +5,10 @@ import {
   createById,
   createErrorMessage
 } from '../createList'
-import { types } from '../../actions'
+import * as types from '../../actions/types'
 import { normalize } from 'normalizr'
 import { posts } from '../../data/SampleData'
-import { arrayOfPosts } from '../../sagas/schema'
+import { arrayOfPosts } from '../../actions/schema'
 
 describe('createIds()', () => {
   const ids = createIds(types.posts)
@@ -118,6 +118,12 @@ describe('byPageNumber()', () => {
     const actual = byPageNumber(undefined, {})
 
     expect(actual).toEqual({})
+  })
+
+  it('should throw and error if pageNumber is falsey when the action is FETCH_POSTS_SUCCESS', () => {
+    expect(() =>
+      byPageNumber(undefined, { type: types.FETCH_POSTS_SUCCESS })
+    ).toThrowError(/pageNumber/)
   })
 
   it('should return an object where the keys are from `action.pageNumber` and the values are a map of `response.result.map(id => ...) when the action.type is FETCH_POSTS_SUCCESS', () => {

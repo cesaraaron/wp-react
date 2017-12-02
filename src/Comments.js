@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import FetchContainer from './components/FetchContainer'
 import { connect } from 'react-redux'
 import { getErrorMessage, getIsFetching, getData } from './reducers'
-import { types, fetchComments } from './actions'
+import * as types from './actions/types'
+import { fetchComments } from './actions'
 
 export const Comment = ({ author_name, content }) => (
   <div>

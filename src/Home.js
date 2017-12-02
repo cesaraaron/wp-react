@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import FetchContainer from './components/FetchContainer'
-import { fetchPosts, types } from './actions'
+import * as types from './actions/types'
+import { fetchPosts } from './actions'
 import {
   getData,
   getErrorMessage,
@@ -66,11 +67,8 @@ const HomeContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
   <FetchContainer
     noDataYet={data.length === 0}
     pageNumber={pageNumber}
-    onUpdate={prevProps => {
-      if (pageNumber !== prevProps.pageNumber) {
-        fetchPosts(pageNumber)
-      }
-    }}
+    onUpdate={prevProps =>
+      prevProps.pageNumber !== pageNumber && fetchPosts(pageNumber)}
     onMount={() => fetchPosts(pageNumber)}
     render={() => <Home pageNumber={pageNumber} data={data} {...rest} />}
     {...rest}

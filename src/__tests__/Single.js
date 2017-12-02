@@ -7,8 +7,8 @@ import { MemoryRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { normalize } from 'normalizr'
-import { arrayOfPosts } from '../sagas/schema'
-import { types } from '../actions/index'
+import { arrayOfPosts } from '../actions/schema'
+import * as types from '../actions/types'
 
 it('should render a post', () => {
   const component = renderer.create(<Single {...posts[0]} />)
@@ -17,17 +17,21 @@ it('should render a post', () => {
   expect(tree).toMatchSnapshot()
 })
 
-describe('<PostsContainer />', () => {
+describe('<SingleContainer />', () => {
   const store = createStore(rootReducer)
   const rawDispatch = store.dispatch
   const response = normalize(posts, arrayOfPosts)
 
   store.dispatch = action => {
-    switch (action.type) {
-      case types.FETCH_SINGLE_REQUEST:
-        return rawDispatch({ type: types.FETCH_SINGLE_SUCCESS, response })
-      default:
-        return rawDispatch(action)
+    if (typeof action === 'function') {
+      action(store.dispatch, store.getState)
+    } else {
+      return action.type === types.FETCH_SINGLE_REQUEST
+        ? rawDispatch({
+            type: types.FETCH_SINGLE_SUCCESS,
+            response
+          })
+        : null
     }
   }
 

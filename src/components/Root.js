@@ -5,16 +5,12 @@ import rootReducer from '../reducers'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { getEndpoint } from '../actions'
-import createSagaMiddleware from 'redux-saga'
-import sagas from '../sagas'
+import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
 const logger = createLogger()
-const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger))
-
-sagaMiddleware.run(sagas)
+const store = createStore(rootReducer, applyMiddleware(thunk, logger))
 
 store.dispatch(getEndpoint(window.location))
 
@@ -32,8 +28,5 @@ if (module.hot) {
   module.hot.accept('../reducers', () => {
     const nextRootReducer = require('../reducers/index')
     store.replaceReducer(nextRootReducer)
-  })
-  module.hot.accept('../sagas', () => {
-    sagaMiddleware.run(sagas)
   })
 }

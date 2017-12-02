@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import createList, * as fromCreateList from './createList'
-import { types } from '../actions'
+import * as types from '../actions/types'
 
 export const endpoint = (state = '', action) => {
   switch (action.type) {

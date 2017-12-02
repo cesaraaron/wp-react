@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { types } from '../actions'
+import * as types from '../actions/types'
 import { createOnFetchVars } from '../actions/types'
 
 export const createIds = type => (state = [], action) => {
@@ -21,7 +21,14 @@ export const createIds = type => (state = [], action) => {
 export const byPageNumber = (state = {}, action) => {
   switch (action.type) {
     case types.FETCH_POSTS_SUCCESS: {
-      const { pageNumber = 1, response } = action
+      const { pageNumber, response } = action
+
+      if (typeof pageNumber !== 'number' || pageNumber <= 0) {
+        throw new Error(
+          `Expect pageNumber to be a number > 0. Instead received ${pageNumber}`
+        )
+      }
+
       return {
         ...state,
         [pageNumber]: response.result.map(id => response.entities.post[id])
@@ -91,7 +98,6 @@ export const getErrorMessage = state => state.errorMessage
 export const getData = (state, type, { slug, pageNumber = 1 } = {}) => {
   const data = state.ids.map(id => state.byId[id])
 
-  // When the data is for single only return the post that matches the param /:slug of the route
   switch (type) {
     case types.posts:
       return state.byPageNumber[pageNumber] || []
