@@ -62,24 +62,17 @@ PostsLayout.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const PostsLayoutContainer = ({ dispatch, pageNumber, data, ...rest }) => (
+const PostsLayoutContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
   <FetchContainer
     noDataYet={data.length === 0}
     pageNumber={pageNumber}
     onUpdate={prevProps => {
       if (pageNumber !== prevProps.pageNumber) {
-        dispatch(fetchPosts(pageNumber))
+        fetchPosts(pageNumber)
       }
     }}
-    onMount={() => dispatch(fetchPosts(pageNumber))}
-    render={() => (
-      <PostsLayout
-        dispatch={dispatch}
-        pageNumber={pageNumber}
-        data={data}
-        {...rest}
-      />
-    )}
+    onMount={() => fetchPosts(pageNumber)}
+    render={() => <PostsLayout pageNumber={pageNumber} data={data} {...rest} />}
     {...rest}
   />
 )
@@ -87,7 +80,7 @@ const PostsLayoutContainer = ({ dispatch, pageNumber, data, ...rest }) => (
 PostsLayoutContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   data: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
+  fetchPosts: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -102,4 +95,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PostsLayoutContainer))
+export default withRouter(
+  connect(mapStateToProps, { fetchPosts })(PostsLayoutContainer)
+)

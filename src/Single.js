@@ -36,10 +36,10 @@ const SingleWithComments = props => (
 )
 
 // FETCH_SINGLE action creator.
-const SingleContainer = ({ dispatch, data, slug, ...rest }) => (
+const SingleContainer = ({ fetchSingle, data, slug, ...rest }) => (
   <FetchContainer
     noDataYet={data.length === 0}
-    onMount={() => dispatch(fetchSingle(slug))}
+    onMount={() => fetchSingle(slug)}
     render={() =>
       data.map(single => <SingleWithComments {...single} key={single.id} />)}
     {...rest}
@@ -48,7 +48,7 @@ const SingleContainer = ({ dispatch, data, slug, ...rest }) => (
 
 SingleContainer.propTypes = {
   data: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  fetchSingle: PropTypes.func.isRequired,
   slug: PropTypes.string.isRequired
 }
 
@@ -63,4 +63,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(SingleContainer))
+export default withRouter(
+  connect(mapStateToProps, { fetchSingle })(SingleContainer)
+)

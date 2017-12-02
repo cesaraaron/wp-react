@@ -26,17 +26,17 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired
 }
 
-const CommentListContainer = ({ dispatch, data, postId, ...rest }) => (
+const CommentListContainer = ({ fetchComments, data, postId, ...rest }) => (
   <FetchContainer
     noDataYet={data.length === 0}
-    onMount={() => dispatch(fetchComments(postId))}
+    onMount={() => fetchComments(postId)}
     render={() => <CommentList comments={data} />}
     {...rest}
   />
 )
 
 CommentListContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  fetchComments: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
   postId: PropTypes.number.isRequired
 }
@@ -51,4 +51,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(CommentListContainer)
+export default connect(mapStateToProps, { fetchComments })(CommentListContainer)
