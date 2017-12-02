@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
-import PostsContainer, { Post } from '../Posts'
+import PostsContainer, { Post } from '../Home'
 import { posts } from '../data/SampleData'
 import { createStore } from 'redux'
 import rootReducer from '../reducers'
@@ -21,7 +21,7 @@ it('should render a post', () => {
   expect(tree).toMatchSnapshot()
 })
 
-describe('<PostsContainer />', () => {
+describe('<HomeContainer />', () => {
   const store = createStore(rootReducer)
   const rawDispatch = store.dispatch
   const response = normalize(posts, arrayOfPosts)

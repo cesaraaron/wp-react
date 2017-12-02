@@ -48,7 +48,7 @@ LinksGroup.propTypes = {
   activeIndex: PropTypes.number.isRequired
 }
 
-export const PostsLayout = ({ data, totalPages, pageNumber }) => (
+export const Home = ({ data, totalPages, pageNumber }) => (
   <div>
     {data.map(post => <Post {...post} key={post.id} />)}
     <br />
@@ -56,13 +56,13 @@ export const PostsLayout = ({ data, totalPages, pageNumber }) => (
   </div>
 )
 
-PostsLayout.propTypes = {
+Home.propTypes = {
   data: PropTypes.array.isRequired,
   pageNumber: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired
 }
 
-const PostsLayoutContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
+const HomeContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
   <FetchContainer
     noDataYet={data.length === 0}
     pageNumber={pageNumber}
@@ -72,12 +72,12 @@ const PostsLayoutContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
       }
     }}
     onMount={() => fetchPosts(pageNumber)}
-    render={() => <PostsLayout pageNumber={pageNumber} data={data} {...rest} />}
+    render={() => <Home pageNumber={pageNumber} data={data} {...rest} />}
     {...rest}
   />
 )
 
-PostsLayoutContainer.propTypes = {
+HomeContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   data: PropTypes.array.isRequired,
   fetchPosts: PropTypes.func.isRequired
@@ -96,5 +96,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchPosts })(PostsLayoutContainer)
+  connect(mapStateToProps, { fetchPosts })(HomeContainer)
 )

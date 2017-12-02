@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Posts from './Posts'
+import Posts from './Home'
 import Single from './Single'
 
 const App = () => (
