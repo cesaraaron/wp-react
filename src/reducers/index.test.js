@@ -4,8 +4,8 @@ import rootReducer, {
   getErrorMessage,
   getIsFetching,
   getData
-} from '../index'
-import * as types from '../../actions/types'
+} from './index'
+import * as types from '../actions/types'
 
 describe('createList() properties', () => {
   const root = rootReducer(undefined, {})
