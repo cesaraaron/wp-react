@@ -5,7 +5,7 @@ import { createById } from './byId'
 import { createTotalPages } from './totalPages'
 import { createErrorMessage } from './errorMessage'
 import { createIsFetching } from './isFetching'
-import { createByPageNumber } from './byPageNumber'
+import { createByPageNumber, getPostsByPage as getByPage } from './byPageNumber'
 
 export default type => {
   const ids = createIds(type)
@@ -43,3 +43,6 @@ export const getData = (state, type, { slug, pageNumber = 1 } = {}) => {
 export const getIsFetching = state => state.isFetching
 
 export const getTotalPages = state => state.totalPages
+
+export const getPostsByPage = (state, pageNumber) =>
+  getByPage(state.byPageNumber, pageNumber)

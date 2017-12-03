@@ -1,8 +1,5 @@
 import { createIds } from '../ids'
 import * as types from '../../../actions/types'
-import { normalize } from 'normalizr'
-import { arrayOfPosts } from '../../../actions/schema'
-import { posts } from '../../../data/SampleData'
 
 describe('createIds()', () => {
   const ids = createIds(types.posts)

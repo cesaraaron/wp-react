@@ -1,4 +1,4 @@
-import { createByPageNumber } from '../byPageNumber'
+import { createByPageNumber, getPostsByPage } from '../byPageNumber'
 import * as types from '../../../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../../../actions/schema'
@@ -31,5 +31,18 @@ describe('byPageNumber()', () => {
     }
 
     expect(actual).toEqual(expected)
+  })
+})
+
+describe('getPostsByPageNumber()', () => {
+  const state = {}
+  it('should return an empty array', () => {
+    const actual = getPostsByPage(state, 1)
+
+    expect(actual).toEqual([])
+  })
+
+  it('should return an error if the pageNumber is falsey', () => {
+    expect(() => getPostsByPage(state, undefined)).toThrowError(/pageNumber/)
   })
 })

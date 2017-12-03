@@ -1,6 +1,7 @@
 import rootReducer, {
   endpoint,
-  getTotalPages,
+  // getTotalPages,
+  getPostsByPage,
   getErrorMessage,
   getIsFetching,
   getData
@@ -51,37 +52,50 @@ it('returns false when calling getIsFetching', () => {
   expect(val).toBe(false)
 })
 
-describe('getData()', () => {
-  it('returns and empty array of posts', () => {
-    const state = { [types.posts]: { byId: {}, ids: [], byPageNumber: {} } }
+describe('Selectors', () => {
+  describe('getData()', () => {
+    it('returns and empty array of posts', () => {
+      const state = { [types.posts]: { byId: {}, ids: [], byPageNumber: {} } }
 
-    const val = getData(state, types.posts)
+      const val = getData(state, types.posts)
 
-    expect(val).toEqual([])
+      expect(val).toEqual([])
+    })
+
+    it('when getting the state of [types.single] should return an array when only one item matching the `slug` of the route', () => {
+      const byId = { 1: { slug: 'hello-world' }, 2: { slug: 'sample-post' } }
+      const ids = [1, 2]
+      const state = { [types.single]: { byId, ids } }
+
+      const actual = getData(state, types.single, { slug: 'hello-world' })
+
+      expect(actual).toEqual([{ slug: 'hello-world' }])
+    })
   })
 
-  it('when getting the state of [types.single] should return an array when only one item matching the `slug` of the route', () => {
-    const byId = { 1: { slug: 'hello-world' }, 2: { slug: 'sample-post' } }
-    const ids = [1, 2]
-    const state = { [types.single]: { byId, ids } }
+  it('should get the errorMessage of [types.posts]', () => {
+    const state = { [types.posts]: { errorMessage: '' } }
 
-    const actual = getData(state, types.single, { slug: 'hello-world' })
+    const actual = getErrorMessage(state, types.posts)
 
-    expect(actual).toEqual([{ slug: 'hello-world' }])
+    expect(actual).toBe('')
+  })
+
+  describe('getPostsByPage()', () => {
+    const posts = [{ 1: { id: 1 } }]
+    const state = { [types.posts]: { byPageNumber: { 1: posts } } }
+
+    it('should return an array of posts', () => {
+      const actual = getPostsByPage(state, types.posts, 1)
+
+      expect(actual).toEqual(posts)
+    })
   })
 })
 
-it('should get the errorMessage of [types.posts]', () => {
-  const state = { [types.posts]: { errorMessage: '' } }
+// it('should get the totalPages number from the rootReducer object', () => {
+//   const state = { [types.posts]: { totalPages: 4 } }
+//   const actual = getTotalPages(state, types.posts)
 
-  const actual = getErrorMessage(state, types.posts)
-
-  expect(actual).toBe('')
-})
-
-it('should get the totalPages number from the rootReducer object', () => {
-  const state = { [types.posts]: { totalPages: 4 } }
-  const actual = getTotalPages(state, types.posts)
-
-  expect(actual).toBe(4)
-})
+//   expect(actual).toBe(4)
+// })
