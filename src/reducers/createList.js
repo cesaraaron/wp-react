@@ -18,6 +18,30 @@ export const createIds = type => (state = [], action) => {
   }
 }
 
+export const createTotalPages = type => (state = 0, action) => {
+  // const onFetch = createOnFetchVars(type)
+  if (type !== types.posts) {
+    return state
+  }
+
+  switch (action.type) {
+    case types.FETCH_POSTS_SUCCESS: {
+      const { _paging } = action.response
+      if (
+        !_paging ||
+        Object.prototype.toString.call(_paging) !== '[object Object]'
+      ) {
+        throw new Error(
+          `Expect the action.response to have a '_paging' object prop.`
+        )
+      }
+      return Number(action.response._paging.totalPages)
+    }
+    default:
+      return state
+  }
+}
+
 export const byPageNumber = (state = {}, action) => {
   switch (action.type) {
     case types.FETCH_POSTS_SUCCESS: {
@@ -81,10 +105,12 @@ export const createErrorMessage = type => (state = null, action) => {
 export default type => {
   const ids = createIds(type)
   const byId = createById(type)
+  const totalPages = createTotalPages(type)
   const errorMessage = createErrorMessage(type)
   const isFetching = createIsFetching(type)
 
   return combineReducers({
+    totalPages,
     byPageNumber,
     ids,
     byId,
@@ -109,3 +135,5 @@ export const getData = (state, type, { slug, pageNumber = 1 } = {}) => {
 }
 
 export const getIsFetching = state => state.isFetching
+
+export const getTotalPages = state => state.totalPages

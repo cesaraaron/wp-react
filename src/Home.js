@@ -87,7 +87,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     pageNumber,
     data: getData(state, types.posts, { pageNumber }),
-    totalPages: getTotalPages(state),
+    totalPages: getTotalPages(state, types.posts),
     errorMessage: getErrorMessage(state, types.posts),
     isFetching: getIsFetching(state, types.posts)
   }

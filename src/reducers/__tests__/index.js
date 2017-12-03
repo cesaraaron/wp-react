@@ -1,6 +1,5 @@
 import rootReducer, {
   endpoint,
-  totalPages,
   getTotalPages,
   getErrorMessage,
   getIsFetching,
@@ -8,10 +7,11 @@ import rootReducer, {
 } from '../index'
 import * as types from '../../actions/types'
 
-describe('properties of the rootReducer', () => {
+describe('createList() properties', () => {
   const root = rootReducer(undefined, {})
   const expected = {
     byPageNumber: {},
+    totalPages: 0,
     byId: {},
     errorMessage: null,
     ids: [],
@@ -28,24 +28,6 @@ describe('properties of the rootReducer', () => {
 
   it('has the comments object', () => {
     expect(root[types.comments]).toEqual(expected)
-  })
-})
-
-describe('totalPages()', () => {
-  it('should return 0 by default', () => {
-    const actual = totalPages(undefined, {})
-
-    expect(actual).toBe(0)
-  })
-
-  it('shoult return the number of pages from the normalized response.entities.post._paging prop when the action is types.FETCH_POSTS_SUCCESS', () => {
-    const response = { _paging: { totalPages: '4' } }
-    const actual = totalPages(undefined, {
-      type: types.FETCH_POSTS_SUCCESS,
-      response
-    })
-
-    expect(actual).toBe(4)
   })
 })
 
@@ -98,8 +80,8 @@ it('should get the errorMessage of [types.posts]', () => {
 })
 
 it('should get the totalPages number from the rootReducer object', () => {
-  const state = { totalPages: 4 }
-  const actual = getTotalPages(state)
+  const state = { [types.posts]: { totalPages: 4 } }
+  const actual = getTotalPages(state, types.posts)
 
   expect(actual).toBe(4)
 })
