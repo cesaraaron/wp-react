@@ -30,6 +30,10 @@ describe('createList() properties', () => {
   it('has the comments object', () => {
     expect(root[types.comments]).toEqual(expected)
   })
+
+  it('has the postsByCategory object', () => {
+    expect(root[types.postsByCategory]).toEqual(expected)
+  })
 })
 
 describe('endpoint()', () => {

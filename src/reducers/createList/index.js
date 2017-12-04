@@ -8,20 +8,13 @@ import { createIsFetching } from './isFetching'
 import { createByPageNumber, getPostsByPage as getByPage } from './byPageNumber'
 
 export default type => {
-  const ids = createIds(type)
-  const byId = createById(type)
-  const totalPages = createTotalPages(type)
-  const errorMessage = createErrorMessage(type)
-  const isFetching = createIsFetching(type)
-  const byPageNumber = createByPageNumber(type)
-
   return combineReducers({
-    totalPages,
-    byPageNumber,
-    ids,
-    byId,
-    errorMessage,
-    isFetching
+    ids: createIds(type),
+    byId: createById(type),
+    totalPages: createTotalPages(type),
+    errorMessage: createErrorMessage(type),
+    isFetching: createIsFetching(type),
+    byPageNumber: createByPageNumber(type)
   })
 }
 

@@ -6,6 +6,7 @@ import { posts } from '../../../data/SampleData'
 
 describe('byPageNumber()', () => {
   const byPageNumber = createByPageNumber(types.posts)
+
   it('should return an empty object', () => {
     const actual = byPageNumber(undefined, {})
 

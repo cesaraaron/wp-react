@@ -25,6 +25,43 @@ export const getEndpoint = location => ({
   location
 })
 
+export const fetchPostsByCategorySlug = (categorySlug, pageNumber) =>
+  createOnFetch(types.postsByCategory, (api, dispatch) =>
+    api
+      .categories()
+      .slug(categorySlug)
+      .then(cats => {
+        if (cats.length > 0) {
+          return api
+            .posts()
+            .categories(cats[0].id)
+            .page(pageNumber)
+        } else {
+          dispatch({
+            type: types.FETCH_POSTS_BY_CATEGORY_FAILURE,
+            message: '404 not found'
+          })
+        }
+      })
+      .then(
+        res => {
+          const response = normalize(res, arrayOfPosts)
+          response._paging = res._paging
+
+          dispatch({
+            type: types.FETCH_POSTS_BY_CATEGORY_SUCCESS,
+            response,
+            pageNumber
+          })
+        },
+        err =>
+          dispatch({
+            type: types.FETCH_POSTS_BY_CATEGORY_FAILURE,
+            message: err.message
+          })
+      )
+  )
+
 export const fetchPosts = pageNumber =>
   createOnFetch(types.posts, (api, dispatch) =>
     api
@@ -37,7 +74,7 @@ export const fetchPosts = pageNumber =>
 
           dispatch({
             type: types.FETCH_POSTS_SUCCESS,
-            response: response,
+            response,
             pageNumber
           })
         },

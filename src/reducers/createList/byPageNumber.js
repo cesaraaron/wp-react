@@ -6,12 +6,13 @@ const createErrorForValue = val =>
   new Error(`Expect pageNumber to be a number > 0. Instead received '${val}'`)
 
 export const createByPageNumber = type => (state = {}, action) => {
-  if (type !== types.posts) {
+  if (!(type === types.posts || type === types.postsByCategory)) {
     return state
   }
 
   switch (action.type) {
-    case types.FETCH_POSTS_SUCCESS: {
+    case types.FETCH_POSTS_SUCCESS:
+    case types.FETCH_POSTS_BY_CATEGORY_SUCCESS: {
       const { pageNumber, response } = action
 
       if (!isValidPageNumber(pageNumber)) {
