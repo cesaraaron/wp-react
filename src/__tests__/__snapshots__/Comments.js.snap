@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a comment 1`] = `
+<div>
+  <div>
+    Chris Ames
+  </div>
+  <p>
+    &lt;p&gt;Ello! Pretend you&#8217;re reading this comment with an English accent.&lt;/p&gt;
+
+  </p>
+</div>
+`;
+
+exports[`should render a list of comments 1`] = `
+Array [
+  <div>
+    <div>
+      Chris Ames
+    </div>
+    <p>
+      &lt;p&gt;Ello! Pretend you&#8217;re reading this comment with an English accent.&lt;/p&gt;
+
+    </p>
+  </div>,
+  <div>
+    <div>
+      Jared Erickson
+    </div>
+    <p>
+      &lt;p&gt;Non-breaking text is my favorite!&lt;/p&gt;
+&lt;p&gt;Super/Duper/Long/NonBreaking/Path/Name/To/A/File/That/Is/Way/Deep/Down/In/Some/Mysterious/Remote/Desolate/Part/Of/The/Operating/System/To/A/File/That/Just/So/Happens/To/Be/Strangely/Named/Supercalifragilisticexpialidocious.txt&lt;/p&gt;
+
+    </p>
+  </div>,
+]
+`;
