@@ -32,51 +32,7 @@ exports[`<CategoryContainer /> should render a couple of posts 1`] = `
     <div
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<p>This is a test for Jetpack&#8217;s Tiled Gallery.</p>
-<p>You can install <a title=\\"Jetpack for WordPress\\" href=\\"http://jetpack.me/\\" target=\\"_blank\\">Jetpack</a> or <a title=\\"Slim Jetpack\\" href=\\"http://wordpress.org/extend/plugins/slimjetpack/\\" target=\\"_blank\\">Slim Jetpack</a> to test it out.</p>
-
-		<style type='text/css'>
-			#gallery-1 {
-				margin: auto;
-			}
-			#gallery-1 .gallery-item {
-				float: left;
-				margin-top: 10px;
-				text-align: center;
-				width: 25%;
-			}
-			#gallery-1 img {
-				border: 2px solid #cfcfcf;
-			}
-			#gallery-1 .gallery-caption {
-				margin-left: 0;
-			}
-			/* see gallery_shortcode() in wp-includes/media.php */
-		</style>
-		<div id='gallery-1' class='gallery galleryid-1031 gallery-columns-4 gallery-size-thumbnail'><dl class='gallery-item'>
-			<dt class='gallery-icon portrait'>
-				<a href='http://localhost:8080/tiled-gallery/fight-club'><img width=\\"150\\" height=\\"150\\" src=\\"http://localhost:8080/wp-content/uploads/2013/03/fight-club-150x150.jpg\\" class=\\"attachment-thumbnail size-thumbnail\\" alt=\\"Fight Club\\" srcset=\\"http://localhost:8080/wp-content/uploads/2013/03/fight-club-150x150.jpg 150w, http://localhost:8080/wp-content/uploads/2013/03/fight-club-1200x1200.jpg 1200w, http://localhost:8080/wp-content/uploads/2013/03/fight-club-100x100.jpg 100w\\" sizes=\\"(max-width: 150px) 100vw, 150px\\" /></a>
-			</dt></dl><dl class='gallery-item'>
-			<dt class='gallery-icon portrait'>
-				<a href='http://localhost:8080/tiled-gallery/the-dark-knight-rises'><img width=\\"150\\" height=\\"150\\" src=\\"http://localhost:8080/wp-content/uploads/2013/03/the-dark-knight-rises-150x150.jpg\\" class=\\"attachment-thumbnail size-thumbnail\\" alt=\\"The Dark Knight Rises\\" srcset=\\"http://localhost:8080/wp-content/uploads/2013/03/the-dark-knight-rises-150x150.jpg 150w, http://localhost:8080/wp-content/uploads/2013/03/the-dark-knight-rises-100x100.jpg 100w\\" sizes=\\"(max-width: 150px) 100vw, 150px\\" /></a>
-			</dt></dl><dl class='gallery-item'>
-			<dt class='gallery-icon portrait'>
-				<a href='http://localhost:8080/tiled-gallery/captain-america'><img width=\\"150\\" height=\\"150\\" src=\\"http://localhost:8080/wp-content/uploads/2013/03/captain-america-150x150.jpg\\" class=\\"attachment-thumbnail size-thumbnail\\" alt=\\"Captain America\\" srcset=\\"http://localhost:8080/wp-content/uploads/2013/03/captain-america-150x150.jpg 150w, http://localhost:8080/wp-content/uploads/2013/03/captain-america-100x100.jpg 100w\\" sizes=\\"(max-width: 150px) 100vw, 150px\\" /></a>
-			</dt></dl><dl class='gallery-item'>
-			<dt class='gallery-icon portrait'>
-				<a href='http://localhost:8080/tiled-gallery/man-of-steel'><img width=\\"150\\" height=\\"150\\" src=\\"http://localhost:8080/wp-content/uploads/2013/03/man-of-steel-150x150.jpg\\" class=\\"attachment-thumbnail size-thumbnail\\" alt=\\"Man Of Steel\\" srcset=\\"http://localhost:8080/wp-content/uploads/2013/03/man-of-steel-150x150.jpg 150w, http://localhost:8080/wp-content/uploads/2013/03/man-of-steel-100x100.jpg 100w\\" sizes=\\"(max-width: 150px) 100vw, 150px\\" /></a>
-			</dt></dl><br style=\\"clear: both\\" /><dl class='gallery-item'>
-			<dt class='gallery-icon portrait'>
-				<a href='http://localhost:8080/tiled-gallery/spider-man'><img width=\\"150\\" height=\\"150\\" src=\\"http://localhost:8080/wp-content/uploads/2013/03/spider-man-150x150.jpg\\" class=\\"attachment-thumbnail size-thumbnail\\" alt=\\"The Amazing Spider Man\\" srcset=\\"http://localhost:8080/wp-content/uploads/2013/03/spider-man-150x150.jpg 150w, http://localhost:8080/wp-content/uploads/2013/03/spider-man-100x100.jpg 100w\\" sizes=\\"(max-width: 150px) 100vw, 150px\\" /></a>
-			</dt></dl><dl class='gallery-item'>
-			<dt class='gallery-icon portrait'>
-				<a href='http://localhost:8080/tiled-gallery/ironman-2'><img width=\\"150\\" height=\\"150\\" src=\\"http://localhost:8080/wp-content/uploads/2013/03/ironman-2-150x150.jpg\\" class=\\"attachment-thumbnail size-thumbnail\\" alt=\\"Iron Man 2\\" srcset=\\"http://localhost:8080/wp-content/uploads/2013/03/ironman-2-150x150.jpg 150w, http://localhost:8080/wp-content/uploads/2013/03/ironman-2-100x100.jpg 100w\\" sizes=\\"(max-width: 150px) 100vw, 150px\\" /></a>
-			</dt></dl>
-			<br style='clear: both' />
-		</div>
-
-<p>This is some text after the Tiled Gallery just to make sure that everything spaces nicely.</p>
-",
+          "__html": "<p>tiled galley content</p>",
         }
       }
     />
