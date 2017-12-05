@@ -70,7 +70,7 @@ const HomeContainer = ({
   ...rest
 }) => (
   <FetchContainer
-    noDataYet={data.length === 0}
+    hasData={data.length > 0}
     pageNumber={pageNumber}
     onUpdate={prevProps =>
       prevProps.pageNumber !== pageNumber && fetchPostsByPageNumber(pageNumber)}

@@ -34,7 +34,7 @@ const CommentListContainer = ({
   ...rest
 }) => (
   <FetchContainer
-    noDataYet={data.length === 0}
+    hasData={data.length > 0}
     onMount={() => fetchCommentsByPostId(postId)}
     render={() => <CommentList comments={data} />}
     {...rest}

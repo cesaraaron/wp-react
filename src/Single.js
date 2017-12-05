@@ -39,7 +39,7 @@ const SingleWithComments = props => (
 // FETCH_SINGLE action creator.
 const SingleContainer = ({ fetchSingleBySlug, data, slug, ...rest }) => (
   <FetchContainer
-    noDataYet={data.length === 0}
+    hasData={data.length > 0}
     onMount={() => fetchSingleBySlug(slug)}
     render={() =>
       data.map(single => <SingleWithComments {...single} key={single.id} />)}
