@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PagingLinks.js 1`] = `
+<div>
+  <a
+    href="/page/1"
+    onClick={[Function]}
+    style={
+      Object {
+        "padding": "5px",
+      }
+    }
+  >
+    1
+  </a>
+  <span
+    style={
+      Object {
+        "padding": "5px",
+      }
+    }
+  >
+    2
+  </span>
+  <a
+    href="/page/3"
+    onClick={[Function]}
+    style={
+      Object {
+        "padding": "5px",
+      }
+    }
+  >
+    3
+  </a>
+  <a
+    href="/page/4"
+    onClick={[Function]}
+    style={
+      Object {
+        "padding": "5px",
+      }
+    }
+  >
+    4
+  </a>
+  <a
+    href="/page/5"
+    onClick={[Function]}
+    style={
+      Object {
+        "padding": "5px",
+      }
+    }
+  >
+    5
+  </a>
+</div>
+`;

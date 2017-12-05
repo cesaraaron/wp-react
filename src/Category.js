@@ -11,6 +11,7 @@ import {
   getTotalPages,
   getPostsByPage
 } from './reducers'
+import { PagingLinks } from './components/PagingLinks'
 
 const Post = ({ title, content, slug }) => {
   return (
@@ -31,29 +32,11 @@ Post.propTypes = {
 
 export { Post }
 
-export const LinksGroup = ({ total }) => {
-  const links = []
-  for (var i = 1; i <= total; i++) {
-    const to = i === 1 ? '/' : `/page/${i}`
-    links.push(
-      <Link style={{ padding: '5px' }} to={to} key={i}>
-        {i}
-      </Link>
-    )
-  }
-  return <div>{links}</div>
-}
-
-LinksGroup.propTypes = {
-  total: PropTypes.number.isRequired,
-  activeIndex: PropTypes.number.isRequired
-}
-
 export const Categories = ({ data, totalPages, pageNumber }) => (
   <div>
     {data.map(post => <Post {...post} key={post.id} />)}
     <br />
-    <LinksGroup total={totalPages} activeIndex={pageNumber} />
+    <PagingLinks total={totalPages} activeIndex={pageNumber} />
   </div>
 )
 
