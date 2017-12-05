@@ -4,7 +4,7 @@ import FetchContainer from './components/FetchContainer'
 import { connect } from 'react-redux'
 import { getErrorMessage, getIsFetching, getData } from './reducers'
 import * as types from './actions/types'
-import { fetchComments } from './actions'
+import { fetchCommentsByPostId } from './actions'
 
 export const Comment = ({ author_name, content }) => (
   <div>
@@ -27,17 +27,22 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired
 }
 
-const CommentListContainer = ({ fetchComments, data, postId, ...rest }) => (
+const CommentListContainer = ({
+  fetchCommentsByPostId,
+  data,
+  postId,
+  ...rest
+}) => (
   <FetchContainer
     noDataYet={data.length === 0}
-    onMount={() => fetchComments(postId)}
+    onMount={() => fetchCommentsByPostId(postId)}
     render={() => <CommentList comments={data} />}
     {...rest}
   />
 )
 
 CommentListContainer.propTypes = {
-  fetchComments: PropTypes.func.isRequired,
+  fetchCommentsByPostId: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
   postId: PropTypes.number.isRequired
 }
@@ -45,11 +50,13 @@ CommentListContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { postId } = ownProps
   return {
+    postId,
     data: getData(state, types.comments),
     errorMessage: getErrorMessage(state, types.comments),
-    isFetching: getIsFetching(state, types.comments),
-    postId
+    isFetching: getIsFetching(state, types.comments)
   }
 }
 
-export default connect(mapStateToProps, { fetchComments })(CommentListContainer)
+export default connect(mapStateToProps, { fetchCommentsByPostId })(
+  CommentListContainer
+)

@@ -62,7 +62,7 @@ export const fetchPostsByCategorySlug = (categorySlug, pageNumber) =>
       )
   )
 
-export const fetchPosts = pageNumber =>
+export const fetchPostsByPageNumber = pageNumber =>
   createOnFetch(types.posts, (api, dispatch) =>
     api
       .posts()
@@ -83,7 +83,7 @@ export const fetchPosts = pageNumber =>
       )
   )
 
-export const fetchSingle = slug =>
+export const fetchSingleBySlug = slug =>
   createOnFetch(types.single, (api, dispatch) =>
     api
       .posts()
@@ -99,7 +99,7 @@ export const fetchSingle = slug =>
       )
   )
 
-export const fetchComments = postId =>
+export const fetchCommentsByPostId = postId =>
   createOnFetch(types.comments, (api, dispatch) =>
     api
       .comments()

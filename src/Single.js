@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as types from './actions/types'
-import { fetchSingle } from './actions'
+import { fetchSingleBySlug } from './actions'
 import FetchContainer from './components/FetchContainer'
 import { getData, getErrorMessage, getIsFetching } from './reducers'
 import Comments from './Comments'
@@ -37,10 +37,10 @@ const SingleWithComments = props => (
 )
 
 // FETCH_SINGLE action creator.
-const SingleContainer = ({ fetchSingle, data, slug, ...rest }) => (
+const SingleContainer = ({ fetchSingleBySlug, data, slug, ...rest }) => (
   <FetchContainer
     noDataYet={data.length === 0}
-    onMount={() => fetchSingle(slug)}
+    onMount={() => fetchSingleBySlug(slug)}
     render={() =>
       data.map(single => <SingleWithComments {...single} key={single.id} />)}
     {...rest}
@@ -49,7 +49,7 @@ const SingleContainer = ({ fetchSingle, data, slug, ...rest }) => (
 
 SingleContainer.propTypes = {
   data: PropTypes.array.isRequired,
-  fetchSingle: PropTypes.func.isRequired,
+  fetchSingleBySlug: PropTypes.func.isRequired,
   slug: PropTypes.string.isRequired
 }
 
@@ -65,5 +65,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchSingle })(SingleContainer)
+  connect(mapStateToProps, { fetchSingleBySlug })(SingleContainer)
 )

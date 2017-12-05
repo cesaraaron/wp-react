@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import FetchContainer from './components/FetchContainer'
 import * as types from './actions/types'
-import { fetchPosts } from './actions'
+import { fetchPostsByPageNumber } from './actions'
 import {
   getData,
   getErrorMessage,
@@ -63,13 +63,18 @@ Home.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const HomeContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
+const HomeContainer = ({
+  fetchPostsByPageNumber,
+  pageNumber,
+  data,
+  ...rest
+}) => (
   <FetchContainer
     noDataYet={data.length === 0}
     pageNumber={pageNumber}
     onUpdate={prevProps =>
-      prevProps.pageNumber !== pageNumber && fetchPosts(pageNumber)}
-    onMount={() => fetchPosts(pageNumber)}
+      prevProps.pageNumber !== pageNumber && fetchPostsByPageNumber(pageNumber)}
+    onMount={() => fetchPostsByPageNumber(pageNumber)}
     render={() => <Home pageNumber={pageNumber} data={data} {...rest} />}
     {...rest}
   />
@@ -78,7 +83,7 @@ const HomeContainer = ({ fetchPosts, pageNumber, data, ...rest }) => (
 HomeContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   data: PropTypes.array.isRequired,
-  fetchPosts: PropTypes.func.isRequired
+  fetchPostsByPageNumber: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -94,5 +99,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchPosts })(HomeContainer)
+  connect(mapStateToProps, { fetchPostsByPageNumber })(HomeContainer)
 )
