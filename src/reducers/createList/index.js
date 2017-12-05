@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import * as types from '../../actions/types'
+// import * as types from '../../actions/types'
 import { createIds } from './ids'
 import { createById } from './byId'
 import { createTotalPages } from './totalPages'
@@ -18,20 +18,12 @@ export default type => {
   })
 }
 
+export const getData = state => state.ids.map(id => state.byId[id])
+
 export const getErrorMessage = state => state.errorMessage
 
-export const getData = (state, type, { slug, pageNumber = 1 } = {}) => {
-  const data = state.ids.map(id => state.byId[id])
-
-  switch (type) {
-    case types.posts:
-      return state.byPageNumber[pageNumber] || []
-    case types.single:
-      return data.filter(post => post.slug === slug)
-    default:
-      return data
-  }
-}
+export const getSingleWithSlug = (state, slug) =>
+  getData(state).filter(post => post.slug === slug)
 
 export const getIsFetching = state => state.isFetching
 

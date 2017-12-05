@@ -4,7 +4,8 @@ import rootReducer, {
   getPostsByPage,
   getErrorMessage,
   getIsFetching,
-  getData
+  getData,
+  getSingleWithSlug
 } from './index'
 import * as types from '../actions/types'
 
@@ -58,22 +59,23 @@ it('returns false when calling getIsFetching', () => {
 
 describe('Selectors', () => {
   describe('getData()', () => {
-    it('returns and empty array of posts', () => {
-      const state = { [types.posts]: { byId: {}, ids: [], byPageNumber: {} } }
+    it('returns and empty array of comments', () => {
+      const state = {
+        [types.comments]: { byId: {}, ids: [], byPageNumber: {} }
+      }
 
-      const val = getData(state, types.posts)
+      const actual = getData(state, types.comments)
 
-      expect(val).toEqual([])
+      expect(actual).toEqual([])
     })
 
-    it('when getting the state of [types.single] should return an array when only one item matching the `slug` of the route', () => {
-      const byId = { 1: { slug: 'hello-world' }, 2: { slug: 'sample-post' } }
-      const ids = [1, 2]
-      const state = { [types.single]: { byId, ids } }
+    it('returns an array with one comment', () => {
+      const state = {
+        [types.comments]: { byId: { 1: { id: 1 } }, ids: [1], byPageNumber: {} }
+      }
+      const actual = getData(state, types.comments)
 
-      const actual = getData(state, types.single, { slug: 'hello-world' })
-
-      expect(actual).toEqual([{ slug: 'hello-world' }])
+      expect(actual).toEqual([{ id: 1 }])
     })
   })
 
@@ -93,6 +95,18 @@ describe('Selectors', () => {
       const actual = getPostsByPage(state, types.posts, 1)
 
       expect(actual).toEqual(posts)
+    })
+  })
+
+  describe('getSingleWithSlug()', () => {
+    const byId = { 1: { slug: 'hello-world' }, 2: { slug: 'hello-world2' } }
+    const ids = [1, 2]
+    const state = { [types.single]: { byId, ids } }
+
+    it('should return an array with one post', () => {
+      const actual = getSingleWithSlug(state, 'hello-world')
+
+      expect(actual).toEqual([{ slug: 'hello-world' }])
     })
   })
 })

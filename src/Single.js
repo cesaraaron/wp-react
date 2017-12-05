@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import * as types from './actions/types'
 import { fetchSingleBySlug } from './actions'
 import FetchContainer from './components/FetchContainer'
-import { getData, getErrorMessage, getIsFetching } from './reducers'
+import { getSingleWithSlug, getErrorMessage, getIsFetching } from './reducers'
 import Comments from './Comments'
 
 const Single = ({ title, content }) => {
@@ -57,7 +57,7 @@ SingleContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { slug } = ownProps.match.params
   return {
-    data: getData(state, types.single, { slug }),
+    data: getSingleWithSlug(state, slug),
     errorMessage: getErrorMessage(state, types.single),
     isFetching: getIsFetching(state, types.single),
     slug

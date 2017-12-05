@@ -26,8 +26,10 @@ export const getTotalPages = (state, type) =>
 
 export const getEndpoint = state => state.endpoint
 
-// export const getData = (state, type, options) =>
-//   fromCreateList.getData(state[type], type, options)
+export const getData = (state, type) => fromCreateList.getData(state[type])
+
+export const getSingleWithSlug = (state, slug) =>
+  fromCreateList.getSingleWithSlug(state[types.single], slug)
 
 export const getIsFetching = (state, type) =>
   fromCreateList.getIsFetching(state[type], type)
