@@ -6,10 +6,10 @@ import FetchContainer from './components/FetchContainer'
 import * as types from './actions/types'
 import { fetchPostsByPageNumber } from './actions'
 import {
-  getData,
   getErrorMessage,
   getIsFetching,
-  getTotalPages
+  getTotalPages,
+  getPostsByPage
 } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 
@@ -74,7 +74,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     pageNumber,
-    data: getData(state, types.posts, { pageNumber }),
+    data: getPostsByPage(state, types.posts, pageNumber),
     totalPages: getTotalPages(state, types.posts),
     errorMessage: getErrorMessage(state, types.posts),
     isFetching: getIsFetching(state, types.posts)
