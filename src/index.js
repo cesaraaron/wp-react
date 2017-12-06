@@ -1,7 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import Root from './components/Root'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import App from './App'
+import configureStore from './utils/configureStore'
+import { getEndpoint } from './actions'
 
 if (process.env.NODE_ENV !== 'production') {
   const div = document.createElement('div')
@@ -9,19 +13,27 @@ if (process.env.NODE_ENV !== 'production') {
   document.body.insertBefore(div, document.body.firstChild)
 }
 
-const render = Component => {
+const render = (Component, store) => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider store={store}>
+        <Router>
+          <Component />
+        </Router>
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   )
 }
 
-render(Root)
+const store = configureStore()
+
+store.dispatch(getEndpoint(location))
+
+render(App, store)
 
 if (module.hot) {
-  module.hot.accept('./components/Root', () => {
-    render(Root)
+  module.hot.accept('./App', () => {
+    render(App)
   })
 }
