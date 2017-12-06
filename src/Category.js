@@ -28,7 +28,7 @@ Categories.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const HomeContainer = ({
+const CategoriesContainer = ({
   fetchPostsByCategorySlug,
   slug,
   pageNumber,
@@ -47,7 +47,7 @@ const HomeContainer = ({
   />
 )
 
-HomeContainer.propTypes = {
+CategoriesContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   data: PropTypes.array.isRequired,
   slug: PropTypes.string.isRequired,
@@ -69,5 +69,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchPostsByCategorySlug })(HomeContainer)
+  connect(mapStateToProps, { fetchPostsByCategorySlug })(CategoriesContainer)
 )
