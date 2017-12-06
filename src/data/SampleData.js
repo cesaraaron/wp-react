@@ -81,7 +81,7 @@ export const posts = [
     link: 'http://localhost:8080/tiled-gallery',
     title: { rendered: 'Tiled Gallery' },
     content: {
-      rendered: '<p>tiled galley content</p>',
+      rendered: '<p>titled gallery content</p>',
       protected: false
     },
     excerpt: {

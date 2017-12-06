@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter, Route } from 'react-router-dom'
 import renderer from 'react-test-renderer'
-import CategoryContainer, { Post } from '../Category'
+import CategoryContainer from '../Category'
 import { posts } from '../data/SampleData'
 import { createStore } from 'redux'
 import rootReducer from '../reducers'
@@ -9,17 +9,6 @@ import { Provider } from 'react-redux'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../actions/schema'
 import * as types from '../actions/types'
-
-it('should render a post', () => {
-  const component = renderer.create(
-    <MemoryRouter>
-      <Post {...posts[0]} />
-    </MemoryRouter>
-  )
-
-  let tree = component.toJSON()
-  expect(tree).toMatchSnapshot()
-})
 
 describe('<CategoryContainer />', () => {
   const store = createStore(rootReducer)
@@ -41,7 +30,7 @@ describe('<CategoryContainer />', () => {
     }
   }
 
-  it('should render a couple of posts', () => {
+  it('should render without errors', () => {
     const component = renderer.create(
       <MemoryRouter initialEntries={[{ pathname: '/category/hello-world' }]}>
         <Provider store={store}>

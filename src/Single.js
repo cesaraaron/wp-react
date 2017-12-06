@@ -7,42 +7,26 @@ import { fetchSingleBySlug } from './actions'
 import FetchContainer from './components/FetchContainer'
 import { getSingleWithSlug, getErrorMessage, getIsFetching } from './reducers'
 import Comments from './Comments'
+import { Content } from './components/Content'
 
-const Single = ({ title, content }) => {
-  return (
-    <article>
-      <h4>{title.rendered}</h4>
-      <div dangerouslySetInnerHTML={{ __html: content.rendered }} />
-    </article>
-  )
-}
-
-Single.propTypes = {
-  title: PropTypes.object.isRequired,
-  content: PropTypes.object.isRequired
-}
-
-export { Single }
-
-const SingleWithComments = props => (
+const Single = ({ data }) => (
   <div>
-    <Single {...props} />
+    <Content isSingle data={data} />
     <br />
     <h2>Comments</h2>
-    <Comments
-      // eslint-disable-next-line react/prop-types
-      postId={props.id}
-    />
+    {data.length ? <Comments postId={data[0].id} /> : null}
   </div>
 )
 
-// FETCH_SINGLE action creator.
+Single.propTypes = {
+  data: PropTypes.array.isRequired
+}
+
 const SingleContainer = ({ fetchSingleBySlug, data, slug, ...rest }) => (
   <FetchContainer
     hasData={data.length > 0}
     onMount={() => fetchSingleBySlug(slug)}
-    render={() =>
-      data.map(single => <SingleWithComments {...single} key={single.id} />)}
+    render={() => <Single data={data} />}
     {...rest}
   />
 )

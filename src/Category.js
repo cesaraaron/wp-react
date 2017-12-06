@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import FetchContainer from './components/FetchContainer'
 import * as types from './actions/types'
 import { fetchPostsByCategorySlug } from './actions'
@@ -12,29 +12,11 @@ import {
   getPostsByPage
 } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
-
-const Post = ({ title, content, slug }) => {
-  return (
-    <article>
-      <h4>
-        <Link to={`/${slug}`}>{title.rendered}</Link>
-      </h4>
-      <div dangerouslySetInnerHTML={{ __html: content.rendered }} />
-    </article>
-  )
-}
-
-Post.propTypes = {
-  title: PropTypes.object.isRequired,
-  content: PropTypes.object.isRequired,
-  slug: PropTypes.string.isRequired
-}
-
-export { Post }
+import { Content } from './components/Content'
 
 export const Categories = ({ data, totalPages, pageNumber }) => (
   <div>
-    {data.map(post => <Post {...post} key={post.id} />)}
+    <Content data={data} />
     <br />
     <PagingLinks total={totalPages} activeIndex={pageNumber} />
   </div>
