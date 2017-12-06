@@ -2,7 +2,7 @@ import { createByPageNumber, getPostsByPage } from '../byPageNumber'
 import * as types from '../../../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../../../actions/schema'
-import { posts } from '../../../data/SampleData'
+import { posts } from '../../../utils/SampleData'
 
 describe('byPageNumber()', () => {
   const byPageNumber = createByPageNumber(types.posts)

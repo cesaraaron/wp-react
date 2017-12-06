@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import SingleContainer from '../Single'
-import { posts } from '../data/SampleData'
+import { posts } from '../utils/SampleData'
 import rootReducer from '../reducers'
 import { MemoryRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'

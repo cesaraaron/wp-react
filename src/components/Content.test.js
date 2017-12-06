@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
-import { posts } from '../data/SampleData'
+import { posts } from '../utils/SampleData'
 import { Post } from './Content'
 
 describe('<Post />', () => {
