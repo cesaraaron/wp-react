@@ -4,6 +4,16 @@ import { arrayOfPosts } from './schema'
 import * as selectors from '../reducers'
 import * as types from './types'
 
+const getAll = req =>
+  req.then(res => {
+    if (!res._paging || !res._paging.next) {
+      return res
+    }
+    return Promise.all([res, getAll(res._paging.next)]).then(data =>
+      data.reduce((prev, next) => [...prev, ...next])
+    )
+  })
+
 const createOnFetch = (type, doFetching) => (dispatch, getState) => {
   const onFetchVars = types.createOnFetchVars(type)
   const state = getState()
