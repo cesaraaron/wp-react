@@ -124,3 +124,19 @@ export const fetchCommentsByPostId = postId =>
           dispatch({ type: types.FETCH_COMMENTS_FAILURE, message: err.message })
       )
   )
+
+export const fetchAllCategories = () =>
+  createOnFetch(types.allCategories, (api, dispatch) =>
+    getAll(api.categories).then(
+      res =>
+        dispatch({
+          type: types.FETCH_ALL_CATEGORIES_SUCCESS,
+          response: normalize(arrayOfPosts, res)
+        }),
+      err =>
+        dispatch({
+          type: types.FETCH_ALL_CATEGORIES_FAILURE,
+          message: err.message
+        })
+    )
+  )
