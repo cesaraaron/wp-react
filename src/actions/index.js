@@ -127,11 +127,11 @@ export const fetchCommentsByPostId = postId =>
 
 export const fetchAllCategories = () =>
   createOnFetch(types.allCategories, (api, dispatch) =>
-    getAll(api.categories).then(
+    getAll(api.categories()).then(
       res =>
         dispatch({
           type: types.FETCH_ALL_CATEGORIES_SUCCESS,
-          response: normalize(arrayOfPosts, res)
+          response: normalize(res, arrayOfPosts)
         }),
       err =>
         dispatch({
