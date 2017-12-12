@@ -13,10 +13,12 @@ import {
 } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
+import Sidebar from './Sidebar'
 
 export const Home = ({ data, totalPages, pageNumber }) => (
   <div>
     <Content data={data} />
+    <Sidebar />
     <br />
     <PagingLinks isHome total={totalPages} activeIndex={pageNumber} />
   </div>

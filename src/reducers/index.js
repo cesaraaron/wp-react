@@ -18,6 +18,7 @@ export default combineReducers({
   [types.single]: createList(types.single),
   [types.comments]: createList(types.comments),
   [types.postsByCategory]: createList(types.postsByCategory),
+  [types.allCategories]: createList(types.allCategories),
   endpoint
 })
 

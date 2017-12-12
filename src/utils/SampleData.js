@@ -220,3 +220,50 @@ export const comments = [
     }
   }
 ]
+
+export const categories = [
+  {
+    id: 2,
+    count: 3,
+    description: 'Posts in this category test image and text alignment.',
+    link: 'http://wptest.io/demo/category/alignment/',
+    name: 'Alignment',
+    slug: 'alignment',
+    taxonomy: 'category',
+    parent: 0,
+    meta: [],
+    _links: {
+      self: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/categories/2' }],
+      collection: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/categories' }],
+      about: [
+        { href: 'http://wptest.io/demo/wp-json/wp/v2/taxonomies/category' }
+      ],
+      'wp:post_type': [
+        { href: 'http://wptest.io/demo/wp-json/wp/v2/posts?categories=2' }
+      ],
+      curies: [{ name: 'wp', href: 'https://api.w.org/{rel}', templated: true }]
+    }
+  },
+  {
+    id: 3,
+    count: 2,
+    description: 'Posts in this category test the aside post format.',
+    link: 'http://wptest.io/demo/category/post-format-aside/',
+    name: 'Aside',
+    slug: 'post-format-aside',
+    taxonomy: 'category',
+    parent: 0,
+    meta: [],
+    _links: {
+      self: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/categories/3' }],
+      collection: [{ href: 'http://wptest.io/demo/wp-json/wp/v2/categories' }],
+      about: [
+        { href: 'http://wptest.io/demo/wp-json/wp/v2/taxonomies/category' }
+      ],
+      'wp:post_type': [
+        { href: 'http://wptest.io/demo/wp-json/wp/v2/posts?categories=3' }
+      ],
+      curies: [{ name: 'wp', href: 'https://api.w.org/{rel}', templated: true }]
+    }
+  }
+]

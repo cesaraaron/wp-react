@@ -4,6 +4,9 @@ import { arrayOfPosts } from './schema'
 import * as selectors from '../reducers'
 import * as types from './types'
 
+// For some reason this doesn't work when fetching http://wptest.io/demo
+// I got an error ‘res is null’ or something like that.
+// Had to use a local wp installation to make it work :c
 const getAll = req =>
   req.then(res => {
     if (!res._paging || !res._paging.next) {
