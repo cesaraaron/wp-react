@@ -2,41 +2,51 @@
 
 exports[`<CategoryContainer /> should render without errors 1`] = `
 <div>
-  <article>
-    <h4>
-      <a
-        href="/hello-world"
-        onClick={[Function]}
-      >
-        Hello world!
-      </a>
-    </h4>
-    <div
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
+  <div>
+    <div>
+      <h2>
+        Categories
+      </h2>
+      <hr />
+    </div>
+    <div>
+      <article>
+        <h4>
+          <a
+            href="/hello-world"
+            onClick={[Function]}
+          >
+            Hello world!
+          </a>
+        </h4>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
 ",
-        }
-      }
-    />
-  </article>
-  <article>
-    <h4>
-      <a
-        href="/tiled-gallery"
-        onClick={[Function]}
-      >
-        Tiled Gallery
-      </a>
-    </h4>
-    <div
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<p>titled gallery content</p>",
-        }
-      }
-    />
-  </article>
+            }
+          }
+        />
+      </article>
+      <article>
+        <h4>
+          <a
+            href="/tiled-gallery"
+            onClick={[Function]}
+          >
+            Tiled Gallery
+          </a>
+        </h4>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>titled gallery content</p>",
+            }
+          }
+        />
+      </article>
+    </div>
+  </div>
   <br />
   <div />
 </div>

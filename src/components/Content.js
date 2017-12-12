@@ -23,10 +23,22 @@ Post.propTypes = {
   slug: PropTypes.string.isRequired
 }
 
-export const Content = ({ data, isSingle }) =>
-  data.map(post => <Post isSingle={isSingle} {...post} key={post.id} />)
+export const Content = ({ data, isSingle, title }) => (
+  <div>
+    {title ? (
+      <div>
+        <h2>{title}</h2>
+        <hr />
+      </div>
+    ) : null}
+    <div>
+      {data.map(post => <Post isSingle={isSingle} {...post} key={post.id} />)}
+    </div>
+  </div>
+)
 
 Content.propTypes = {
   data: PropTypes.array.isRequired,
-  isSingle: PropTypes.bool
+  isSingle: PropTypes.bool,
+  title: PropTypes.string
 }

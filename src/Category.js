@@ -16,7 +16,7 @@ import { Content } from './components/Content'
 
 export const Categories = ({ data, totalPages, pageNumber }) => (
   <div>
-    <Content data={data} />
+    <Content title="Categories" data={data} />
     <br />
     <PagingLinks total={totalPages} activeIndex={pageNumber} />
   </div>
