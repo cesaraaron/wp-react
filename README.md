@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/cesaraaron/wp-react.svg?branch=master)](https://travis-ci.org/cesaraaron/wp-react)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 # WP-React
