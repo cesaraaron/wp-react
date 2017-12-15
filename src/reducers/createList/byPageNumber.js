@@ -1,9 +1,9 @@
 import * as types from '../../actions/types'
-// import { createOnFetchVars } from '../../actions/types'
+import invariant from 'invariant'
 
-const isValidPageNumber = val => typeof val === 'number' || val > 0
-const createErrorForValue = val =>
-  new Error(`Expect pageNumber to be a number > 0. Instead received '${val}'`)
+const isValidPageNumber = pageNumber => Number(pageNumber) > 0
+const invalidPageNumber = pageNumber =>
+  `Expect pageNumber to be a number > 0. Instead received: '${pageNumber}'`
 
 export const createByPageNumber = type => (state = {}, action) => {
   if (!(type === types.posts || type === types.postsByCategory)) {
@@ -15,9 +15,7 @@ export const createByPageNumber = type => (state = {}, action) => {
     case types.FETCH_POSTS_BY_CATEGORY_SUCCESS: {
       const { pageNumber, response } = action
 
-      if (!isValidPageNumber(pageNumber)) {
-        throw createErrorForValue(pageNumber)
-      }
+      invariant(isValidPageNumber(pageNumber), invalidPageNumber(pageNumber))
 
       return {
         ...state,
@@ -30,8 +28,7 @@ export const createByPageNumber = type => (state = {}, action) => {
 }
 
 export const getPostsByPage = (state, pageNumber) => {
-  if (!isValidPageNumber(pageNumber)) {
-    throw createErrorForValue(pageNumber)
-  }
+  invariant(isValidPageNumber(pageNumber), invalidPageNumber(pageNumber))
+
   return state[pageNumber] || []
 }
