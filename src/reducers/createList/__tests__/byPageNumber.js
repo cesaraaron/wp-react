@@ -13,12 +13,6 @@ describe('byPageNumber()', () => {
     expect(actual).toEqual({})
   })
 
-  it('should throw and error if pageNumber is falsey when the action is FETCH_POSTS_SUCCESS', () => {
-    expect(() =>
-      byPageNumber(undefined, { type: types.FETCH_POSTS_SUCCESS })
-    ).toThrowError(/pageNumber/)
-  })
-
   it('should return an object where the keys are from `action.pageNumber` and the values are a map of `response.result.map(id => ...) when the action.type is FETCH_POSTS_SUCCESS', () => {
     const response = normalize(posts, arrayOfPosts)
     const actual = byPageNumber(undefined, {

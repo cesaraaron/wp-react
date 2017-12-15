@@ -1,23 +1,14 @@
-import * as types from '../../actions/types'
-import invariant from 'invariant'
-import isObjectLike from 'lodash/isObjectLike'
+import isObject from 'lodash/isObject'
+import { createOnFetchVars } from '../../actions/types'
 
 export const createTotalPages = type => (state = 0, action) => {
-  // const onFetch = createOnFetchVars(type)
-  if (type !== types.posts) {
-    return state
-  }
+  const onFetch = createOnFetchVars(type)
 
   switch (action.type) {
-    case types.FETCH_POSTS_SUCCESS: {
-      const { _paging } = action.response
-      invariant(
-        isObjectLike(_paging),
-        `Expect the response to have a '_paging' prop.`
-      )
-
-      return Number(_paging.totalPages)
-    }
+    case onFetch.success:
+      return isObject(action.response._paging)
+        ? Number(action.response._paging.totalPages)
+        : state
     default:
       return state
   }

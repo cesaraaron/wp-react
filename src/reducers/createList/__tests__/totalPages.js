@@ -10,15 +10,6 @@ describe('totalPages()', () => {
     expect(actual).toBe(0)
   })
 
-  it('should throw an error when the action is ...POSTS_SUCCESS and action.response has no _paging prop', () => {
-    expect(() =>
-      totalPages(undefined, {
-        type: types.FETCH_POSTS_SUCCESS,
-        response: {}
-      })
-    ).toThrowError(/_paging/)
-  })
-
   it('shoult return the number of pages from the response._paging prop when the action is ... POSTS_SUCCESS', () => {
     const response = { _paging: { totalPages: '4' } }
     const actual = totalPages(undefined, {
