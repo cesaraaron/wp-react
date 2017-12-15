@@ -3,6 +3,12 @@ import { normalize } from 'normalizr'
 import { arrayOfPosts } from './schema'
 import * as selectors from '../reducers'
 import * as types from './types'
+import invariant from 'invariant'
+
+const invalidPageNumberError = val =>
+  `Expect pageNumber to be a number > 0. But got '${val}'`
+const invalidStringError = (varName, value) =>
+  `Expect ${varName} to be valid string. But got: '${value}'`
 
 // For some reason this doesn't work when fetching http://wptest.io/demo
 // I got an error ‘res is null’ or something like that.
@@ -38,11 +44,14 @@ export const getEndpoint = location => ({
   location
 })
 
-export const fetchPostsByCategorySlug = (categorySlug, pageNumber) =>
-  createOnFetch(types.postsByCategory, (api, dispatch) =>
+export const fetchPostsByCategorySlug = (slug, pageNumber) => {
+  invariant(String(slug), invalidStringError('categorySlug', slug))
+  invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
+
+  return createOnFetch(types.postsByCategory, (api, dispatch) =>
     api
       .categories()
-      .slug(categorySlug)
+      .slug(slug)
       .then(cats => {
         if (cats.length > 0) {
           return api
@@ -74,9 +83,12 @@ export const fetchPostsByCategorySlug = (categorySlug, pageNumber) =>
           })
       )
   )
+}
 
-export const fetchPostsByPageNumber = pageNumber =>
-  createOnFetch(types.posts, (api, dispatch) =>
+export const fetchPostsByPageNumber = pageNumber => {
+  invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
+
+  return createOnFetch(types.posts, (api, dispatch) =>
     api
       .posts()
       .page(pageNumber)
@@ -95,9 +107,12 @@ export const fetchPostsByPageNumber = pageNumber =>
           dispatch({ type: types.FETCH_POSTS_FAILURE, message: err.message })
       )
   )
+}
 
-export const fetchSingleBySlug = slug =>
-  createOnFetch(types.single, (api, dispatch) =>
+export const fetchSingleBySlug = slug => {
+  invariant(String(slug), invalidStringError('slug', slug))
+
+  return createOnFetch(types.single, (api, dispatch) =>
     api
       .posts()
       .slug(slug)
@@ -111,9 +126,12 @@ export const fetchSingleBySlug = slug =>
           dispatch({ type: types.FETCH_SINGLE_FAILURE, message: err.message })
       )
   )
+}
 
-export const fetchCommentsByPostId = postId =>
-  createOnFetch(types.comments, (api, dispatch) =>
+export const fetchCommentsByPostId = postId => {
+  invariant(typeof postId === 'number', `Invalid postId`)
+
+  return createOnFetch(types.comments, (api, dispatch) =>
     api
       .comments()
       .post(postId)
@@ -127,6 +145,7 @@ export const fetchCommentsByPostId = postId =>
           dispatch({ type: types.FETCH_COMMENTS_FAILURE, message: err.message })
       )
   )
+}
 
 export const fetchAllCategories = () =>
   createOnFetch(types.allCategories, (api, dispatch) =>
