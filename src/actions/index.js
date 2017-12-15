@@ -162,3 +162,32 @@ export const fetchAllCategories = () =>
         })
     )
   )
+
+export const fetchPostsBySearchQuery = (query, pageNumber) => {
+  invariant(String(query), invalidStringError('query', query))
+  invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
+
+  return createOnFetch(types.searchQuery, (api, dispatch) =>
+    api
+      .posts()
+      .search(query)
+      .page(pageNumber)
+      .then(
+        res => {
+          const response = normalize(res, arrayOfPosts)
+          response._paging = res._paging
+
+          dispatch({
+            type: types.FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS,
+            response,
+            pageNumber
+          })
+        },
+        err =>
+          dispatch({
+            type: types.FETCH_POSTS_BY_SEARCH_QUERY_FAILURE,
+            message: err.message
+          })
+      )
+  )
+}
