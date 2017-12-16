@@ -10,7 +10,7 @@
     "build": "webpack --config ./config/webpack.prod.js",
     "start": "webpack-dev-server --config ./config/webpack.dev.js",
     "test": "jest --updateSnapshot",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watch",
     "precommit": "lint-staged"
   },
   "dependencies": {
