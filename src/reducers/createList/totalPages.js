@@ -1,6 +1,7 @@
 import isObject from 'lodash/isObject'
 import { createOnFetchVars } from '../../actions/types'
 
+// TODO rename this reducer to `paging` and return `_paging` as state
 export const createTotalPages = type => (state = 0, action) => {
   const onFetch = createOnFetchVars(type)
 
