@@ -9,7 +9,7 @@ import {
   getErrorMessage,
   getIsFetching,
   getTotalPages,
-  getPostsBySearchQuery
+  getPostsByPage
 } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
@@ -17,7 +17,7 @@ import { parse } from 'qs'
 
 export const Search = ({ data, totalPages, pageNumber }) => (
   <div>
-    <Content title="Categories" data={data} />
+    <Content title="Search" data={data} />
     <br />
     <PagingLinks total={totalPages} activeIndex={pageNumber} />
   </div>
@@ -62,7 +62,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     pageNumber,
     query,
-    data: getPostsBySearchQuery(state, types.searchQuery, query),
+    data: getPostsByPage(state, types.searchQuery, pageNumber),
     totalPages: getTotalPages(state, types.searchQuery),
     errorMessage: getErrorMessage(state, types.searchQuery),
     isFetching: getIsFetching(state, types.searchQuery)
