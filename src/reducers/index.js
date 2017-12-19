@@ -19,6 +19,7 @@ export default combineReducers({
   [types.comments]: createList(types.comments),
   [types.postsByCategory]: createList(types.postsByCategory),
   [types.allCategories]: createList(types.allCategories),
+  [types.searchQuery]: createList(types.searchQuery),
   endpoint
 })
 
