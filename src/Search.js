@@ -40,9 +40,10 @@ const SearchContainer = ({
     hasData={data.length > 0}
     pageNumber={pageNumber}
     onUpdate={prevProps =>
+      query &&
       prevProps.pageNumber !== pageNumber &&
       fetchPostsBySearchQuery(query, pageNumber)}
-    onMount={() => fetchPostsBySearchQuery(query, pageNumber)}
+    onMount={() => query && fetchPostsBySearchQuery(query, pageNumber)}
     render={() => <Search pageNumber={pageNumber} data={data} {...rest} />}
     {...rest}
   />
@@ -56,10 +57,7 @@ SearchContainer.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const query = parse(ownProps.location.search.substr(1)).q
-  if (typeof query === 'undefined') {
-    ownProps.history.push('/')
-  }
+  const query = parse(ownProps.location.search.substr(1)).q || ''
   const pageNumber = Number(ownProps.match.params.pageNumber) || 1
 
   return {
