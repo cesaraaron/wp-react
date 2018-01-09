@@ -57,6 +57,9 @@ SearchContainer.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const query = parse(ownProps.location.search.substr(1)).q
+  if (typeof query === 'undefined') {
+    ownProps.history.push('/')
+  }
   const pageNumber = Number(ownProps.match.params.pageNumber) || 1
 
   return {
