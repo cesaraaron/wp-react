@@ -163,8 +163,7 @@ export const fetchAllCategories = () =>
     )
   )
 
-export const fetchPostsBySearchQuery = (query, pageNumber) => {
-  invariant(String(query), invalidStringError('query', query))
+export const fetchPostsBySearchQuery = (query = '', pageNumber) => {
   invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
 
   return createOnFetch(types.searchQuery, (api, dispatch) =>
