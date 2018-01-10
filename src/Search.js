@@ -14,11 +14,13 @@ import {
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
 import { parse } from 'qs'
+import Sidebar from './Sidebar'
 
 export const Search = ({ data, totalPages, pageNumber }) => (
   <div>
     <Content title="Search" data={data} />
     <br />
+    <Sidebar />
     <PagingLinks total={totalPages} activeIndex={pageNumber} />
   </div>
 )
@@ -39,9 +41,10 @@ const SearchContainer = ({
   <FetchContainer
     hasData={data.length > 0}
     pageNumber={pageNumber}
+    query={query}
     onUpdate={prevProps =>
       query &&
-      prevProps.pageNumber !== pageNumber &&
+      (prevProps.pageNumber !== pageNumber || prevProps.query !== query) &&
       fetchPostsBySearchQuery(query, pageNumber)}
     onMount={() => query && fetchPostsBySearchQuery(query, pageNumber)}
     render={() => <Search pageNumber={pageNumber} data={data} {...rest} />}
