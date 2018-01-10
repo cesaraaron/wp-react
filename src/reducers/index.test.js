@@ -1,6 +1,9 @@
 import rootReducer, {
   endpoint,
+  postsById,
   // getTotalPages,
+  getPosts,
+  getPostsForPage,
   getPostsByPage,
   getErrorMessage,
   getIsFetching,
@@ -8,10 +11,14 @@ import rootReducer, {
   getSingleWithSlug
 } from './index'
 import * as types from '../actions/types'
+import { normalize } from 'normalizr'
+import { arrayOfPosts } from '../actions/schema'
+import { posts } from '../utils/SampleData'
 
 describe('createList() properties', () => {
   const root = rootReducer(undefined, {})
   const expected = {
+    idsByPage: {},
     byPageNumber: {},
     totalPages: 0,
     byId: {},
@@ -50,6 +57,24 @@ describe('endpoint()', () => {
   })
 })
 
+describe('postsById()', () => {
+  it('should return an empty object by default', () => {
+    const val = postsById(undefined, {})
+
+    expect(val).toEqual({})
+  })
+
+  it('should return an object of posts with the ids as keys', () => {
+    const response = normalize(posts, arrayOfPosts)
+    const actual = postsById(undefined, {
+      type: types.FETCH_POSTS_SUCCESS,
+      response
+    })
+
+    expect(actual).toEqual(response.entities.post)
+  })
+})
+
 it('returns false when calling getIsFetching', () => {
   const state = { [types.posts]: { isFetching: false } }
   const val = getIsFetching(state, types.posts)
@@ -58,6 +83,15 @@ it('returns false when calling getIsFetching', () => {
 })
 
 describe('Selectors', () => {
+  describe('getPosts()', () => {
+    const state = {
+      [types.posts]: { ids: [] }
+    }
+
+    const actual = getPosts(state, types.posts)
+    expect(actual).toEqual([])
+  })
+
   describe('getData()', () => {
     it('returns and empty array of comments', () => {
       const state = {
@@ -85,6 +119,21 @@ describe('Selectors', () => {
     const actual = getErrorMessage(state, types.posts)
 
     expect(actual).toBe('')
+  })
+
+  describe('getPostsForPage()', () => {
+    it('should return an array with one post', () => {
+      const page = 1
+      const postId = 1
+      const postsById = { [postId]: { title: 'post title' } }
+      const state = {
+        postsById,
+        [types.posts]: { idsByPage: { [page]: [postId] } }
+      }
+
+      const actual = getPostsForPage(state, types.posts, page)
+      expect(actual).toEqual([postsById[postId]])
+    })
   })
 
   describe('getPostsByPage()', () => {
