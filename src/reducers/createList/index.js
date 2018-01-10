@@ -6,10 +6,12 @@ import { createTotalPages } from './totalPages'
 import { createErrorMessage } from './errorMessage'
 import { createIsFetching } from './isFetching'
 import { createByPageNumber, getPostsByPage as getByPage } from './byPageNumber'
+import * as fromIdsByPage from './idsByPage'
 
 export default type => {
   return combineReducers({
     ids: createIds(type),
+    idsByPage: fromIdsByPage.createIdsByPage(type),
     byId: createById(type),
     totalPages: createTotalPages(type),
     errorMessage: createErrorMessage(type),
@@ -17,6 +19,11 @@ export default type => {
     byPageNumber: createByPageNumber(type)
   })
 }
+
+export const getPosts = (state, byId) => state.ids.map(id => byId[id])
+
+export const getPostsForPage = (state, pageNumber, byId) =>
+  fromIdsByPage.getPostsForPage(state.idsByPage, pageNumber, byId)
 
 export const getData = state => state.ids.map(id => state.byId[id])
 
