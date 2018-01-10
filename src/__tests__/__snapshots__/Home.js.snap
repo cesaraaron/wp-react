@@ -42,6 +42,11 @@ exports[`<HomeContainer /> should render without errors 1`] = `
     </div>
   </div>
   <div>
+    <input
+      defaultValue={undefined}
+      onChange={[Function]}
+      type="text"
+    />
     <div />
   </div>
   <br />
