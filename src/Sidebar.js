@@ -6,6 +6,7 @@ import { getErrorMessage, getIsFetching, getData } from './reducers'
 import * as types from './actions/types'
 import { fetchAllCategories } from './actions'
 import { Link } from 'react-router-dom'
+import SearchBox from './components/SearchBox'
 
 export const CategoryList = ({ data }) => (
   <div>
@@ -27,6 +28,7 @@ CategoryList.propTypes = {
 
 export const Sidebar = ({ data }) => (
   <div>
+    <SearchBox />
     <CategoryList data={data} />
   </div>
 )
