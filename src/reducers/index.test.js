@@ -8,7 +8,7 @@ import rootReducer, {
   getPostsByPage,
   getErrorMessage,
   getIsFetching,
-  getData,
+  getCommentsForPost,
   getSingleWithSlug
 } from './index'
 import * as types from '../actions/types'
@@ -111,26 +111,34 @@ describe('Selectors', () => {
     expect(actual).toEqual([])
   })
 
-  // describe('getComments')
-
-  describe('getData()', () => {
+  describe('getComments()', () => {
     it('returns and empty array of comments', () => {
+      const postId = 1
       const state = {
         [types.comments]: { byId: {}, ids: [], byPageNumber: {} }
       }
 
-      const actual = getData(state, types.comments)
+      const actual = getCommentsForPost(state, postId)
 
       expect(actual).toEqual([])
     })
 
     it('returns an array with one comment', () => {
-      const state = {
-        [types.comments]: { byId: { 1: { id: 1 } }, ids: [1], byPageNumber: {} }
+      const comment = {
+        id: 1,
+        post: 10
       }
-      const actual = getData(state, types.comments)
+      const state = {
+        commentsById: {
+          1: comment
+        },
+        [types.comments]: {
+          ids: [1]
+        }
+      }
+      const actual = getCommentsForPost(state, comment.post)
 
-      expect(actual).toEqual([{ id: 1 }])
+      expect(actual).toEqual([comment])
     })
   })
 

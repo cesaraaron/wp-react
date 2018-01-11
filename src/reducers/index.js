@@ -43,6 +43,7 @@ export const commentsById = (state = {}, action) => {
 export default combineReducers({
   endpoint,
   postsById,
+  commentsById,
   [types.posts]: createList(types.posts),
   [types.single]: createList(types.single),
   [types.comments]: createList(types.comments),
@@ -61,6 +62,11 @@ export const getPosts = (state, type) =>
 
 export const getPostsForPage = (state, type, pageNumber) =>
   fromCreateList.getPostsForPage(state[type], pageNumber, state.postsById)
+
+export const getCommentsForPost = (state, postId) =>
+  state[types.comments].ids
+    .map(id => state.commentsById[id])
+    .filter(comment => comment.post === postId)
 
 export const getData = (state, type) => fromCreateList.getData(state[type])
 
