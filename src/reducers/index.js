@@ -28,6 +28,18 @@ export const postsById = (state = {}, action) => {
   }
 }
 
+export const commentsById = (state = {}, action) => {
+  switch (action.type) {
+    case types.FETCH_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        ...action.response.entities.post
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   endpoint,
   postsById,

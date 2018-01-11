@@ -1,6 +1,7 @@
 import rootReducer, {
   endpoint,
   postsById,
+  commentsById,
   // getTotalPages,
   getPosts,
   getPostsForPage,
@@ -13,7 +14,7 @@ import rootReducer, {
 import * as types from '../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../actions/schema'
-import { posts } from '../utils/SampleData'
+import { posts, comments } from '../utils/SampleData'
 
 describe('createList() properties', () => {
   const root = rootReducer(undefined, {})
@@ -75,6 +76,24 @@ describe('postsById()', () => {
   })
 })
 
+describe('commentsById()', () => {
+  it('should return an empty object by default', () => {
+    const actual = commentsById(undefined, {})
+
+    expect(actual).toEqual({})
+  })
+
+  it('should return an object with comments', () => {
+    const response = normalize(comments, arrayOfPosts)
+    const actual = commentsById(undefined, {
+      type: types.FETCH_COMMENTS_SUCCESS,
+      response
+    })
+
+    expect(actual).toEqual(response.entities.post)
+  })
+})
+
 it('returns false when calling getIsFetching', () => {
   const state = { [types.posts]: { isFetching: false } }
   const val = getIsFetching(state, types.posts)
@@ -91,6 +110,8 @@ describe('Selectors', () => {
     const actual = getPosts(state, types.posts)
     expect(actual).toEqual([])
   })
+
+  // describe('getComments')
 
   describe('getData()', () => {
     it('returns and empty array of comments', () => {
