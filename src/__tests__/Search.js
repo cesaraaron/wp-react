@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import SingleContainer from '../Single'
+import SearchContainer from '../Search'
 import { posts } from '../utils/SampleData'
 import rootReducer from '../reducers'
 import { MemoryRouter, Route } from 'react-router-dom'
@@ -15,16 +15,16 @@ describe('<SingleContainer />', () => {
   const pageNumber = 1 // the default pageNumber is one if `match.params.pageNumber` is falsey
   const preloadedState = {
     postsById: entities.post,
-    [types.single]: { idsByPage: { [pageNumber]: result } }
+    [types.searchQuery]: { idsByPage: { [pageNumber]: result } }
   }
   const store = createStore(rootReducer, preloadedState)
   store.dispatch = () => {}
 
   it('should render without errors', () => {
     const component = renderer.create(
-      <MemoryRouter initialEntries={['/hello-world']} initialIndex={0}>
+      <MemoryRouter initialEntries={[{ pathname: '/search' }]}>
         <Provider store={store}>
-          <Route path="/:slug" component={SingleContainer} />
+          <Route path="/search" component={SearchContainer} />
         </Provider>
       </MemoryRouter>
     )
