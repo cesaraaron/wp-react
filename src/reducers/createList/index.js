@@ -29,9 +29,6 @@ export const getData = state => state.ids.map(id => state.byId[id])
 
 export const getErrorMessage = state => state.errorMessage
 
-export const getSingleWithSlug = (state, slug) =>
-  getData(state).filter(post => post.slug === slug)
-
 export const getIsFetching = state => state.isFetching
 
 export const getTotalPages = state => state.totalPages

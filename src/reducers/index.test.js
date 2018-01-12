@@ -177,9 +177,11 @@ describe('Selectors', () => {
   })
 
   describe('getSingleWithSlug()', () => {
-    const byId = { 1: { slug: 'hello-world' }, 2: { slug: 'hello-world2' } }
-    const ids = [1, 2]
-    const state = { [types.single]: { byId, ids } }
+    const postsById = {
+      1: { slug: 'hello-world' },
+      2: { slug: 'hello-world2' }
+    }
+    const state = { postsById }
 
     it('should return an array with one post', () => {
       const actual = getSingleWithSlug(state, 'hello-world')

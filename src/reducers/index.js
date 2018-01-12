@@ -70,8 +70,10 @@ export const getCommentsForPost = (state, postId) =>
 
 export const getData = (state, type) => fromCreateList.getData(state[type])
 
-export const getSingleWithSlug = (state, slug) =>
-  fromCreateList.getSingleWithSlug(state[types.single], slug)
+export const getSingleWithSlug = ({ postsById }, slug) =>
+  Object.keys(postsById)
+    .map(id => postsById[id])
+    .filter(post => post.slug === slug)
 
 export const getIsFetching = (state, type) =>
   fromCreateList.getIsFetching(state[type], type)
