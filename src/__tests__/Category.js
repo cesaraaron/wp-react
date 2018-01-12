@@ -11,24 +11,14 @@ import { arrayOfPosts } from '../actions/schema'
 import * as types from '../actions/types'
 
 describe('<CategoryContainer />', () => {
-  const store = createStore(rootReducer)
-  const rawDispatch = store.dispatch
-  const response = normalize(posts, arrayOfPosts)
-  response._paging = { totalPages: 0 }
-
-  store.dispatch = action => {
-    if (typeof action === 'function') {
-      action(store.dispatch, store.getState)
-    } else {
-      return action.type === types.FETCH_POSTS_BY_CATEGORY_REQUEST
-        ? rawDispatch({
-            type: types.FETCH_POSTS_BY_CATEGORY_SUCCESS,
-            response,
-            pageNumber: 1
-          })
-        : null
-    }
+  const { entities, result } = normalize(posts, arrayOfPosts)
+  const pageNumber = 1 // the default pageNumber is one if `match.params.pageNumber` is falsey
+  const preloadedState = {
+    postsById: entities.post,
+    [types.postsByCategory]: { idsByPage: { [pageNumber]: result } }
   }
+  const store = createStore(rootReducer, preloadedState)
+  store.dispatch = () => {}
 
   it('should render without errors', () => {
     const component = renderer.create(

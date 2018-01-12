@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FetchContainer from './components/FetchContainer'
 import { connect } from 'react-redux'
-import { getErrorMessage, getIsFetching, getData } from './reducers'
+import { getErrorMessage, getIsFetching, getCommentsForPost } from './reducers'
 import * as types from './actions/types'
 import { fetchCommentsByPostId } from './actions'
 
@@ -51,7 +51,7 @@ const mapStateToProps = (state, ownProps) => {
   const { postId } = ownProps
   return {
     postId,
-    data: getData(state, types.comments),
+    data: getCommentsForPost(state, postId),
     errorMessage: getErrorMessage(state, types.comments),
     isFetching: getIsFetching(state, types.comments)
   }

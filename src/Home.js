@@ -9,7 +9,7 @@ import {
   getErrorMessage,
   getIsFetching,
   getTotalPages,
-  getPostsByPage
+  getPostsForPage
 } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
@@ -58,7 +58,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     pageNumber,
-    data: getPostsByPage(state, types.posts, pageNumber),
+    data: getPostsForPage(state, types.posts, pageNumber),
     totalPages: getTotalPages(state, types.posts),
     errorMessage: getErrorMessage(state, types.posts),
     isFetching: getIsFetching(state, types.posts)
