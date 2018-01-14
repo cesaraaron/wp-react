@@ -37,7 +37,6 @@ SingleContainer.propTypes = {
   slug: PropTypes.string.isRequired
 }
 
-// see if I can move connect & withRouter to container
 const mapStateToProps = (state, ownProps) => {
   const { slug } = ownProps.match.params
   return {
