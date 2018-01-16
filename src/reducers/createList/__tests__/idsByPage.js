@@ -37,6 +37,11 @@ describe('createIdsByPage()', () => {
 })
 
 describe('getPostsForPage()', () => {
+  it('should return an empty array if the state object is empty', () => {
+    const actual = getPostsForPage({}, 1, {})
+    expect(actual).toEqual([])
+  })
+
   it('should get the posts given as params the pageNumber & byId', () => {
     const pageNumber = 1
     const postId = 1
