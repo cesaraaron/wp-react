@@ -52,7 +52,6 @@ wp-react/
 > The react components of the first level of `src/` use a similar sorting of files as the underscores starter theme.
 
 # What is not working (yet)
-* Search page.
 * Archives page.
 * Authors page.
 * Menus.
