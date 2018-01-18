@@ -39,6 +39,12 @@ export const FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS =
 export const FETCH_POSTS_BY_SEARCH_QUERY_FAILURE =
   'FETCH_POSTS_BY_SEARCH_QUERY_FAILURE'
 
+export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST'
+
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS'
+
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE'
+
 export const posts = 'posts'
 
 export const single = 'single'
@@ -50,6 +56,8 @@ export const postsByCategory = 'postsByCategory'
 export const allCategories = 'allCategories'
 
 export const searchQuery = 'searchQuery'
+
+export const users = 'users'
 
 export const createOnFetchVars = type => {
   const onFetch = {}
@@ -83,6 +91,11 @@ export const createOnFetchVars = type => {
       onFetch.request = FETCH_POSTS_BY_SEARCH_QUERY_REQUEST
       onFetch.success = FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS
       onFetch.failure = FETCH_POSTS_BY_SEARCH_QUERY_FAILURE
+      break
+    case users:
+      onFetch.request = FETCH_USERS_REQUEST
+      onFetch.success = FETCH_USERS_SUCCESS
+      onFetch.failure = FETCH_USERS_FAILURE
       break
     default:
       throw new Error(`Invalid type: ${type}`)

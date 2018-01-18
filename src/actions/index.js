@@ -190,3 +190,25 @@ export const fetchPostsBySearchQuery = (query = '', pageNumber) => {
       )
   )
 }
+
+export const fetchUserWithSlug = slug =>
+  createOnFetch(types.users, (api, dispatch) =>
+    api
+      .users()
+      .slug(slug)
+      .then(
+        res => {
+          const response = normalize(res, arrayOfPosts)
+
+          dispatch({
+            type: types.FETCH_USERS_SUCCESS,
+            response
+          })
+        },
+        err =>
+          dispatch({
+            type: types.FETCH_USERS_FAILURE,
+            message: err.message
+          })
+      )
+  )
