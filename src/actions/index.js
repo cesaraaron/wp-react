@@ -212,3 +212,30 @@ export const fetchUserWithSlug = slug =>
           })
       )
   )
+
+export const fetchPostsForAuthor = (id, pageNumber) => {
+  invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
+
+  return createOnFetch(types.postsByAuthor, (api, dispatch) =>
+    api
+      .posts()
+      .author(id)
+      .then(
+        res => {
+          const response = normalize(res, arrayOfPosts)
+          response._paging = res._paging
+
+          dispatch({
+            type: types.FETCH_POSTS_BY_AUTHOR_SUCCESS,
+            response,
+            pageNumber
+          })
+        },
+        err =>
+          dispatch({
+            type: types.FETCH_POSTS_BY_AUTHOR_FAILURE,
+            message: err.message
+          })
+      )
+  )
+}

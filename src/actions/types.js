@@ -45,6 +45,12 @@ export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS'
 
 export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE'
 
+export const FETCH_POSTS_BY_AUTHOR_REQUEST = 'FETCH_POSTS_BY_AUTHOR_REQUEST'
+
+export const FETCH_POSTS_BY_AUTHOR_SUCCESS = 'FETCH_POSTS_BY_AUTHOR_SUCCESS'
+
+export const FETCH_POSTS_BY_AUTHOR_FAILURE = 'FETCH_POSTS_BY_AUTHOR_FAILURE'
+
 export const posts = 'posts'
 
 export const single = 'single'
@@ -58,6 +64,8 @@ export const allCategories = 'allCategories'
 export const searchQuery = 'searchQuery'
 
 export const users = 'users'
+
+export const postsByAuthor = 'postsByAuthor'
 
 export const createOnFetchVars = type => {
   const onFetch = {}
@@ -96,6 +104,11 @@ export const createOnFetchVars = type => {
       onFetch.request = FETCH_USERS_REQUEST
       onFetch.success = FETCH_USERS_SUCCESS
       onFetch.failure = FETCH_USERS_FAILURE
+      break
+    case postsByAuthor:
+      onFetch.request = FETCH_POSTS_BY_AUTHOR_REQUEST
+      onFetch.success = FETCH_POSTS_BY_AUTHOR_SUCCESS
+      onFetch.failure = FETCH_POSTS_BY_AUTHOR_FAILURE
       break
     default:
       throw new Error(`Invalid type: ${type}`)
