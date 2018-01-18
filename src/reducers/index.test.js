@@ -9,12 +9,13 @@ import rootReducer, {
   getErrorMessage,
   getIsFetching,
   getCommentsForPost,
-  getSingleWithSlug
+  getSingleWithSlug,
+  getUserWithSlug
 } from './index'
 import * as types from '../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../actions/schema'
-import { posts, comments } from '../utils/SampleData'
+import { posts, comments, users } from '../utils/SampleData'
 
 describe('createList() properties', () => {
   const root = rootReducer(undefined, {})
@@ -187,6 +188,17 @@ describe('Selectors', () => {
       const actual = getSingleWithSlug(state, 'hello-world')
 
       expect(actual).toEqual([{ slug: 'hello-world' }])
+    })
+  })
+
+  describe('getUserWithSlug()', () => {
+    const { entities, result: ids } = normalize(users, arrayOfPosts)
+    const state = { [types.users]: { byId: entities.post, ids } }
+
+    it('should return an array with one post', () => {
+      const actual = getUserWithSlug(state, users[0].slug)
+
+      expect(actual).toEqual([users[0]])
     })
   })
 })

@@ -44,6 +44,7 @@ export default combineReducers({
   endpoint,
   postsById,
   commentsById,
+  [types.users]: createList(types.users),
   [types.posts]: createList(types.posts),
   [types.single]: createList(types.single),
   [types.comments]: createList(types.comments),
@@ -74,6 +75,9 @@ export const getSingleWithSlug = ({ postsById }, slug) =>
   Object.keys(postsById)
     .map(id => postsById[id])
     .filter(post => post.slug === slug)
+
+export const getUserWithSlug = (state, slug) =>
+  fromCreateList.getUserWithSlug(state[types.users], slug)
 
 export const getIsFetching = (state, type) =>
   fromCreateList.getIsFetching(state[type], type)

@@ -35,3 +35,6 @@ export const getTotalPages = state => state.totalPages
 
 export const getPostsByPage = (state, pageNumber) =>
   getByPage(state.byPageNumber, pageNumber)
+
+export const getUserWithSlug = (state, slug) =>
+  getData(state).filter(user => user.slug === slug)

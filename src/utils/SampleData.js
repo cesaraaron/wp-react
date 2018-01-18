@@ -267,3 +267,42 @@ export const categories = [
     }
   }
 ]
+
+export const users = [
+  {
+    id: 1,
+    name: '7704wpczar',
+    url: '',
+    description: '',
+    link: 'http://wptest.io/demo/author/7704wpczar/',
+    slug: '7704wpczar',
+    avatar_urls: {
+      '24':
+        'http://0.gravatar.com/avatar/c942ee663e0eb9a930d4fb8bf33a9d7b?s=24&d=retro&r=g',
+      '48':
+        'http://0.gravatar.com/avatar/c942ee663e0eb9a930d4fb8bf33a9d7b?s=48&d=retro&r=g',
+      '96':
+        'http://0.gravatar.com/avatar/c942ee663e0eb9a930d4fb8bf33a9d7b?s=96&d=retro&r=g'
+    },
+    meta: [],
+    _links: { self: [Array], collection: [Array] }
+  },
+  {
+    id: 4,
+    name: 'Chris Ames',
+    url: '',
+    description: '',
+    link: 'http://wptest.io/demo/author/dewde/',
+    slug: 'dewde',
+    avatar_urls: {
+      '24':
+        'http://2.gravatar.com/avatar/25df3939b2e33bd19783411afd5bc6e3?s=24&d=retro&r=g',
+      '48':
+        'http://2.gravatar.com/avatar/25df3939b2e33bd19783411afd5bc6e3?s=48&d=retro&r=g',
+      '96':
+        'http://2.gravatar.com/avatar/25df3939b2e33bd19783411afd5bc6e3?s=96&d=retro&r=g'
+    },
+    meta: [],
+    _links: { self: [Array], collection: [Array] }
+  }
+]
