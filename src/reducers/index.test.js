@@ -5,7 +5,7 @@ import rootReducer, {
   // getTotalPages,
   getPosts,
   getPostsForPage,
-  getPostsByPage,
+  // getPostsByPage,
   getErrorMessage,
   getIsFetching,
   getCommentsForPost,
@@ -13,39 +13,15 @@ import rootReducer, {
   getUserWithSlug,
   getPostsForAuthorWithSlug
 } from './index'
+import { createStore } from 'redux'
 import * as types from '../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../actions/schema'
 import { posts, comments, users } from '../utils/SampleData'
 
-describe('createList() properties', () => {
-  const root = rootReducer(undefined, {})
-  const expected = {
-    idsByPage: {},
-    byPageNumber: {},
-    totalPages: 0,
-    byId: {},
-    errorMessage: null,
-    ids: [],
-    isFetching: false
-  }
-
-  it('has a posts object', () => {
-    expect(root[types.posts]).toEqual(expected)
-  })
-
-  it('has the single object', () => {
-    expect(root[types.single]).toEqual(expected)
-  })
-
-  it('has the comments object', () => {
-    expect(root[types.comments]).toEqual(expected)
-  })
-
-  it('has the postsByCategory object', () => {
-    expect(root[types.postsByCategory]).toEqual(expected)
-  })
-})
+const postsResponse = normalize(posts, arrayOfPosts)
+const commentsResponse = normalize(comments, arrayOfPosts)
+const usersResponse = normalize(users, arrayOfPosts)
 
 describe('endpoint()', () => {
   it('should return an empty string', () => {
@@ -68,13 +44,12 @@ describe('postsById()', () => {
   })
 
   it('should return an object of posts with the ids as keys', () => {
-    const response = normalize(posts, arrayOfPosts)
     const actual = postsById(undefined, {
       type: types.FETCH_POSTS_SUCCESS,
-      response
+      response: postsResponse
     })
 
-    expect(actual).toEqual(response.entities.post)
+    expect(actual).toEqual(postsResponse.entities.post)
   })
 })
 
@@ -86,137 +61,122 @@ describe('commentsById()', () => {
   })
 
   it('should return an object with comments', () => {
-    const response = normalize(comments, arrayOfPosts)
     const actual = commentsById(undefined, {
       type: types.FETCH_COMMENTS_SUCCESS,
-      response
+      response: commentsResponse
     })
 
-    expect(actual).toEqual(response.entities.post)
+    expect(actual).toEqual(commentsResponse.entities.post)
   })
 })
 
 it('returns false when calling getIsFetching', () => {
-  const state = { [types.posts]: { isFetching: false } }
-  const val = getIsFetching(state, types.posts)
+  const { getState } = createStore(rootReducer)
+  const val = getIsFetching(getState(), types.posts)
 
   expect(val).toBe(false)
 })
 
 describe('Selectors', () => {
-  describe('getPosts()', () => {
-    const state = {
-      [types.posts]: { ids: [] }
-    }
+  const getData = response =>
+    response.result.map(id => response.entities.post[id])
 
-    const actual = getPosts(state, types.posts)
+  const dispatchPosts = (dispatch, pageNumber = 1) =>
+    dispatch({
+      type: types.FETCH_POSTS_SUCCESS,
+      response: postsResponse,
+      pageNumber
+    })
+  const dispatchComments = dispatch =>
+    dispatch({ type: types.FETCH_COMMENTS_SUCCESS, response: commentsResponse })
+  const dispatchUsers = dispatch =>
+    dispatch({ type: types.FETCH_USERS_SUCCESS, response: usersResponse })
+
+  let { getState, dispatch } = createStore(rootReducer)
+
+  beforeEach(() => {
+    const store = createStore(rootReducer)
+    getState = store.getState
+    dispatch = store.dispatch
+  })
+
+  describe('getPosts()', () => {
+    const actual = getPosts(getState(), types.posts)
     expect(actual).toEqual([])
   })
 
   describe('getComments()', () => {
     it('returns and empty array of comments', () => {
-      const postId = 1
-      const state = {
-        [types.comments]: { byId: {}, ids: [], byPageNumber: {} }
-      }
-
-      const actual = getCommentsForPost(state, postId)
+      const actual = getCommentsForPost(getState(), 0)
 
       expect(actual).toEqual([])
     })
 
-    it('returns an array with one comment', () => {
-      const comment = {
-        id: 1,
-        post: 10
-      }
-      const state = {
-        commentsById: {
-          1: comment
-        },
-        [types.comments]: {
-          ids: [1]
-        }
-      }
-      const actual = getCommentsForPost(state, comment.post)
+    it('returns two comments for the post with id of `1`', () => {
+      dispatchComments(dispatch)
+      const actual = getCommentsForPost(getState(), 1)
 
-      expect(actual).toEqual([comment])
+      // the two comments in SampleData.comments have the post property set to `1`
+      const expected = getData(commentsResponse)
+      expect(actual).toEqual(expected)
     })
   })
 
-  it('should get the errorMessage of [types.posts]', () => {
-    const state = { [types.posts]: { errorMessage: '' } }
+  describe('getErrorMessage()', () => {
+    it('should return null by default', () => {
+      const actual = getErrorMessage(getState(), types.posts)
 
-    const actual = getErrorMessage(state, types.posts)
-
-    expect(actual).toBe('')
+      expect(actual).toBe(null)
+    })
   })
 
   describe('getPostsForPage()', () => {
-    it('should return an array with one post', () => {
-      const page = 1
-      const postId = 1
-      const postsById = { [postId]: { title: 'post title' } }
-      const state = {
-        postsById,
-        [types.posts]: { idsByPage: { [page]: [postId] } }
-      }
+    it('should return an array of posts for pageNumber=`1`', () => {
+      const pageNumber = 1
+      dispatchPosts(dispatch, pageNumber)
+      const actual = getPostsForPage(getState(), types.posts, pageNumber)
 
-      const actual = getPostsForPage(state, types.posts, page)
-      expect(actual).toEqual([postsById[postId]])
+      const expected = getData(postsResponse)
+      expect(actual).toEqual(expected)
     })
   })
 
-  describe('getPostsByPage()', () => {
-    const posts = [{ 1: { id: 1 } }]
-    const state = { [types.posts]: { byPageNumber: { 1: posts } } }
+  // describe('getPostsByPage()', () => {
+  //   const posts = [{ 1: { id: 1 } }]
+  //   const state = { [types.posts]: { byPageNumber: { 1: posts } } }
 
-    it('should return an array of posts', () => {
-      const actual = getPostsByPage(state, types.posts, 1)
+  //   it('should return an array of posts', () => {
+  //     const actual = getPostsByPage(state, types.posts, 1)
 
-      expect(actual).toEqual(posts)
-    })
-  })
+  //     expect(actual).toEqual(posts)
+  //   })
+  // })
 
   describe('getSingleWithSlug()', () => {
-    const postsById = {
-      1: { slug: 'hello-world' },
-      2: { slug: 'hello-world2' }
-    }
-    const state = { postsById }
-
     it('should return an array with one post', () => {
-      const actual = getSingleWithSlug(state, 'hello-world')
+      dispatchPosts(dispatch)
+      const single = posts[0]
+      const actual = getSingleWithSlug(getState(), single.slug)
 
-      expect(actual).toEqual([{ slug: 'hello-world' }])
+      expect(actual).toEqual([single])
     })
   })
 
-  const { entities: userEntities, result: userResult } = normalize(
-    users,
-    arrayOfPosts
-  )
   describe('getUserWithSlug()', () => {
-    const state = {
-      [types.users]: { byId: userEntities.post, ids: userResult }
-    }
-
     it('should return an array with one post', () => {
-      const actual = getUserWithSlug(state, users[0].slug)
+      dispatchUsers(dispatch)
+      const singleUser = users[0]
+      const actual = getUserWithSlug(getState(), singleUser.slug)
 
-      expect(actual).toEqual([users[0]])
+      expect(actual).toEqual([singleUser])
     })
   })
 
   describe('getPostsForAuthor()', () => {
-    const { entities } = normalize(posts, arrayOfPosts)
-    const state = {
-      postsById: entities.post,
-      [types.users]: { byId: userEntities.post, ids: userResult }
-    }
-
     it('should return an array with posts for the first user in SampleData.js', () => {
-      const actual = getPostsForAuthorWithSlug(state, users[0].slug)
+      dispatchPosts(dispatch)
+      dispatchUsers(dispatch)
+      const actual = getPostsForAuthorWithSlug(getState(), users[0].slug)
       const expected = posts.filter(p => p.author === users[0].id)
 
       expect(actual).toEqual(expected)

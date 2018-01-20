@@ -141,7 +141,7 @@ export const posts = [
 export const comments = [
   {
     id: 2,
-    post: 1077,
+    post: 1,
     parent: 0,
     author: 0,
     author_name: 'Chris Ames',
@@ -181,7 +181,7 @@ export const comments = [
   },
   {
     id: 31,
-    post: 877,
+    post: 1,
     parent: 0,
     author: 0,
     author_name: 'Jared Erickson',
