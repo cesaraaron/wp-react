@@ -10,7 +10,8 @@ import rootReducer, {
   getIsFetching,
   getCommentsForPost,
   getSingleWithSlug,
-  getUserWithSlug
+  getUserWithSlug,
+  getPostsForAuthorWithSlug
 } from './index'
 import * as types from '../actions/types'
 import { normalize } from 'normalizr'
@@ -191,14 +192,34 @@ describe('Selectors', () => {
     })
   })
 
+  const { entities: userEntities, result: userResult } = normalize(
+    users,
+    arrayOfPosts
+  )
   describe('getUserWithSlug()', () => {
-    const { entities, result: ids } = normalize(users, arrayOfPosts)
-    const state = { [types.users]: { byId: entities.post, ids } }
+    const state = {
+      [types.users]: { byId: userEntities.post, ids: userResult }
+    }
 
     it('should return an array with one post', () => {
       const actual = getUserWithSlug(state, users[0].slug)
 
       expect(actual).toEqual([users[0]])
+    })
+  })
+
+  describe('getPostsForAuthor()', () => {
+    const { entities } = normalize(posts, arrayOfPosts)
+    const state = {
+      postsById: entities.post,
+      [types.users]: { byId: userEntities.post, ids: userResult }
+    }
+
+    it('should return an array with posts for the first user in SampleData.js', () => {
+      const actual = getPostsForAuthorWithSlug(state, users[0].slug)
+      const expected = posts.filter(p => p.author === users[0].id)
+
+      expect(actual).toEqual(expected)
     })
   })
 })

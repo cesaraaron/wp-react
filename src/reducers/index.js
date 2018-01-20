@@ -79,6 +79,14 @@ export const getSingleWithSlug = ({ postsById }, slug) =>
 export const getUserWithSlug = (state, slug) =>
   fromCreateList.getUserWithSlug(state[types.users], slug)
 
+export const getPostsForAuthorWithSlug = (state, slug) =>
+  Object.keys(state.postsById)
+    .map(id => state.postsById[id])
+    .filter(post => {
+      const users = getUserWithSlug(state, slug)
+      return users.length > 0 ? users[0].id === post.author : false
+    })
+
 export const getIsFetching = (state, type) =>
   fromCreateList.getIsFetching(state[type], type)
 
