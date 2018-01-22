@@ -31,23 +31,16 @@ Search.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const SearchContainer = ({
-  fetchPostsBySearchQuery,
-  query,
-  pageNumber,
-  data,
-  ...rest
-}) => (
+const SearchContainer = ({ fetchPostsBySearchQuery, ...rest }) => (
   <FetchContainer
-    hasData={data.length > 0}
-    pageNumber={pageNumber}
-    query={query}
-    onUpdate={prevProps =>
-      query &&
-      (prevProps.pageNumber !== pageNumber || prevProps.query !== query) &&
-      fetchPostsBySearchQuery(query, pageNumber)}
-    onMount={() => query && fetchPostsBySearchQuery(query, pageNumber)}
-    render={() => <Search pageNumber={pageNumber} data={data} {...rest} />}
+    onUpdate={({ prevProps, currentProps }) =>
+      currentProps.query &&
+      (currentProps.pageNumber !== prevProps.pageNumber ||
+        currentProps.query !== prevProps.query) &&
+      fetchPostsBySearchQuery(currentProps.query, currentProps.pageNumber)}
+    onMount={({ query, pageNumber }) =>
+      query && fetchPostsBySearchQuery(query, pageNumber)}
+    render={() => <Search {...rest} />}
     {...rest}
   />
 )

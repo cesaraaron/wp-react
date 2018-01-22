@@ -22,11 +22,10 @@ Single.propTypes = {
   data: PropTypes.array.isRequired
 }
 
-const SingleContainer = ({ fetchSingleBySlug, data, slug, ...rest }) => (
+const SingleContainer = ({ fetchSingleBySlug, ...rest }) => (
   <FetchContainer
-    hasData={data.length > 0}
-    onMount={() => fetchSingleBySlug(slug)}
-    render={() => <Single data={data} />}
+    onMount={({ slug }) => fetchSingleBySlug(slug)}
+    render={() => <Single {...rest} />}
     {...rest}
   />
 )

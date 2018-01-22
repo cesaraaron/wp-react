@@ -9,26 +9,26 @@ class FetchContainer extends React.Component {
   }
 
   static propTypes = {
+    data: PropTypes.array.isRequired,
     onUpdate: PropTypes.func,
     onMount: PropTypes.func.isRequired,
-    hasData: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
     render: PropTypes.func.isRequired
   }
 
   componentDidUpdate(prevProps) {
-    this.props.onUpdate(prevProps)
+    this.props.onUpdate({ prevProps, currentProps: this.props })
   }
 
   componentDidMount() {
-    this.props.onMount()
+    this.props.onMount({ ...this.props })
   }
 
   render() {
-    const { isFetching, errorMessage, render, hasData } = this.props
+    const { isFetching, errorMessage, render, data } = this.props
 
-    return isFetching && !hasData ? (
+    return !data.length && isFetching ? (
       <Loading />
     ) : errorMessage ? (
       <FetchError message={errorMessage} />

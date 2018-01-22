@@ -30,19 +30,13 @@ Home.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const HomeContainer = ({
-  fetchPostsByPageNumber,
-  pageNumber,
-  data,
-  ...rest
-}) => (
+const HomeContainer = ({ fetchPostsByPageNumber, ...rest }) => (
   <FetchContainer
-    hasData={data.length > 0}
-    pageNumber={pageNumber}
-    onUpdate={prevProps =>
-      prevProps.pageNumber !== pageNumber && fetchPostsByPageNumber(pageNumber)}
-    onMount={() => fetchPostsByPageNumber(pageNumber)}
-    render={() => <Home pageNumber={pageNumber} data={data} {...rest} />}
+    onUpdate={({ prevProps, currentProps }) =>
+      currentProps.pageNumber !== prevProps.pageNumber &&
+      fetchPostsByPageNumber(currentProps.pageNumber)}
+    onMount={({ pageNumber }) => fetchPostsByPageNumber(pageNumber)}
+    render={() => <Home {...rest} />}
     {...rest}
   />
 )

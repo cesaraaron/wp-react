@@ -11,7 +11,7 @@ it('should render a comment', () => {
 })
 
 it('should render a list of comments', () => {
-  const component = renderer.create(<CommentList comments={comments} />)
+  const component = renderer.create(<CommentList data={comments} />)
 
   let tree = component.toJSON()
   expect(tree).toMatchSnapshot()

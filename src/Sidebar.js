@@ -37,11 +37,10 @@ Sidebar.propTypes = {
   data: PropTypes.array.isRequired
 }
 
-const SidebarContainer = ({ fetchAllCategories, data, ...rest }) => (
+const SidebarContainer = ({ fetchAllCategories, ...rest }) => (
   <FetchContainer
-    hasData={data.length > 0}
     onMount={() => fetchAllCategories()}
-    render={() => <Sidebar data={data} />}
+    render={() => <Sidebar {...rest} />}
     {...rest}
   />
 )

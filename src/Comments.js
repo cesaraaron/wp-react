@@ -18,25 +18,19 @@ Comment.propTypes = {
   content: PropTypes.object.isRequired
 }
 
-export const CommentList = ({ comments }) =>
-  comments
+export const CommentList = ({ data }) =>
+  data
     .filter(c => c.status === 'approved')
     .map(c => <Comment {...c} key={c.id} />)
 
 CommentList.propTypes = {
-  comments: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired
 }
 
-const CommentListContainer = ({
-  fetchCommentsByPostId,
-  data,
-  postId,
-  ...rest
-}) => (
+const CommentListContainer = ({ fetchCommentsByPostId, ...rest }) => (
   <FetchContainer
-    hasData={data.length > 0}
-    onMount={() => fetchCommentsByPostId(postId)}
-    render={() => <CommentList comments={data} />}
+    onMount={({ postId }) => fetchCommentsByPostId(postId)}
+    render={() => <CommentList {...rest} />}
     {...rest}
   />
 )

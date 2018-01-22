@@ -28,21 +28,14 @@ Categories.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const CategoriesContainer = ({
-  fetchPostsByCategorySlug,
-  slug,
-  pageNumber,
-  data,
-  ...rest
-}) => (
+const CategoriesContainer = ({ fetchPostsByCategorySlug, ...rest }) => (
   <FetchContainer
-    hasData={data.length > 0}
-    pageNumber={pageNumber}
-    onUpdate={prevProps =>
-      prevProps.pageNumber !== pageNumber &&
+    onUpdate={({ prevProps, currentProps }) =>
+      prevProps.pageNumber !== currentProps.pageNumber &&
+      fetchPostsByCategorySlug(currentProps.slug, currentProps.pageNumber)}
+    onMount={({ slug, pageNumber }) =>
       fetchPostsByCategorySlug(slug, pageNumber)}
-    onMount={() => fetchPostsByCategorySlug(slug, pageNumber)}
-    render={() => <Categories pageNumber={pageNumber} data={data} {...rest} />}
+    render={() => <Categories {...rest} />}
     {...rest}
   />
 )
