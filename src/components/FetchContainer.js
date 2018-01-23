@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Loading from './Loading'
 import FetchError from './FetchError'
+import * as types from '../actions/types'
+import { getIsFetching, getErrorMessage } from '../reducers'
+import { connect } from 'react-redux'
 
 class FetchContainer extends React.Component {
   static defaultProps = {
@@ -33,9 +36,42 @@ class FetchContainer extends React.Component {
     ) : errorMessage ? (
       <FetchError message={errorMessage} />
     ) : (
-      render()
+      render(this.props)
     )
   }
 }
 
 export default FetchContainer
+
+export const connectWithFetchContainer = (
+  mapStateToProps,
+  mapDispatchToProps,
+  { type, onMount, onUpdate, ...rest }
+) => {
+  const currentType = types[type]
+  if (!currentType) {
+    throw new Error(`Invalid type '${currentType}'`)
+  }
+  const newMapStateToProps = (state, ownProps) => {
+    return {
+      isFetching: getIsFetching(state, currentType),
+      errorMessage: getErrorMessage(state, currentType),
+      ...mapStateToProps(state, ownProps)
+    }
+  }
+
+  return ComponentToRender => {
+    const WrappedComponent = props => (
+      <FetchContainer
+        {...props}
+        onMount={onMount}
+        onUpdate={onUpdate}
+        render={ownProps => <ComponentToRender {...ownProps} />}
+      />
+    )
+
+    return connect(newMapStateToProps, mapDispatchToProps, ...rest)(
+      WrappedComponent
+    )
+  }
+}

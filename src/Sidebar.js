@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FetchContainer from './components/FetchContainer'
-import { connect } from 'react-redux'
-import { getErrorMessage, getIsFetching, getData } from './reducers'
+import { connectWithFetchContainer } from './components/FetchContainer'
+import { getData } from './reducers'
 import * as types from './actions/types'
 import { fetchAllCategories } from './actions'
 import { Link } from 'react-router-dom'
@@ -37,25 +36,14 @@ Sidebar.propTypes = {
   data: PropTypes.array.isRequired
 }
 
-const SidebarContainer = ({ fetchAllCategories, ...rest }) => (
-  <FetchContainer
-    onMount={() => fetchAllCategories()}
-    render={() => <Sidebar {...rest} />}
-    {...rest}
-  />
-)
-
-SidebarContainer.propTypes = {
-  fetchAllCategories: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired
-}
-
 const mapStateToProps = state => ({
-  data: getData(state, types.allCategories),
-  errorMessage: getErrorMessage(state, types.allCategories),
-  isFetching: getIsFetching(state, types.allCategories)
+  data: getData(state, types.allCategories)
 })
 
-export default connect(mapStateToProps, { fetchAllCategories })(
-  SidebarContainer
-)
+const onMount = ({ fetchAllCategories }) => fetchAllCategories()
+
+export default connectWithFetchContainer(
+  mapStateToProps,
+  { fetchAllCategories },
+  { type: types.allCategories, onMount }
+)(Sidebar)

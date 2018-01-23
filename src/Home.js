@@ -1,16 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import FetchContainer from './components/FetchContainer'
+import { connectWithFetchContainer } from './components/FetchContainer'
 import * as types from './actions/types'
 import { fetchPostsByPageNumber } from './actions'
-import {
-  getErrorMessage,
-  getIsFetching,
-  getTotalPages,
-  getPostsForPage
-} from './reducers'
+import { getTotalPages, getPostsForPage } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
 import Sidebar from './Sidebar'
@@ -30,35 +24,26 @@ Home.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const HomeContainer = ({ fetchPostsByPageNumber, ...rest }) => (
-  <FetchContainer
-    onUpdate={({ prevProps, currentProps }) =>
-      currentProps.pageNumber !== prevProps.pageNumber &&
-      fetchPostsByPageNumber(currentProps.pageNumber)}
-    onMount={({ pageNumber }) => fetchPostsByPageNumber(pageNumber)}
-    render={() => <Home {...rest} />}
-    {...rest}
-  />
-)
-
-HomeContainer.propTypes = {
-  pageNumber: PropTypes.number.isRequired,
-  data: PropTypes.array.isRequired,
-  fetchPostsByPageNumber: PropTypes.func.isRequired
-}
-
 const mapStateToProps = (state, ownProps) => {
   const pageNumber = Number(ownProps.match.params.pageNumber) || 1
 
   return {
     pageNumber,
     data: getPostsForPage(state, types.posts, pageNumber),
-    totalPages: getTotalPages(state, types.posts),
-    errorMessage: getErrorMessage(state, types.posts),
-    isFetching: getIsFetching(state, types.posts)
+    totalPages: getTotalPages(state, types.posts)
   }
 }
 
+const onMount = ({ pageNumber, fetchPostsByPageNumber }) =>
+  fetchPostsByPageNumber(pageNumber)
+const onUpdate = ({ prevProps, currentProps }) =>
+  currentProps.pageNumber !== prevProps.pageNumber &&
+  currentProps.fetchPostsByPageNumber(currentProps.pageNumber)
+
 export default withRouter(
-  connect(mapStateToProps, { fetchPostsByPageNumber })(HomeContainer)
+  connectWithFetchContainer(
+    mapStateToProps,
+    { fetchPostsByPageNumber },
+    { type: types.posts, onMount, onUpdate }
+  )(Home)
 )

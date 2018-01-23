@@ -1,16 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import FetchContainer from './components/FetchContainer'
+import { connectWithFetchContainer } from './components/FetchContainer'
 import * as types from './actions/types'
 import { fetchPostsByCategorySlug } from './actions'
-import {
-  getErrorMessage,
-  getIsFetching,
-  getTotalPages,
-  getPostsForPage
-} from './reducers'
+import { getTotalPages, getPostsForPage } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
 
@@ -28,25 +22,6 @@ Categories.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const CategoriesContainer = ({ fetchPostsByCategorySlug, ...rest }) => (
-  <FetchContainer
-    onUpdate={({ prevProps, currentProps }) =>
-      prevProps.pageNumber !== currentProps.pageNumber &&
-      fetchPostsByCategorySlug(currentProps.slug, currentProps.pageNumber)}
-    onMount={({ slug, pageNumber }) =>
-      fetchPostsByCategorySlug(slug, pageNumber)}
-    render={() => <Categories {...rest} />}
-    {...rest}
-  />
-)
-
-CategoriesContainer.propTypes = {
-  pageNumber: PropTypes.number.isRequired,
-  data: PropTypes.array.isRequired,
-  slug: PropTypes.string.isRequired,
-  fetchPostsByCategorySlug: PropTypes.func.isRequired
-}
-
 const mapStateToProps = (state, ownProps) => {
   const pageNumber = Number(ownProps.match.params.pageNumber) || 1
   const { slug } = ownProps.match.params
@@ -55,12 +30,24 @@ const mapStateToProps = (state, ownProps) => {
     pageNumber,
     slug,
     data: getPostsForPage(state, types.postsByCategory, pageNumber),
-    totalPages: getTotalPages(state, types.postsByCategory),
-    errorMessage: getErrorMessage(state, types.postsByCategory),
-    isFetching: getIsFetching(state, types.postsByCategory)
+    totalPages: getTotalPages(state, types.postsByCategory)
   }
 }
 
+const onMount = ({ fetchPostsByCategorySlug, slug, pageNumber }) =>
+  fetchPostsByCategorySlug(slug, pageNumber)
+
+const onUpdate = ({ prevProps, currentProps }) =>
+  prevProps.pageNumber !== currentProps.pageNumber &&
+  currentProps.fetchPostsByCategorySlug(
+    currentProps.slug,
+    currentProps.pageNumber
+  )
+
 export default withRouter(
-  connect(mapStateToProps, { fetchPostsByCategorySlug })(CategoriesContainer)
+  connectWithFetchContainer(
+    mapStateToProps,
+    { fetchPostsByCategorySlug },
+    { type: types.postsByCategory, onMount, onUpdate }
+  )(Categories)
 )

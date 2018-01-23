@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FetchContainer from './components/FetchContainer'
-import { connect } from 'react-redux'
+import { connectWithFetchContainer } from './components/FetchContainer'
 import { getErrorMessage, getIsFetching, getCommentsForPost } from './reducers'
 import * as types from './actions/types'
 import { fetchCommentsByPostId } from './actions'
@@ -27,20 +26,6 @@ CommentList.propTypes = {
   data: PropTypes.array.isRequired
 }
 
-const CommentListContainer = ({ fetchCommentsByPostId, ...rest }) => (
-  <FetchContainer
-    onMount={({ postId }) => fetchCommentsByPostId(postId)}
-    render={() => <CommentList {...rest} />}
-    {...rest}
-  />
-)
-
-CommentListContainer.propTypes = {
-  fetchCommentsByPostId: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
-  postId: PropTypes.number.isRequired
-}
-
 const mapStateToProps = (state, ownProps) => {
   const { postId } = ownProps
   return {
@@ -51,6 +36,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchCommentsByPostId })(
-  CommentListContainer
-)
+const onMount = ({ fetchCommentsByPostId, postId }) =>
+  fetchCommentsByPostId(postId)
+
+export default connectWithFetchContainer(
+  mapStateToProps,
+  { fetchCommentsByPostId },
+  { type: types.comments, onMount }
+)(CommentList)

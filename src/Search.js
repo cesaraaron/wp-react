@@ -1,16 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import FetchContainer from './components/FetchContainer'
+import { connectWithFetchContainer } from './components/FetchContainer'
 import * as types from './actions/types'
 import { fetchPostsBySearchQuery } from './actions'
-import {
-  getErrorMessage,
-  getIsFetching,
-  getTotalPages,
-  getPostsForPage
-} from './reducers'
+import { getTotalPages, getPostsForPage } from './reducers'
 import { PagingLinks } from './components/PagingLinks'
 import { Content } from './components/Content'
 import { parse } from 'qs'
@@ -31,27 +25,6 @@ Search.propTypes = {
   totalPages: PropTypes.number.isRequired
 }
 
-const SearchContainer = ({ fetchPostsBySearchQuery, ...rest }) => (
-  <FetchContainer
-    onUpdate={({ prevProps, currentProps }) =>
-      currentProps.query &&
-      (currentProps.pageNumber !== prevProps.pageNumber ||
-        currentProps.query !== prevProps.query) &&
-      fetchPostsBySearchQuery(currentProps.query, currentProps.pageNumber)}
-    onMount={({ query, pageNumber }) =>
-      query && fetchPostsBySearchQuery(query, pageNumber)}
-    render={() => <Search {...rest} />}
-    {...rest}
-  />
-)
-
-SearchContainer.propTypes = {
-  pageNumber: PropTypes.number.isRequired,
-  data: PropTypes.array.isRequired,
-  query: PropTypes.string.isRequired,
-  fetchPostsBySearchQuery: PropTypes.func.isRequired
-}
-
 const mapStateToProps = (state, ownProps) => {
   const query = parse(ownProps.location.search.substr(1)).q || ''
   const pageNumber = Number(ownProps.match.params.pageNumber) || 1
@@ -60,12 +33,26 @@ const mapStateToProps = (state, ownProps) => {
     pageNumber,
     query,
     data: getPostsForPage(state, types.searchQuery, pageNumber),
-    totalPages: getTotalPages(state, types.searchQuery),
-    errorMessage: getErrorMessage(state, types.searchQuery),
-    isFetching: getIsFetching(state, types.searchQuery)
+    totalPages: getTotalPages(state, types.searchQuery)
   }
 }
 
+const onUpdate = ({ prevProps, currentProps }) =>
+  currentProps.query &&
+  (currentProps.pageNumber !== prevProps.pageNumber ||
+    currentProps.query !== prevProps.query) &&
+  currentProps.fetchPostsBySearchQuery(
+    currentProps.query,
+    currentProps.pageNumber
+  )
+
+const onMount = ({ fetchPostsBySearchQuery, query, pageNumber }) =>
+  query && fetchPostsBySearchQuery(query, pageNumber)
+
 export default withRouter(
-  connect(mapStateToProps, { fetchPostsBySearchQuery })(SearchContainer)
+  connectWithFetchContainer(
+    mapStateToProps,
+    { fetchPostsBySearchQuery },
+    { type: types.searchQuery, onMount, onUpdate }
+  )(Search)
 )
