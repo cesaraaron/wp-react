@@ -2,6 +2,7 @@ import rootReducer, {
   endpoint,
   postsById,
   commentsById,
+  usersById,
   // getTotalPages,
   getPosts,
   getPostsForPage,
@@ -67,6 +68,23 @@ describe('commentsById()', () => {
     })
 
     expect(actual).toEqual(commentsResponse.entities.post)
+  })
+})
+
+describe('usersById()', () => {
+  it('should return an empty object by default', () => {
+    const actual = usersById(undefined, {})
+
+    expect(actual).toEqual({})
+  })
+
+  it('should return an object with users', () => {
+    const actual = usersById(undefined, {
+      type: types.FETCH_USERS_SUCCESS,
+      response: usersResponse
+    })
+
+    expect(actual).toEqual(usersResponse.entities.post)
   })
 })
 

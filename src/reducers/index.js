@@ -40,8 +40,21 @@ export const commentsById = (state = {}, action) => {
   }
 }
 
+export const usersById = (state = {}, action) => {
+  switch (action.type) {
+    case types.FETCH_USERS_SUCCESS:
+      return {
+        ...state,
+        ...action.response.entities.post
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   endpoint,
+  usersById,
   postsById,
   commentsById,
   [types.users]: createList(types.users),
