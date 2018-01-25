@@ -15,7 +15,7 @@ describe('<SingleContainer />', () => {
   const pageNumber = 1 // the default pageNumber is one if `match.params.pageNumber` is falsey
   const preloadedState = {
     postsById: entities.post,
-    [types.single]: { idsByPage: { [pageNumber]: result } }
+    [types.SINGLE]: { idsByPage: { [pageNumber]: result } }
   }
   const store = createStore(rootReducer, preloadedState)
   store.dispatch = () => {}

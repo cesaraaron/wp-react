@@ -5,7 +5,7 @@ import { arrayOfPosts } from '../../../actions/schema'
 import { posts } from '../../../utils/SampleData'
 
 describe('byPageNumber()', () => {
-  const byPageNumber = createByPageNumber(types.posts)
+  const byPageNumber = createByPageNumber(types.POSTS)
 
   it('should return an empty object', () => {
     const actual = byPageNumber(undefined, {})

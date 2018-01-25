@@ -5,7 +5,7 @@ import { arrayOfPosts } from '../../../actions/schema'
 import { posts } from '../../../utils/SampleData'
 
 describe('createById()', () => {
-  const byId = createById(types.posts)
+  const byId = createById(types.POSTS)
 
   it('should return an empty object by default', () => {
     const val = byId(undefined, {})

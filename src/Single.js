@@ -35,6 +35,6 @@ export default withRouter(
   connectWithFetchContainer(
     mapStateToProps,
     { fetchSingleBySlug },
-    { type: types.single, onMount }
+    { type: types.SINGLE, onMount }
   )(Single)
 )

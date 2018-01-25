@@ -2,7 +2,7 @@ import { createErrorMessage } from '../errorMessage'
 import * as types from '../../../actions/types'
 
 describe('createErrorMessage()', () => {
-  const errorMessage = createErrorMessage(types.posts)
+  const errorMessage = createErrorMessage(types.POSTS)
 
   it('should return null by default', () => {
     const actual = errorMessage(undefined, {})

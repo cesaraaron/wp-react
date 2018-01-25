@@ -29,8 +29,8 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     pageNumber,
-    data: getPostsForPage(state, types.posts, pageNumber),
-    totalPages: getTotalPages(state, types.posts)
+    data: getPostsForPage(state, types.POSTS, pageNumber),
+    totalPages: getTotalPages(state, types.POSTS)
   }
 }
 
@@ -44,6 +44,6 @@ export default withRouter(
   connectWithFetchContainer(
     mapStateToProps,
     { fetchPostsByPageNumber },
-    { type: types.posts, onMount, onUpdate }
+    { type: types.POSTS, onMount, onUpdate }
   )(Home)
 )

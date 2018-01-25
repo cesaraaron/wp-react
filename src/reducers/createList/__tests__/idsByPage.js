@@ -7,7 +7,7 @@ import { posts } from '../../../utils/SampleData'
 const response = normalize(posts, arrayOfPosts)
 
 describe('createIdsByPage()', () => {
-  const idsByPage = createIdsByPage(types.posts)
+  const idsByPage = createIdsByPage(types.POSTS)
 
   it('should return an empty object', () => {
     const actual = idsByPage(undefined, {})

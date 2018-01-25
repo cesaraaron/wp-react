@@ -2,7 +2,7 @@ import { createIds } from '../ids'
 import * as types from '../../../actions/types'
 
 describe('createIds()', () => {
-  const ids = createIds(types.posts)
+  const ids = createIds(types.POSTS)
 
   it('should return and empty array by default', () => {
     const actual = ids(undefined, {})
@@ -20,7 +20,7 @@ describe('createIds()', () => {
 
   // ids = createIds('single')
   it("should merge the response's ids with the state when the action is FETCH_SINGLE_SUCCESS", () => {
-    const ids = createIds(types.single)
+    const ids = createIds(types.SINGLE)
     const response = { result: [1, 4, 5] }
     const actual = ids([1, 2, 3], {
       type: types.FETCH_SINGLE_SUCCESS,

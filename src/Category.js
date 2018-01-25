@@ -29,8 +29,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     pageNumber,
     slug,
-    data: getPostsForPage(state, types.postsByCategory, pageNumber),
-    totalPages: getTotalPages(state, types.postsByCategory)
+    data: getPostsForPage(state, types.POSTS_BY_CATEGORY, pageNumber),
+    totalPages: getTotalPages(state, types.POSTS_BY_CATEGORY)
   }
 }
 
@@ -48,6 +48,6 @@ export default withRouter(
   connectWithFetchContainer(
     mapStateToProps,
     { fetchPostsByCategorySlug },
-    { type: types.postsByCategory, onMount, onUpdate }
+    { type: types.POSTS_BY_CATEGORY, onMount, onUpdate }
   )(Categories)
 )

@@ -57,13 +57,13 @@ export default combineReducers({
   usersById,
   postsById,
   commentsById,
-  [types.users]: createList(types.users),
-  [types.posts]: createList(types.posts),
-  [types.single]: createList(types.single),
-  [types.comments]: createList(types.comments),
-  [types.postsByCategory]: createList(types.postsByCategory),
-  [types.allCategories]: createList(types.allCategories),
-  [types.searchQuery]: createList(types.searchQuery)
+  [types.USERS]: createList(types.USERS),
+  [types.POSTS]: createList(types.POSTS),
+  [types.SINGLE]: createList(types.SINGLE),
+  [types.COMMENTS]: createList(types.COMMENTS),
+  [types.POSTS_BY_CATEGORY]: createList(types.POSTS_BY_CATEGORY),
+  [types.ALL_CATEGORIES]: createList(types.ALL_CATEGORIES),
+  [types.SEARCH_QUERY]: createList(types.SEARCH_QUERY)
 })
 
 export const getTotalPages = (state, type) =>
@@ -78,7 +78,7 @@ export const getPostsForPage = (state, type, pageNumber) =>
   fromCreateList.getPostsForPage(state[type], pageNumber, state.postsById)
 
 export const getCommentsForPost = (state, postId) =>
-  state[types.comments].ids
+  state[types.COMMENTS].ids
     .map(id => state.commentsById[id])
     .filter(comment => comment.post === postId)
 
@@ -90,7 +90,7 @@ export const getSingleWithSlug = ({ postsById }, slug) =>
     .filter(post => post.slug === slug)
 
 export const getUserWithSlug = (state, slug) =>
-  fromCreateList.getUserWithSlug(state[types.users], slug)
+  fromCreateList.getUserWithSlug(state[types.USERS], slug)
 
 export const getPostsForAuthorWithSlug = (state, slug) =>
   Object.keys(state.postsById)

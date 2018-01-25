@@ -51,61 +51,61 @@ export const FETCH_POSTS_BY_AUTHOR_SUCCESS = 'FETCH_POSTS_BY_AUTHOR_SUCCESS'
 
 export const FETCH_POSTS_BY_AUTHOR_FAILURE = 'FETCH_POSTS_BY_AUTHOR_FAILURE'
 
-export const posts = 'posts'
+export const POSTS = 'POSTS'
 
-export const single = 'single'
+export const SINGLE = 'SINGLE'
 
-export const comments = 'comments'
+export const COMMENTS = 'COMMENTS'
 
-export const postsByCategory = 'postsByCategory'
+export const POSTS_BY_CATEGORY = 'POSTS_BY_CATEGORY'
 
-export const allCategories = 'allCategories'
+export const ALL_CATEGORIES = 'ALL_CATEGORIES'
 
-export const searchQuery = 'searchQuery'
+export const SEARCH_QUERY = 'SEARCH_QUERY'
 
-export const users = 'users'
+export const USERS = 'USERS'
 
-export const postsByAuthor = 'postsByAuthor'
+export const POSTS_BY_AUTHOR = 'POSTS_BY_AUTHOR'
 
 export const createOnFetchVars = type => {
   const onFetch = {}
   switch (type) {
-    case posts:
+    case POSTS:
       onFetch.request = FETCH_POSTS_REQUEST
       onFetch.success = FETCH_POSTS_SUCCESS
       onFetch.failure = FETCH_POSTS_FAILURE
       break
-    case single:
+    case SINGLE:
       onFetch.request = FETCH_SINGLE_REQUEST
       onFetch.success = FETCH_SINGLE_SUCCESS
       onFetch.failure = FETCH_SINGLE_FAILURE
       break
-    case comments:
+    case COMMENTS:
       onFetch.request = FETCH_COMMENTS_REQUEST
       onFetch.success = FETCH_COMMENTS_SUCCESS
       onFetch.failure = FETCH_COMMENTS_FAILURE
       break
-    case postsByCategory:
+    case POSTS_BY_CATEGORY:
       onFetch.request = FETCH_POSTS_BY_CATEGORY_REQUEST
       onFetch.success = FETCH_POSTS_BY_CATEGORY_SUCCESS
       onFetch.failure = FETCH_POSTS_BY_CATEGORY_FAILURE
       break
-    case allCategories:
+    case ALL_CATEGORIES:
       onFetch.request = FETCH_ALL_CATEGORIES_REQUEST
       onFetch.success = FETCH_ALL_CATEGORIES_SUCCESS
       onFetch.failure = FETCH_ALL_CATEGORIES_FAILURE
       break
-    case searchQuery:
+    case SEARCH_QUERY:
       onFetch.request = FETCH_POSTS_BY_SEARCH_QUERY_REQUEST
       onFetch.success = FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS
       onFetch.failure = FETCH_POSTS_BY_SEARCH_QUERY_FAILURE
       break
-    case users:
+    case USERS:
       onFetch.request = FETCH_USERS_REQUEST
       onFetch.success = FETCH_USERS_SUCCESS
       onFetch.failure = FETCH_USERS_FAILURE
       break
-    case postsByAuthor:
+    case POSTS_BY_AUTHOR:
       onFetch.request = FETCH_POSTS_BY_AUTHOR_REQUEST
       onFetch.success = FETCH_POSTS_BY_AUTHOR_SUCCESS
       onFetch.failure = FETCH_POSTS_BY_AUTHOR_FAILURE

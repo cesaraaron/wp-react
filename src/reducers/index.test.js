@@ -90,7 +90,7 @@ describe('usersById()', () => {
 
 it('returns false when calling getIsFetching', () => {
   const { getState } = createStore(rootReducer)
-  const val = getIsFetching(getState(), types.posts)
+  const val = getIsFetching(getState(), types.POSTS)
 
   expect(val).toBe(false)
 })
@@ -119,7 +119,7 @@ describe('Selectors', () => {
   })
 
   describe('getPosts()', () => {
-    const actual = getPosts(getState(), types.posts)
+    const actual = getPosts(getState(), types.POSTS)
     expect(actual).toEqual([])
   })
 
@@ -142,7 +142,7 @@ describe('Selectors', () => {
 
   describe('getErrorMessage()', () => {
     it('should return null by default', () => {
-      const actual = getErrorMessage(getState(), types.posts)
+      const actual = getErrorMessage(getState(), types.POSTS)
 
       expect(actual).toBe(null)
     })
@@ -152,7 +152,7 @@ describe('Selectors', () => {
     it('should return an array of posts for pageNumber=`1`', () => {
       const pageNumber = 1
       dispatchPosts(dispatch, pageNumber)
-      const actual = getPostsForPage(getState(), types.posts, pageNumber)
+      const actual = getPostsForPage(getState(), types.POSTS, pageNumber)
 
       const expected = getData(postsResponse)
       expect(actual).toEqual(expected)

@@ -2,7 +2,7 @@ import { createTotalPages } from '../totalPages'
 import * as types from '../../../actions/types'
 
 describe('totalPages()', () => {
-  const totalPages = createTotalPages(types.posts)
+  const totalPages = createTotalPages(types.POSTS)
 
   it('should return 0 by default', () => {
     const actual = totalPages(undefined, {})

@@ -8,7 +8,7 @@ export const createIds = type => (state = [], action) => {
     case onFetch.success: {
       const { result } = action.response
 
-      return type === types.posts
+      return type === types.POSTS
         ? [...action.response.result]
         : [...state, ...result.filter(id => state.indexOf(id) < 0)]
     }

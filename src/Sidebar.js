@@ -37,7 +37,7 @@ Sidebar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  data: getData(state, types.allCategories)
+  data: getData(state, types.ALL_CATEGORIES)
 })
 
 const onMount = ({ fetchAllCategories }) => fetchAllCategories()
@@ -45,5 +45,5 @@ const onMount = ({ fetchAllCategories }) => fetchAllCategories()
 export default connectWithFetchContainer(
   mapStateToProps,
   { fetchAllCategories },
-  { type: types.allCategories, onMount }
+  { type: types.ALL_CATEGORIES, onMount }
 )(Sidebar)

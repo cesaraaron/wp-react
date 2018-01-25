@@ -2,7 +2,7 @@ import { createIsFetching } from '../isFetching'
 import * as types from '../../../actions/types'
 
 describe('createIsFetching()', () => {
-  const isFetching = createIsFetching(types.posts)
+  const isFetching = createIsFetching(types.POSTS)
 
   it('should return false by default', () => {
     const actual = isFetching(undefined, {})
