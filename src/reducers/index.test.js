@@ -159,17 +159,6 @@ describe('Selectors', () => {
     })
   })
 
-  // describe('getPostsByPage()', () => {
-  //   const posts = [{ 1: { id: 1 } }]
-  //   const state = { [types.posts]: { byPageNumber: { 1: posts } } }
-
-  //   it('should return an array of posts', () => {
-  //     const actual = getPostsByPage(state, types.posts, 1)
-
-  //     expect(actual).toEqual(posts)
-  //   })
-  // })
-
   describe('getSingleWithSlug()', () => {
     it('should return an array with one post', () => {
       dispatchPosts(dispatch)
