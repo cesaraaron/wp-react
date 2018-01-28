@@ -52,11 +52,24 @@ export const usersById = (state = {}, action) => {
   }
 }
 
+export const categoriesById = (state = {}, action) => {
+  switch (action.type) {
+    case types.FETCH_ALL_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        ...action.response.entities.post
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   endpoint,
   usersById,
   postsById,
   commentsById,
+  categoriesById,
   [types.USERS]: createList(types.USERS),
   [types.POSTS]: createList(types.POSTS),
   [types.SINGLE]: createList(types.SINGLE),

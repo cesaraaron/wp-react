@@ -3,6 +3,7 @@ import rootReducer, {
   postsById,
   commentsById,
   usersById,
+  categoriesById,
   // getTotalPages,
   getPosts,
   getPostsForPage,
@@ -18,11 +19,12 @@ import { createStore } from 'redux'
 import * as types from '../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../actions/schema'
-import { posts, comments, users } from '../utils/SampleData'
+import { posts, comments, users, categories } from '../utils/SampleData'
 
 const postsResponse = normalize(posts, arrayOfPosts)
 const commentsResponse = normalize(comments, arrayOfPosts)
 const usersResponse = normalize(users, arrayOfPosts)
+const categoriesResponse = normalize(categories, arrayOfPosts)
 
 describe('endpoint()', () => {
   it('should return an empty string', () => {
@@ -85,6 +87,23 @@ describe('usersById()', () => {
     })
 
     expect(actual).toEqual(usersResponse.entities.post)
+  })
+})
+
+describe('categoriesById()', () => {
+  it('should return an empty object by default', () => {
+    const actual = categoriesById(undefined, {})
+
+    expect(actual).toEqual({})
+  })
+
+  it('should return an object with categories', () => {
+    const actual = categoriesById(undefined, {
+      type: types.FETCH_ALL_CATEGORIES_SUCCESS,
+      response: categoriesResponse
+    })
+
+    expect(actual).toEqual(categoriesResponse.entities.post)
   })
 })
 
