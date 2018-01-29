@@ -48,7 +48,7 @@ export const fetchPostsByCategorySlug = (slug, pageNumber) => {
   invariant(String(slug), invalidStringError('categorySlug', slug))
   invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
 
-  return createOnFetch(types.postsByCategory, (api, dispatch) =>
+  return createOnFetch(types.POSTS_BY_CATEGORY, (api, dispatch) =>
     api
       .categories()
       .slug(slug)
@@ -88,7 +88,7 @@ export const fetchPostsByCategorySlug = (slug, pageNumber) => {
 export const fetchPostsByPageNumber = pageNumber => {
   invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
 
-  return createOnFetch(types.posts, (api, dispatch) =>
+  return createOnFetch(types.POSTS, (api, dispatch) =>
     api
       .posts()
       .page(pageNumber)
@@ -112,7 +112,7 @@ export const fetchPostsByPageNumber = pageNumber => {
 export const fetchSingleBySlug = slug => {
   invariant(String(slug), invalidStringError('slug', slug))
 
-  return createOnFetch(types.single, (api, dispatch) =>
+  return createOnFetch(types.SINGLE, (api, dispatch) =>
     api
       .posts()
       .slug(slug)
@@ -131,7 +131,7 @@ export const fetchSingleBySlug = slug => {
 export const fetchCommentsByPostId = postId => {
   invariant(typeof postId === 'number', `Invalid postId`)
 
-  return createOnFetch(types.comments, (api, dispatch) =>
+  return createOnFetch(types.COMMENTS, (api, dispatch) =>
     api
       .comments()
       .post(postId)
@@ -148,7 +148,7 @@ export const fetchCommentsByPostId = postId => {
 }
 
 export const fetchAllCategories = () =>
-  createOnFetch(types.allCategories, (api, dispatch) =>
+  createOnFetch(types.ALL_CATEGORIES, (api, dispatch) =>
     getAll(api.categories()).then(
       res =>
         dispatch({
@@ -166,7 +166,7 @@ export const fetchAllCategories = () =>
 export const fetchPostsBySearchQuery = (query = '', pageNumber) => {
   invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
 
-  return createOnFetch(types.searchQuery, (api, dispatch) =>
+  return createOnFetch(types.SEARCH_QUERY, (api, dispatch) =>
     api
       .posts()
       .search(query)
@@ -192,7 +192,7 @@ export const fetchPostsBySearchQuery = (query = '', pageNumber) => {
 }
 
 export const fetchUserWithSlug = slug =>
-  createOnFetch(types.users, (api, dispatch) =>
+  createOnFetch(types.USERS, (api, dispatch) =>
     api
       .users()
       .slug(slug)
@@ -216,7 +216,7 @@ export const fetchUserWithSlug = slug =>
 export const fetchPostsForAuthor = (id, pageNumber) => {
   invariant(Number(pageNumber) > 0, invalidPageNumberError(pageNumber))
 
-  return createOnFetch(types.postsByAuthor, (api, dispatch) =>
+  return createOnFetch(types.POSTS_BY_AUTHOR, (api, dispatch) =>
     api
       .posts()
       .author(id)
