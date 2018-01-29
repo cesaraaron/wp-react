@@ -114,6 +114,3 @@ export const getIsFetching = (state, type) =>
 
 export const getErrorMessage = (state, type) =>
   fromCreateList.getErrorMessage(state[type])
-
-export const getPostsByPage = (state, type, pageNumber) =>
-  fromCreateList.getPostsByPage(state[type], pageNumber)
