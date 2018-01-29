@@ -93,9 +93,7 @@ export const getPostsForPage = (state, type, pageNumber) =>
   fromCreateList.getPostsForPage(state[type], pageNumber, state.postsById)
 
 export const getCommentsForPost = (state, postId) =>
-  state[types.COMMENTS].ids
-    .map(id => state.commentsById[id])
-    .filter(comment => comment.post === postId)
+  getData(state.commentsById).filter(comment => comment.post === postId)
 
 export const getSingleWithSlug = ({ postsById }, slug) =>
   getData(postsById).filter(post => post.slug === slug)
