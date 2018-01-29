@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 // import * as types from '../../actions/types'
 import { createIds } from './ids'
-import { createById } from './byId'
 import { createTotalPages } from './totalPages'
 import { createErrorMessage } from './errorMessage'
 import { createIsFetching } from './isFetching'
@@ -11,7 +10,6 @@ export default type => {
   return combineReducers({
     ids: createIds(type),
     idsByPage: fromIdsByPage.createIdsByPage(type),
-    byId: createById(type),
     totalPages: createTotalPages(type),
     errorMessage: createErrorMessage(type),
     isFetching: createIsFetching(type)

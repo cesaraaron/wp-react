@@ -103,8 +103,8 @@ export const getUserWithSlug = (state, slug) =>
 
 export const getPostsForAuthorWithSlug = (state, slug) =>
   getData(state.postsById).filter(post => {
-    const users = getUserWithSlug(state, slug)
-    return users.length > 0 ? users[0].id === post.author : false
+    const [user] = getUserWithSlug(state, slug)
+    return user && user.id === post.author
   })
 
 export const getAllCategories = ({ categoriesById }) => getData(categoriesById)
