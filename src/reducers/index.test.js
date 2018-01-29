@@ -13,7 +13,8 @@ import rootReducer, {
   getCommentsForPost,
   getSingleWithSlug,
   getUserWithSlug,
-  getPostsForAuthorWithSlug
+  getPostsForAuthorWithSlug,
+  getAllCategories
 } from './index'
 import { createStore } from 'redux'
 import * as types from '../actions/types'
@@ -138,8 +139,17 @@ describe('Selectors', () => {
   })
 
   describe('getPosts()', () => {
-    const actual = getPosts(getState(), types.POSTS)
-    expect(actual).toEqual([])
+    it('should return an empty array', () => {
+      const actual = getPosts(getState(), types.POSTS)
+      expect(actual).toEqual([])
+    })
+
+    it('should return all posts for types.POSTS state', () => {
+      dispatchPosts(dispatch)
+      const actual = getPosts(getState(), types.POSTS)
+
+      expect(actual).toEqual(posts)
+    })
   })
 
   describe('getComments()', () => {
@@ -206,6 +216,19 @@ describe('Selectors', () => {
       const expected = posts.filter(p => p.author === users[0].id)
 
       expect(actual).toEqual(expected)
+    })
+  })
+
+  describe('getAllCategories()', () => {
+    it('should return an array with all categories', () => {
+      dispatch({
+        type: types.FETCH_ALL_CATEGORIES_SUCCESS,
+        response: categoriesResponse
+      })
+
+      const actual = getAllCategories(getState())
+
+      expect(actual).toEqual(categories)
     })
   })
 })

@@ -23,13 +23,8 @@ export const getPosts = (state, byId) => state.ids.map(id => byId[id])
 export const getPostsForPage = (state, pageNumber, byId) =>
   fromIdsByPage.getPostsForPage(state.idsByPage, pageNumber, byId)
 
-export const getData = state => state.ids.map(id => state.byId[id])
-
 export const getErrorMessage = state => state.errorMessage
 
 export const getIsFetching = state => state.isFetching
 
 export const getTotalPages = state => state.totalPages
-
-export const getUserWithSlug = (state, slug) =>
-  getData(state).filter(user => user.slug === slug)

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connectWithFetchContainer } from './components/FetchContainer'
-import { getData } from './reducers'
+import { getAllCategories } from './reducers'
 import * as types from './actions/types'
 import { fetchAllCategories } from './actions'
 import { Link } from 'react-router-dom'
@@ -37,7 +37,7 @@ Sidebar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  data: getData(state, types.ALL_CATEGORIES)
+  data: getAllCategories(state, types.ALL_CATEGORIES)
 })
 
 const onMount = ({ fetchAllCategories }) => fetchAllCategories()

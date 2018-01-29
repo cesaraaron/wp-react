@@ -79,13 +79,15 @@ export default combineReducers({
   [types.SEARCH_QUERY]: createList(types.SEARCH_QUERY)
 })
 
+const getData = byId => Object.keys(byId).map(id => byId[id])
+
 export const getTotalPages = (state, type) =>
   fromCreateList.getTotalPages(state[type])
 
 export const getEndpoint = state => state.endpoint
 
 export const getPosts = (state, type) =>
-  fromCreateList.getPosts(state[type], state.postsById)
+  state[type].ids.map(id => state.postsById[id])
 
 export const getPostsForPage = (state, type, pageNumber) =>
   fromCreateList.getPostsForPage(state[type], pageNumber, state.postsById)
@@ -95,25 +97,19 @@ export const getCommentsForPost = (state, postId) =>
     .map(id => state.commentsById[id])
     .filter(comment => comment.post === postId)
 
-export const getData = (state, type) => fromCreateList.getData(state[type])
-
 export const getSingleWithSlug = ({ postsById }, slug) =>
-  Object.keys(postsById)
-    .map(id => postsById[id])
-    .filter(post => post.slug === slug)
+  getData(postsById).filter(post => post.slug === slug)
 
 export const getUserWithSlug = (state, slug) =>
-  Object.keys(state.usersById)
-    .map(id => state.usersById[id])
-    .filter(user => user.slug === slug)
+  getData(state.usersById).filter(user => user.slug === slug)
 
 export const getPostsForAuthorWithSlug = (state, slug) =>
-  Object.keys(state.postsById)
-    .map(id => state.postsById[id])
-    .filter(post => {
-      const users = getUserWithSlug(state, slug)
-      return users.length > 0 ? users[0].id === post.author : false
-    })
+  getData(state.postsById).filter(post => {
+    const users = getUserWithSlug(state, slug)
+    return users.length > 0 ? users[0].id === post.author : false
+  })
+
+export const getAllCategories = ({ categoriesById }) => getData(categoriesById)
 
 export const getIsFetching = (state, type) =>
   fromCreateList.getIsFetching(state[type], type)
