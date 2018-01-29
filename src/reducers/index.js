@@ -103,7 +103,9 @@ export const getSingleWithSlug = ({ postsById }, slug) =>
     .filter(post => post.slug === slug)
 
 export const getUserWithSlug = (state, slug) =>
-  fromCreateList.getUserWithSlug(state[types.USERS], slug)
+  Object.keys(state.usersById)
+    .map(id => state.usersById[id])
+    .filter(user => user.slug === slug)
 
 export const getPostsForAuthorWithSlug = (state, slug) =>
   Object.keys(state.postsById)
