@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { Comment, CommentList } from '../Comments'
-import { comments } from '../utils/SampleData'
+import { Comment, CommentList } from './Comments'
+import { comments } from './utils/SampleData'
 
 it('should render a comment', () => {
   const component = renderer.create(<Comment {...comments[0]} />)

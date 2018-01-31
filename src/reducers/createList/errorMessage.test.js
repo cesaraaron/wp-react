@@ -1,5 +1,5 @@
-import { createErrorMessage } from '../errorMessage'
-import * as types from '../../../actions/types'
+import { createErrorMessage } from './errorMessage'
+import * as types from '../../actions/types'
 
 describe('createErrorMessage()', () => {
   const errorMessage = createErrorMessage(types.POSTS)

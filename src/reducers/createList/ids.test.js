@@ -1,5 +1,5 @@
-import { createIds } from '../ids'
-import * as types from '../../../actions/types'
+import { createIds } from './ids'
+import * as types from '../../actions/types'
 
 describe('createIds()', () => {
   const ids = createIds(types.POSTS)

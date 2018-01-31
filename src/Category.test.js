@@ -1,30 +1,30 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import SearchContainer from '../Search'
-import { posts } from '../utils/SampleData'
-import rootReducer from '../reducers'
 import { MemoryRouter, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import renderer from 'react-test-renderer'
+import CategoryContainer from './Category'
+import { posts } from './utils/SampleData'
 import { createStore } from 'redux'
+import rootReducer from './reducers'
+import { Provider } from 'react-redux'
 import { normalize } from 'normalizr'
-import { arrayOfPosts } from '../actions/schema'
-import * as types from '../actions/types'
+import { arrayOfPosts } from './actions/schema'
+import * as types from './actions/types'
 
-describe('<SingleContainer />', () => {
+describe('<CategoryContainer />', () => {
   const { entities, result } = normalize(posts, arrayOfPosts)
   const pageNumber = 1 // the default pageNumber is one if `match.params.pageNumber` is falsey
   const preloadedState = {
     postsById: entities.post,
-    [types.SEARCH_QUERY]: { idsByPage: { [pageNumber]: result } }
+    [types.POSTS_BY_CATEGORY]: { idsByPage: { [pageNumber]: result } }
   }
   const store = createStore(rootReducer, preloadedState)
   store.dispatch = () => {}
 
   it('should render without errors', () => {
     const component = renderer.create(
-      <MemoryRouter initialEntries={[{ pathname: '/search' }]}>
+      <MemoryRouter initialEntries={[{ pathname: '/category/hello-world' }]}>
         <Provider store={store}>
-          <Route path="/search" component={SearchContainer} />
+          <Route path="/category/:slug" component={CategoryContainer} />
         </Provider>
       </MemoryRouter>
     )

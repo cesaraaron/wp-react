@@ -1,5 +1,5 @@
-import { createTotalPages } from '../totalPages'
-import * as types from '../../../actions/types'
+import { createTotalPages } from './totalPages'
+import * as types from '../../actions/types'
 
 describe('totalPages()', () => {
   const totalPages = createTotalPages(types.POSTS)

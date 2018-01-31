@@ -1,5 +1,5 @@
-import { createIsFetching } from '../isFetching'
-import * as types from '../../../actions/types'
+import { createIsFetching } from './isFetching'
+import * as types from '../../actions/types'
 
 describe('createIsFetching()', () => {
   const isFetching = createIsFetching(types.POSTS)

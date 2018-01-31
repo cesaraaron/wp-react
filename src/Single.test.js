@@ -1,30 +1,30 @@
 import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
-import PostsContainer from '../Home'
-import { posts } from '../utils/SampleData'
-import { createStore } from 'redux'
-import rootReducer from '../reducers'
+import SingleContainer from './Single'
+import { posts } from './utils/SampleData'
+import rootReducer from './reducers'
+import { MemoryRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import { normalize } from 'normalizr'
-import { arrayOfPosts } from '../actions/schema'
-import * as types from '../actions/types'
+import { arrayOfPosts } from './actions/schema'
+import * as types from './actions/types'
 
-describe('<HomeContainer />', () => {
+describe('<SingleContainer />', () => {
   const { entities, result } = normalize(posts, arrayOfPosts)
   const pageNumber = 1 // the default pageNumber is one if `match.params.pageNumber` is falsey
   const preloadedState = {
     postsById: entities.post,
-    [types.POSTS]: { idsByPage: { [pageNumber]: result } }
+    [types.SINGLE]: { idsByPage: { [pageNumber]: result } }
   }
   const store = createStore(rootReducer, preloadedState)
   store.dispatch = () => {}
 
   it('should render without errors', () => {
     const component = renderer.create(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/hello-world']} initialIndex={0}>
         <Provider store={store}>
-          <PostsContainer />
+          <Route path="/:slug" component={SingleContainer} />
         </Provider>
       </MemoryRouter>
     )

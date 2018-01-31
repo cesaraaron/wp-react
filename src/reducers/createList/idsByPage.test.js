@@ -1,8 +1,8 @@
-import { createIdsByPage, getPostsForPage } from '../idsByPage'
-import * as types from '../../../actions/types'
+import { createIdsByPage, getPostsForPage } from './idsByPage'
+import * as types from '../../actions/types'
 import { normalize } from 'normalizr'
-import { arrayOfPosts } from '../../../actions/schema'
-import { posts } from '../../../utils/SampleData'
+import { arrayOfPosts } from '../../actions/schema'
+import { posts } from '../../utils/SampleData'
 
 const response = normalize(posts, arrayOfPosts)
 
