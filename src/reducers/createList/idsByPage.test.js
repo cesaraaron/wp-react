@@ -38,7 +38,7 @@ describe('createIdsByPage()', () => {
 
 describe('getPostsForPage()', () => {
   it('should return an empty array if the state object is empty', () => {
-    const actual = getPostsForPage({}, 1, {})
+    const actual = getPostsForPage({ state: {}, pageNumber: 1, byId: {} })
     expect(actual).toEqual([])
   })
 
@@ -47,7 +47,7 @@ describe('getPostsForPage()', () => {
     const postId = 1
     const state = { [pageNumber]: [postId] }
     const byId = { [postId]: { title: 'post title' } }
-    const actual = getPostsForPage(state, pageNumber, byId)
+    const actual = getPostsForPage({ state, pageNumber, byId })
 
     expect(actual).toEqual([{ title: 'post title' }])
   })

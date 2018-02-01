@@ -89,8 +89,12 @@ export const getEndpoint = state => state.endpoint
 export const getPosts = (state, type) =>
   state[type].ids.map(id => state.postsById[id])
 
-export const getPostsForPage = (state, type, pageNumber) =>
-  fromCreateList.getPostsForPage(state[type], pageNumber, state.postsById)
+export const getPostsForPage = ({ state, type, pageNumber }) =>
+  fromCreateList.getPostsForPage({
+    state: state[type],
+    pageNumber,
+    byId: state.postsById
+  })
 
 export const getCommentsForPost = (state, postId) =>
   getData(state.commentsById).filter(comment => comment.post === postId)

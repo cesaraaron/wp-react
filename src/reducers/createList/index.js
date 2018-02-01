@@ -18,8 +18,8 @@ export default type => {
 
 export const getPosts = (state, byId) => state.ids.map(id => byId[id])
 
-export const getPostsForPage = (state, pageNumber, byId) =>
-  fromIdsByPage.getPostsForPage(state.idsByPage, pageNumber, byId)
+export const getPostsForPage = ({ state, ...rest }) =>
+  fromIdsByPage.getPostsForPage({ state: state.idsByPage, ...rest })
 
 export const getErrorMessage = state => state.errorMessage
 

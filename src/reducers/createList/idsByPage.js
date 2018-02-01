@@ -20,7 +20,7 @@ export const createIdsByPage = type => (state = {}, action) => {
   }
 }
 
-export const getPostsForPage = (state, pageNumber, byId) => {
+export const getPostsForPage = ({ state, pageNumber, byId }) => {
   invariant(Number(pageNumber), INVALID_PAGE_NUMBER)
 
   return state[pageNumber] ? state[pageNumber].map(id => byId[id]) : []

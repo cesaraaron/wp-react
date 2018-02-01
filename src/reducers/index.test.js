@@ -181,7 +181,11 @@ describe('Selectors', () => {
     it('should return an array of posts for pageNumber=`1`', () => {
       const pageNumber = 1
       dispatchPosts(dispatch, pageNumber)
-      const actual = getPostsForPage(getState(), types.POSTS, pageNumber)
+      const actual = getPostsForPage({
+        state: getState(),
+        pageNumber,
+        type: types.POSTS
+      })
 
       const expected = getData(postsResponse)
       expect(actual).toEqual(expected)

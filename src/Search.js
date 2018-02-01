@@ -32,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     pageNumber,
     query,
-    data: getPostsForPage(state, types.SEARCH_QUERY, pageNumber),
+    data: getPostsForPage({ state, pageNumber, type: types.SEARCH_QUERY }),
     totalPages: getTotalPages(state, types.SEARCH_QUERY)
   }
 }

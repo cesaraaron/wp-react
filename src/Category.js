@@ -29,7 +29,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     pageNumber,
     slug,
-    data: getPostsForPage(state, types.POSTS_BY_CATEGORY, pageNumber),
+    data: getPostsForPage({ state, pageNumber, type: types.POSTS_BY_CATEGORY }),
     totalPages: getTotalPages(state, types.POSTS_BY_CATEGORY)
   }
 }
