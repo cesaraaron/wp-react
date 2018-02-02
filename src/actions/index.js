@@ -68,10 +68,10 @@ export const fetchPostsByCategorySlug = (slug, pageNumber) => {
       .then(
         res => {
           const response = normalize(res, arrayOfPosts)
-          response._paging = res._paging
 
           dispatch({
             type: types.FETCH_POSTS_BY_CATEGORY_SUCCESS,
+            _paging: res._paging,
             response,
             pageNumber
           })
@@ -95,10 +95,10 @@ export const fetchPostsByPageNumber = pageNumber => {
       .then(
         res => {
           const response = normalize(res, arrayOfPosts)
-          response._paging = res._paging
 
           dispatch({
             type: types.FETCH_POSTS_SUCCESS,
+            _paging: res._paging,
             response,
             pageNumber
           })
@@ -174,10 +174,10 @@ export const fetchPostsBySearchQuery = (query = '', pageNumber) => {
       .then(
         res => {
           const response = normalize(res, arrayOfPosts)
-          response._paging = res._paging
 
           dispatch({
             type: types.FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS,
+            _paging: res._paging,
             response,
             pageNumber
           })
@@ -223,10 +223,10 @@ export const fetchPostsForAuthor = (id, pageNumber) => {
       .then(
         res => {
           const response = normalize(res, arrayOfPosts)
-          response._paging = res._paging
 
           dispatch({
             type: types.FETCH_POSTS_BY_AUTHOR_SUCCESS,
+            _paging: res._paging,
             response,
             pageNumber
           })

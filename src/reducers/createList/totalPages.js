@@ -1,16 +1,21 @@
-import isObject from 'lodash/isObject'
 import { createOnFetchVars } from '../../actions/types'
 
 // TODO rename this reducer to `paging` and return `_paging` as state
-export const createTotalPages = type => (state = 0, action) => {
+export const createTotalPages = type => (state = { _default: 0 }, action) => {
   const onFetch = createOnFetchVars(type)
+  const { authorId, _paging = {} } = action
 
   switch (action.type) {
-    case onFetch.success:
-      return isObject(action.response._paging)
-        ? Number(action.response._paging.totalPages)
-        : state
+    case onFetch.success: {
+      return Number.isFinite(authorId)
+        ? { [authorId]: Number(_paging.totalPages) }
+        : _paging.totalPages ? { _default: Number(_paging.totalPages) } : state
+    }
     default:
       return state
   }
+}
+
+export const getTotalPages = ({ state, authorId }) => {
+  return state[authorId] ? state[authorId] : state._default
 }
