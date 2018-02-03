@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     pageNumber,
     data: getPostsForPage({ state, pageNumber, type: types.POSTS }),
-    totalPages: getTotalPages(state, types.POSTS)
+    totalPages: getTotalPages({ state, type: types.POSTS })
   }
 }
 

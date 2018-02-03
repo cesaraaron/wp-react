@@ -81,8 +81,8 @@ export default combineReducers({
 
 const getData = byId => Object.keys(byId).map(id => byId[id])
 
-export const getTotalPages = (state, type) =>
-  fromCreateList.getTotalPages(state[type])
+export const getTotalPages = ({ state, type, ...rest }) =>
+  fromCreateList.getTotalPages({ state: state[type], ...rest })
 
 export const getEndpoint = state => state.endpoint
 

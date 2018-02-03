@@ -1,6 +1,5 @@
 import { createOnFetchVars } from '../../actions/types'
 
-// TODO rename this reducer to `paging` and return `_paging` as state
 export const createTotalPages = type => (state = { _default: 0 }, action) => {
   const onFetch = createOnFetchVars(type)
   const { authorId, _paging = {} } = action

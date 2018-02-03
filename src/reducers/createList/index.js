@@ -25,5 +25,5 @@ export const getErrorMessage = state => state.errorMessage
 
 export const getIsFetching = state => state.isFetching
 
-export const getTotalPages = state =>
-  fromTotalPages.getTotalPages({ state: state.totalPages })
+export const getTotalPages = ({ state, ...rest }) =>
+  fromTotalPages.getTotalPages({ state: state.totalPages, ...rest })
