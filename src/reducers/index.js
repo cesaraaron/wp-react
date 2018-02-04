@@ -19,6 +19,7 @@ export const postsById = (state = {}, action) => {
     case types.FETCH_SINGLE_SUCCESS:
     case types.FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS:
     case types.FETCH_POSTS_BY_CATEGORY_SUCCESS:
+    case types.FETCH_POSTS_BY_AUTHOR_SUCCESS:
       return {
         ...state,
         ...action.response.entities.post
@@ -76,7 +77,8 @@ export default combineReducers({
   [types.COMMENTS]: createList(types.COMMENTS),
   [types.POSTS_BY_CATEGORY]: createList(types.POSTS_BY_CATEGORY),
   [types.ALL_CATEGORIES]: createList(types.ALL_CATEGORIES),
-  [types.SEARCH_QUERY]: createList(types.SEARCH_QUERY)
+  [types.SEARCH_QUERY]: createList(types.SEARCH_QUERY),
+  [types.POSTS_BY_AUTHOR]: createList(types.POSTS_BY_AUTHOR)
 })
 
 const getData = byId => Object.keys(byId).map(id => byId[id])

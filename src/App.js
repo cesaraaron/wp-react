@@ -4,6 +4,7 @@ import Posts from './Home'
 import Single from './Single'
 import Category from './Category'
 import Search from './Search'
+import Author from './Author'
 
 const App = () => (
   <div>
@@ -14,6 +15,7 @@ const App = () => (
       <Route path="/search" component={Search} />
       <Route exact path="/:slug" component={Single} />
     </Switch>
+    <Route path="/author/:authorSlug" component={Author} />
   </div>
 )
 

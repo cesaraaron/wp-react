@@ -239,3 +239,17 @@ export const fetchPostsForAuthor = (id, pageNumber) => {
       )
   )
 }
+
+export const fetchUserWithSlugAndThenItsPosts = (slug, pageNumber) => (
+  dispatch,
+  getState
+) =>
+  dispatch(fetchUserWithSlug(slug)).then(() => {
+    const [user] = selectors.getUserWithSlug(getState(), slug)
+    return user
+      ? dispatch(fetchPostsForAuthor(user.id, pageNumber))
+      : dispatch({
+          type: types.FETCH_POSTS_BY_AUTHOR_FAILURE,
+          message: '404 user not found'
+        })
+  })
