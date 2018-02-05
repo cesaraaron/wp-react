@@ -36,11 +36,10 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onMount = ({ fetchCommentsByPostId, postId }) =>
-  fetchCommentsByPostId(postId)
+const onMount = ({ dispatch, postId }) =>
+  dispatch(fetchCommentsByPostId(postId))
 
-export default connectWithFetchContainer(
-  mapStateToProps,
-  { fetchCommentsByPostId },
-  { type: types.COMMENTS, onMount }
-)(CommentList)
+export default connectWithFetchContainer(mapStateToProps, undefined, {
+  type: types.COMMENTS,
+  onMount
+})(CommentList)

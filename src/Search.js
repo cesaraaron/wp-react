@@ -41,18 +41,17 @@ const onUpdate = ({ prevProps, currentProps }) =>
   currentProps.query &&
   (currentProps.pageNumber !== prevProps.pageNumber ||
     currentProps.query !== prevProps.query) &&
-  currentProps.fetchPostsBySearchQuery(
-    currentProps.query,
-    currentProps.pageNumber
+  currentProps.dispatch(
+    fetchPostsBySearchQuery(currentProps.query, currentProps.pageNumber)
   )
 
-const onMount = ({ fetchPostsBySearchQuery, query, pageNumber }) =>
-  query && fetchPostsBySearchQuery(query, pageNumber)
+const onMount = ({ dispatch, query, pageNumber }) =>
+  query && dispatch(fetchPostsBySearchQuery(query, pageNumber))
 
 export default withRouter(
-  connectWithFetchContainer(
-    mapStateToProps,
-    { fetchPostsBySearchQuery },
-    { type: types.SEARCH_QUERY, onMount, onUpdate }
-  )(Search)
+  connectWithFetchContainer(mapStateToProps, undefined, {
+    type: types.SEARCH_QUERY,
+    onMount,
+    onUpdate
+  })(Search)
 )

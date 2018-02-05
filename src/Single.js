@@ -29,12 +29,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onMount = ({ fetchSingleBySlug, slug }) => fetchSingleBySlug(slug)
+const onMount = ({ dispatch, slug }) => dispatch(fetchSingleBySlug(slug))
 
 export default withRouter(
-  connectWithFetchContainer(
-    mapStateToProps,
-    { fetchSingleBySlug },
-    { type: types.SINGLE, onMount }
-  )(Single)
+  connectWithFetchContainer(mapStateToProps, undefined, {
+    type: types.SINGLE,
+    onMount
+  })(Single)
 )
