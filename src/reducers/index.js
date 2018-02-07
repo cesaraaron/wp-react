@@ -12,6 +12,17 @@ export const endpoint = (state = '', action) => {
       return state
   }
 }
+export const createById = type => (state = {}, action) => {
+  switch (action.type) {
+    case type:
+      return {
+        ...state,
+        ...action.response.entities.post
+      }
+    default:
+      return state
+  }
+}
 
 export const postsById = (state = {}, action) => {
   switch (action.type) {

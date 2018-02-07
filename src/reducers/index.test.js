@@ -14,7 +14,8 @@ import rootReducer, {
   getSingleWithSlug,
   getUserWithSlug,
   getPostsForAuthorWithSlug,
-  getAllCategories
+  getAllCategories,
+  createById
 } from './index'
 import { createStore } from 'redux'
 import * as types from '../actions/types'
@@ -237,6 +238,13 @@ describe('Selectors', () => {
   })
 })
 
+describe('createById', () => {
+  it('should return a function', () => {
+    const byId = createById(types.FETCH_POSTS_SUCCESS)
+
+    expect(typeof byId).toBe('function')
+  })
+})
 // it('should get the totalPages number from the rootReducer object', () => {
 //   const state = { [types.posts]: { totalPages: 4 } }
 //   const actual = getTotalPages(state, types.posts)
