@@ -4,6 +4,7 @@ import rootReducer, {
   commentsById,
   usersById,
   categoriesById,
+  pagesById,
   // getTotalPages,
   getPosts,
   getPostsForPage,
@@ -106,6 +107,14 @@ describe('categoriesById()', () => {
     })
 
     expect(actual).toEqual(categoriesResponse.entities.post)
+  })
+})
+
+describe('pagesById()', () => {
+  it('should return an empty object by default', () => {
+    const actual = pagesById(undefined, {})
+
+    expect(actual).toEqual({})
   })
 })
 

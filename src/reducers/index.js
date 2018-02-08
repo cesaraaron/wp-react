@@ -76,12 +76,25 @@ export const categoriesById = (state = {}, action) => {
   }
 }
 
+export const pagesById = (state = {}, action) => {
+  switch (action.type) {
+    case types.FETCH_PAGE_SUCCESS:
+      return {
+        ...state,
+        ...action.response.entities.post
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   endpoint,
   usersById,
   postsById,
   commentsById,
   categoriesById,
+  pagesById,
   [types.USERS]: createList(types.USERS),
   [types.POSTS]: createList(types.POSTS),
   [types.SINGLE]: createList(types.SINGLE),
@@ -89,7 +102,8 @@ export default combineReducers({
   [types.POSTS_BY_CATEGORY]: createList(types.POSTS_BY_CATEGORY),
   [types.ALL_CATEGORIES]: createList(types.ALL_CATEGORIES),
   [types.SEARCH_QUERY]: createList(types.SEARCH_QUERY),
-  [types.POSTS_BY_AUTHOR]: createList(types.POSTS_BY_AUTHOR)
+  [types.POSTS_BY_AUTHOR]: createList(types.POSTS_BY_AUTHOR),
+  [types.PAGE]: createList(types.PAGE)
 })
 
 const getData = byId => Object.keys(byId).map(id => byId[id])
