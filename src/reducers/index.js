@@ -138,6 +138,9 @@ export const getPostsForAuthorWithSlug = (state, slug) =>
     return user && user.id === post.author
   })
 
+export const getPageWithSlug = ({ state, slug }) =>
+  getData(state.pagesById).filter(page => page.slug === slug)
+
 export const getAllCategories = ({ categoriesById }) => getData(categoriesById)
 
 export const getIsFetching = (state, type) =>

@@ -66,16 +66,13 @@ export const fetchPostsByCategorySlug = (slug, pageNumber) => {
         }
       })
       .then(
-        res => {
-          const response = normalize(res, arrayOfPosts)
-
+        res =>
           dispatch({
             type: types.FETCH_POSTS_BY_CATEGORY_SUCCESS,
+            response: normalize(res, arrayOfPosts),
             _paging: res._paging,
-            response,
             pageNumber
-          })
-        },
+          }),
         err =>
           dispatch({
             type: types.FETCH_POSTS_BY_CATEGORY_FAILURE,
@@ -93,16 +90,13 @@ export const fetchPostsByPageNumber = pageNumber => {
       .posts()
       .page(pageNumber)
       .then(
-        res => {
-          const response = normalize(res, arrayOfPosts)
-
+        res =>
           dispatch({
             type: types.FETCH_POSTS_SUCCESS,
+            response: normalize(res, arrayOfPosts),
             _paging: res._paging,
-            response,
             pageNumber
-          })
-        },
+          }),
         err =>
           dispatch({ type: types.FETCH_POSTS_FAILURE, message: err.message })
       )
@@ -173,12 +167,10 @@ export const fetchPostsBySearchQuery = (query = '', pageNumber) => {
       .page(pageNumber)
       .then(
         res => {
-          const response = normalize(res, arrayOfPosts)
-
           dispatch({
             type: types.FETCH_POSTS_BY_SEARCH_QUERY_SUCCESS,
+            response: normalize(res, arrayOfPosts),
             _paging: res._paging,
-            response,
             pageNumber
           })
         },
@@ -198,11 +190,9 @@ export const fetchUserWithSlug = slug =>
       .slug(slug)
       .then(
         res => {
-          const response = normalize(res, arrayOfPosts)
-
           dispatch({
             type: types.FETCH_USERS_SUCCESS,
-            response
+            response: normalize(res, arrayOfPosts)
           })
         },
         err =>
@@ -221,16 +211,13 @@ export const fetchPostsForAuthor = (id, pageNumber) => {
       .posts()
       .author(id)
       .then(
-        res => {
-          const response = normalize(res, arrayOfPosts)
-
+        res =>
           dispatch({
             type: types.FETCH_POSTS_BY_AUTHOR_SUCCESS,
+            response: normalize(res, arrayOfPosts),
             _paging: res._paging,
-            response,
             pageNumber
-          })
-        },
+          }),
         err =>
           dispatch({
             type: types.FETCH_POSTS_BY_AUTHOR_FAILURE,
@@ -253,3 +240,20 @@ export const fetchUserWithSlugAndThenItsPosts = (slug, pageNumber) => (
           message: '404 user not found'
         })
   })
+
+export const fetchPageWithSlug = slug =>
+  createOnFetch(types.PAGE, (api, dispatch) =>
+    api
+      .pages()
+      .slug(slug)
+      .then(
+        res =>
+          dispatch({
+            type: types.FETCH_PAGE_SUCCESS,
+            response: normalize(res, arrayOfPosts),
+            _paging: res._paging
+          }),
+        err =>
+          dispatch({ type: types.FETCH_PAGE_FAILURE, message: err.message })
+      )
+  )

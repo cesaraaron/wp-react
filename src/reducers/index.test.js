@@ -16,18 +16,37 @@ import rootReducer, {
   getUserWithSlug,
   getPostsForAuthorWithSlug,
   getAllCategories,
-  createById
+  createById,
+  getPageWithSlug
 } from './index'
 import { createStore } from 'redux'
 import * as types from '../actions/types'
 import { normalize } from 'normalizr'
 import { arrayOfPosts } from '../actions/schema'
-import { posts, comments, users, categories } from '../utils/SampleData'
+import { posts, comments, users, categories, pages } from '../utils/SampleData'
 
 const postsResponse = normalize(posts, arrayOfPosts)
 const commentsResponse = normalize(comments, arrayOfPosts)
 const usersResponse = normalize(users, arrayOfPosts)
 const categoriesResponse = normalize(categories, arrayOfPosts)
+const pagesResponse = normalize(pages, arrayOfPosts)
+
+const getData = response =>
+  response.result.map(id => response.entities.post[id])
+
+const dispatchPosts = (dispatch, pageNumber = 1) =>
+  dispatch({
+    type: types.FETCH_POSTS_SUCCESS,
+    response: postsResponse,
+    pageNumber
+  })
+const dispatchComments = dispatch =>
+  dispatch({ type: types.FETCH_COMMENTS_SUCCESS, response: commentsResponse })
+const dispatchUsers = dispatch =>
+  dispatch({ type: types.FETCH_USERS_SUCCESS, response: usersResponse })
+
+const dispatchPages = dispatch =>
+  dispatch({ type: types.FETCH_PAGE_SUCCESS, response: pagesResponse })
 
 describe('endpoint()', () => {
   it('should return an empty string', () => {
@@ -126,20 +145,6 @@ it('returns false when calling getIsFetching', () => {
 })
 
 describe('Selectors', () => {
-  const getData = response =>
-    response.result.map(id => response.entities.post[id])
-
-  const dispatchPosts = (dispatch, pageNumber = 1) =>
-    dispatch({
-      type: types.FETCH_POSTS_SUCCESS,
-      response: postsResponse,
-      pageNumber
-    })
-  const dispatchComments = dispatch =>
-    dispatch({ type: types.FETCH_COMMENTS_SUCCESS, response: commentsResponse })
-  const dispatchUsers = dispatch =>
-    dispatch({ type: types.FETCH_USERS_SUCCESS, response: usersResponse })
-
   let { getState, dispatch } = createStore(rootReducer)
 
   beforeEach(() => {
@@ -243,6 +248,16 @@ describe('Selectors', () => {
       const actual = getAllCategories(getState())
 
       expect(actual).toEqual(categories)
+    })
+  })
+
+  describe('getPageWithSlug()', () => {
+    it('should return an array with one page', () => {
+      dispatchPages(dispatch)
+      const page = pages[0]
+      const actual = getPageWithSlug({ state: getState(), slug: page.slug })
+
+      expect(actual).toEqual([page])
     })
   })
 })
