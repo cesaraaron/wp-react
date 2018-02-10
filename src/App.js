@@ -5,6 +5,7 @@ import Single from './Single'
 import Category from './Category'
 import Search from './Search'
 import Author from './Author'
+import Page from './Page'
 
 const App = () => (
   <div>
@@ -16,6 +17,7 @@ const App = () => (
       <Route exact path="/:slug" component={Single} />
     </Switch>
     <Route path="/author/:authorSlug" component={Author} />
+    <Route path="/pages/:slug" component={Page} />
   </div>
 )
 
