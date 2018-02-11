@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 export const Post = ({ title, content, slug, isSingle }) => {
-  const newTitle = isSingle ? (
-    title.rendered
-  ) : (
-    <Link to={`/${slug}`}>{title.rendered}</Link>
-  )
   return (
     <article>
-      <h4>{newTitle}</h4>
+      <h1>
+        {isSingle ? (
+          title.rendered
+        ) : (
+          <Link to={`/${slug}`}>{title.rendered}</Link>
+        )}
+      </h1>
       <div dangerouslySetInnerHTML={{ __html: content.rendered }} />
     </article>
   )
