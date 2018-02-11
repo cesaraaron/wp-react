@@ -6,7 +6,7 @@ export const PagingLinks = ({ total, isHome, activeIndex }) => (
   <div>
     {[...Array(total)].map((val, idx) => {
       const currentIndex = idx + 1
-      const to = isHome && currentIndex === 1 ? '/' : `/page/${currentIndex}`
+      const to = isHome && currentIndex === 1 ? '/' : `/p/${currentIndex}`
 
       return activeIndex === currentIndex ? (
         <span style={{ padding: '5px' }} key={currentIndex}>

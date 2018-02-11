@@ -5,14 +5,14 @@ exports[`<HomeContainer /> should render without errors 1`] = `
   <div>
     <div>
       <article>
-        <h4>
+        <h1>
           <a
             href="/hello-world"
             onClick={[Function]}
           >
             Hello world!
           </a>
-        </h4>
+        </h1>
         <div
           dangerouslySetInnerHTML={
             Object {
@@ -23,14 +23,14 @@ exports[`<HomeContainer /> should render without errors 1`] = `
         />
       </article>
       <article>
-        <h4>
+        <h1>
           <a
             href="/tiled-gallery"
             onClick={[Function]}
           >
             Tiled Gallery
           </a>
-        </h4>
+        </h1>
         <div
           dangerouslySetInnerHTML={
             Object {

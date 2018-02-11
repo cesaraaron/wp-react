@@ -10,14 +10,14 @@ import Page from './Page'
 const App = () => (
   <div>
     <Route exact path="/" component={Posts} />
-    <Route path="/page/:pageNumber" component={Posts} />
+    <Route path="/p/:pageNumber" component={Posts} />
     <Route path="/category/:slug" component={Category} />
     <Switch>
       <Route path="/search" component={Search} />
       <Route exact path="/:slug" component={Single} />
     </Switch>
     <Route path="/author/:authorSlug" component={Author} />
-    <Route path="/pages/:slug" component={Page} />
+    <Route path="/page/:slug" component={Page} />
   </div>
 )
 
