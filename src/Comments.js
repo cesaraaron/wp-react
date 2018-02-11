@@ -7,8 +7,10 @@ import { fetchCommentsByPostId } from './actions'
 
 export const Comment = ({ author_name, content }) => (
   <div>
-    <div>{author_name}</div>
-    <p>{content.rendered}</p>
+    <div>
+      <i>{author_name}</i>
+    </div>
+    <p dangerouslySetInnerHTML={{ __html: content.rendered }} />
   </div>
 )
 
