@@ -34,16 +34,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onMount = ({ pageNumber, dispatch }) =>
-  dispatch(fetchPostsByPageNumber(pageNumber))
-const onUpdate = ({ prevProps, currentProps }) =>
-  currentProps.pageNumber !== prevProps.pageNumber &&
-  currentProps.dispatch(fetchPostsByPageNumber(currentProps.pageNumber))
-
 export default withRouter(
   connectWithFetchContainer(mapStateToProps, undefined, {
     type: types.POSTS,
-    onMount,
-    onUpdate
+    onMount: ({ pageNumber, dispatch }) =>
+      dispatch(fetchPostsByPageNumber(pageNumber)),
+    onUpdate: ({ prevProps, currentProps }) =>
+      currentProps.pageNumber !== prevProps.pageNumber &&
+      currentProps.dispatch(fetchPostsByPageNumber(currentProps.pageNumber))
   })(Home)
 )

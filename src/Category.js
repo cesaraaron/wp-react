@@ -34,19 +34,15 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onMount = ({ dispatch, slug, pageNumber }) =>
-  dispatch(fetchPostsByCategorySlug(slug, pageNumber))
-
-const onUpdate = ({ prevProps, currentProps }) =>
-  prevProps.pageNumber !== currentProps.pageNumber &&
-  currentProps.dispatch(
-    fetchPostsByCategorySlug(currentProps.slug, currentProps.pageNuber)
-  )
-
 export default withRouter(
   connectWithFetchContainer(mapStateToProps, undefined, {
     type: types.POSTS_BY_CATEGORY,
-    onMount,
-    onUpdate
+    onMount: ({ dispatch, slug, pageNumber }) =>
+      dispatch(fetchPostsByCategorySlug(slug, pageNumber)),
+    onUpdate: ({ prevProps, currentProps }) =>
+      prevProps.pageNumber !== currentProps.pageNumber &&
+      currentProps.dispatch(
+        fetchPostsByCategorySlug(currentProps.slug, currentProps.pageNuber)
+      )
   })(Categories)
 )

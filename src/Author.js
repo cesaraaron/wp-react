@@ -44,20 +44,19 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onMount = ({ dispatch, authorSlug, pageNumber }) => {
-  dispatch(fetchUserWithSlugAndThenItsPosts(authorSlug, pageNumber))
-}
-
-// const onUpdate = ({ prevProps, currentProps }) =>
-//   prevProps.pageNumber !== currentProps.pageNumber &&
-//   currentProps.fetchPostsByCategorySlug(
-//     currentProps.slug,
-//     currentProps.pageNumber
-//   )
-
 export default withRouter(
   connectWithFetchContainer(mapStateToProps, undefined, {
     type: types.POSTS_BY_AUTHOR,
-    onMount
+    onMount: ({ dispatch, authorSlug, pageNumber }) => {
+      dispatch(fetchUserWithSlugAndThenItsPosts(authorSlug, pageNumber))
+    },
+    onUpdate: ({ prevProps, currentProps }) =>
+      prevProps.pageNumber !== currentProps.pageNumber &&
+      currentProps.dispatch(
+        fetchUserWithSlugAndThenItsPosts(
+          currentProps.authorSlug,
+          currentProps.pageNumber
+        )
+      )
   })(Author)
 )

@@ -29,11 +29,9 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onMount = ({ dispatch, slug }) => dispatch(fetchPageWithSlug(slug))
-
 export default withRouter(
   connectWithFetchContainer(mapStateToProps, undefined, {
     type: types.PAGE,
-    onMount
+    onMount: ({ dispatch, slug }) => dispatch(fetchPageWithSlug(slug))
   })(Single)
 )

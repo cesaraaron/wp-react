@@ -5,9 +5,9 @@ exports[`<SingleContainer /> should render without errors 1`] = `
   <div>
     <div>
       <article>
-        <h4>
+        <h1>
           Hello world!
-        </h4>
+        </h1>
         <div
           dangerouslySetInnerHTML={
             Object {

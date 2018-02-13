@@ -3,7 +3,9 @@
 exports[`should render a comment 1`] = `
 <div>
   <div>
-    Chris Ames
+    <i>
+      Chris Ames
+    </i>
   </div>
   <p
     dangerouslySetInnerHTML={
@@ -20,7 +22,9 @@ exports[`should render a list of comments 1`] = `
 Array [
   <div>
     <div>
-      Chris Ames
+      <i>
+        Chris Ames
+      </i>
     </div>
     <p
       dangerouslySetInnerHTML={
@@ -33,7 +37,9 @@ Array [
   </div>,
   <div>
     <div>
-      Jared Erickson
+      <i>
+        Jared Erickson
+      </i>
     </div>
     <p
       dangerouslySetInnerHTML={

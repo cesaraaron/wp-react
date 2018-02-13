@@ -5,9 +5,9 @@ exports[`<PageContainer /> should render without errors 1`] = `
   <div>
     <div>
       <article>
-        <h4>
+        <h1>
           Sample Page
-        </h4>
+        </h1>
         <div
           dangerouslySetInnerHTML={
             Object {

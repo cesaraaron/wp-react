@@ -37,21 +37,17 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const onUpdate = ({ prevProps, currentProps }) =>
-  currentProps.query &&
-  (currentProps.pageNumber !== prevProps.pageNumber ||
-    currentProps.query !== prevProps.query) &&
-  currentProps.dispatch(
-    fetchPostsBySearchQuery(currentProps.query, currentProps.pageNumber)
-  )
-
-const onMount = ({ dispatch, query, pageNumber }) =>
-  query && dispatch(fetchPostsBySearchQuery(query, pageNumber))
-
 export default withRouter(
   connectWithFetchContainer(mapStateToProps, undefined, {
     type: types.SEARCH_QUERY,
-    onMount,
-    onUpdate
+    onMount: ({ dispatch, query, pageNumber }) =>
+      query && dispatch(fetchPostsBySearchQuery(query, pageNumber)),
+    onUpdate: ({ prevProps, currentProps }) =>
+      currentProps.query &&
+      (currentProps.pageNumber !== prevProps.pageNumber ||
+        currentProps.query !== prevProps.query) &&
+      currentProps.dispatch(
+        fetchPostsBySearchQuery(currentProps.query, currentProps.pageNumber)
+      )
   })(Search)
 )

@@ -40,9 +40,7 @@ const mapStateToProps = state => ({
   data: getAllCategories(state, types.ALL_CATEGORIES)
 })
 
-const onMount = ({ dispatch }) => dispatch(fetchAllCategories())
-
 export default connectWithFetchContainer(mapStateToProps, undefined, {
   type: types.ALL_CATEGORIES,
-  onMount
+  onMount: ({ dispatch }) => dispatch(fetchAllCategories())
 })(Sidebar)
