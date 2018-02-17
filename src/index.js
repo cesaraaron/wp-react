@@ -28,7 +28,7 @@ const render = (Component, store) => {
 
 const store = configureStore()
 
-store.dispatch(getEndpoint(location))
+store.dispatch(getEndpoint(window.location))
 
 render(App, store)
 
