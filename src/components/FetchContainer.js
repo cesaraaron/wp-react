@@ -46,7 +46,7 @@ export default FetchContainer
 export const connectWithFetchContainer = (
   mapStateToProps,
   mapDispatchToProps,
-  { type, onMount, onUpdate, ...rest }
+  { type, onMount, onUpdate }
 ) => {
   const currentType = types[type]
   if (!currentType) {
@@ -70,8 +70,6 @@ export const connectWithFetchContainer = (
       />
     )
 
-    return connect(newMapStateToProps, mapDispatchToProps, ...rest)(
-      WrappedComponent
-    )
+    return connect(newMapStateToProps, mapDispatchToProps)(WrappedComponent)
   }
 }
