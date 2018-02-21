@@ -6,22 +6,18 @@ import App from './App'
 import configureStore from './utils/configureStore'
 import { getEndpoint } from './actions'
 import './index.css'
-// import registerServiceWorker from './registerServiceWorker'
-
-const render = (Component, store) => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <Router>
-        <Component />
-      </Router>
-    </Provider>,
-    document.getElementById('root')
-  )
-}
+import registerServiceWorker from './registerServiceWorker'
 
 const store = configureStore()
-
 store.dispatch(getEndpoint(window.location))
 
-render(App, store)
-// registerServiceWorker()
+ReactDOM.render(
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+)
+
+registerServiceWorker()
