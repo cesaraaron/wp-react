@@ -5,9 +5,9 @@ import * as types from '../actions/types'
 export const endpoint = (state = '', action) => {
   switch (action.type) {
     case 'GET_ENDPOINT':
-      // It should get the api endpoint from a link in the document head with
-      // a rel attribute set to ’https://api.w.org/’
-      return `${action.location.origin}/wp-json`
+      return action.homepage
+        ? action.homepage + '/wp-json'
+        : action.location.origin + '/wp-json'
     default:
       return state
   }

@@ -54,7 +54,18 @@ describe('endpoint()', () => {
     expect(val).toBe('')
   })
 
-  it('should get the api endpoint', () => {
+  it('should get the api url from homepage', () => {
+    const actual = endpoint(undefined, {
+      type: 'GET_ENDPOINT',
+      homepage: 'localhost',
+      location: {}
+    })
+    const expected = 'localhost/wp-json'
+
+    expect(actual).toBe(expected)
+  })
+
+  it('should try to get the api url from origin if homepage is falsey', () => {
     const location = { origin: 'http://localhost' }
     const val = endpoint(undefined, { type: 'GET_ENDPOINT', location })
     expect(val).toBe(location.origin + '/wp-json')

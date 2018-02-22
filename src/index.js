@@ -7,9 +7,12 @@ import configureStore from './utils/configureStore'
 import { getEndpoint } from './actions'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
+import packageJSON from '../package'
 
 const store = configureStore()
-store.dispatch(getEndpoint(window.location))
+store.dispatch(
+  getEndpoint({ location: window.location, homepage: packageJSON.homepage })
+)
 
 ReactDOM.render(
   <Provider store={store}>

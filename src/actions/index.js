@@ -39,8 +39,9 @@ const createOnFetch = (type, doFetching) => (dispatch, getState) => {
   return doFetching(api, dispatch)
 }
 
-export const getEndpoint = location => ({
+export const getEndpoint = ({ location, homepage }) => ({
   type: types.GET_ENDPOINT,
+  homepage,
   location
 })
 
