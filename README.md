@@ -17,7 +17,7 @@ A react, redux & react-router wordpress theme.
 * react-hot-loader
 
 # Requirements
-* Node >= 9
+* Node >= 10
 
 # Setup
 Download the repo and install dependencies:
