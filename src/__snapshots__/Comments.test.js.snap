@@ -11,7 +11,7 @@ exports[`should render a comment 1`] = `
     dangerouslySetInnerHTML={
       Object {
         "__html": "<p>Ello! Pretend you&#8217;re reading this comment with an English accent.</p>
-      ",
+",
       }
     }
   />
@@ -22,34 +22,34 @@ exports[`should render a list of comments 1`] = `
 Array [
   <div>
     <div>
-        <i>
-            Chris Ames
-        </i>
+      <i>
+        Chris Ames
+      </i>
     </div>
     <p
-        dangerouslySetInnerHTML={
-            Object {
-                "__html": "<p>Ello! Pretend you&#8217;re reading this comment with an English accent.</p>
-            ",
-              }
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<p>Ello! Pretend you&#8217;re reading this comment with an English accent.</p>
+",
         }
+      }
     />
-</div>,
+  </div>,
   <div>
     <div>
-        <i>
-            Jared Erickson
-        </i>
+      <i>
+        Jared Erickson
+      </i>
     </div>
     <p
-        dangerouslySetInnerHTML={
-            Object {
-                "__html": "<p>Non-breaking text is my favorite!</p>
-            <p>Super/Duper/Long/NonBreaking/Path/Name/To/A/File/That/Is/Way/Deep/Down/In/Some/Mysterious/Remote/Desolate/Part/Of/The/Operating/System/To/A/File/That/Just/So/Happens/To/Be/Strangely/Named/Supercalifragilisticexpialidocious.txt</p>
-            ",
-              }
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<p>Non-breaking text is my favorite!</p>
+<p>Super/Duper/Long/NonBreaking/Path/Name/To/A/File/That/Is/Way/Deep/Down/In/Some/Mysterious/Remote/Desolate/Part/Of/The/Operating/System/To/A/File/That/Just/So/Happens/To/Be/Strangely/Named/Supercalifragilisticexpialidocious.txt</p>
+",
         }
+      }
     />
-</div>,
+  </div>,
 ]
 `;
