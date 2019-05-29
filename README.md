@@ -16,6 +16,9 @@ A react, redux & react-router wordpress theme.
 * normalizr
 * react-hot-loader
 
+# Requirements
+* Node >= 9
+
 # Setup
 Download the repo and install dependencies:
 1. `git clone https://github.com/cesaraaron/wp-react.git`

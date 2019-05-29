@@ -6,8 +6,7 @@
     "start": "react-scripts start",
     "build": "node setEnvVars.js && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "invariant": "^2.2.2",
@@ -33,6 +32,11 @@
   "lint-staged": {
     "*.{js}": ["eslint --fix", "git add"],
     "*.{js,json,css}": ["prettier --write", "git add"]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "prettier": {
     "singleQuote": true,
